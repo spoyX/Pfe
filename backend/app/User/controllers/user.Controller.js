@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
+const transporter = require('../../config/email')
 
 
 exports.createAdminAccount = async () => {
@@ -95,7 +96,7 @@ exports.createUserAccount = async (req, res, fileName) => {
   }
 }
 
-const signIn = async (req, res) => {
+exports.signIn = async (req, res) => {
   try {
       const { email, password } = req.body;
 
@@ -275,5 +276,96 @@ exports.changePassword = async (req, res) => {
   }
 };
 
+// Generate a random verification code
+function generateVerificationCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+// Send verification code via email
+async function sendVerificationCode(email, code) {
+  try {
+    await transporter.sendMail({
+      from: 'adembenchiboub74@gmail.com',
+      to: email,
+      subject: 'Password Reset Verification Code',
+      text: `Your verification code is: ${code}`,
+      html: `<p>Your verification code is: <strong>${code}</strong></p>`
+    });
+    console.log('Verification code sent');
+  } catch (error) {
+    console.error('Error sending verification code:', error);
+    throw error;
+  }
+}
+
+// Initiate password reset process
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate verification code
+    const verificationCode = generateVerificationCode();
+
+    // Update user with verification code and expiration time (1 hour)
+    user.verificationCode = verificationCode;
+    user.codeExpires = new Date(Date.now() + 3600000); // 1 hour from now
+    await user.save();
+
+    // Send verification code via email
+    await sendVerificationCode(email, verificationCode);
+
+    res.status(200).json({ message: 'Verification code sent to your email' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Reset password with verification code
+exports.resetPassword = async (req, res) => {
+  try {
+    const { email, verificationCode, newPassword, confirmPassword } = req.body;
+
+    // Validate input
+    if (!email || !verificationCode || !newPassword || !confirmPassword) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: 'New password and confirm password do not match' });
+    }
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Verify code is correct and not expired
+    if (user.verificationCode !== verificationCode || user.codeExpires < new Date()) {
+      return res.status(401).json({ message: 'Invalid or expired verification code' });
+    }
+
+    // Hash new password
+    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+
+    // Update password and clear verification data
+    user.password = hashedPassword;
+    user.verificationCode = undefined;
+    user.codeExpires = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
 
 
