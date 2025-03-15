@@ -5,7 +5,7 @@ require('dotenv').config();
 
 
 
-
+const { createAdminAccount } = require('./app/User/controllers/user.Controller');
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -15,5 +15,6 @@ app.use(cors());
 
 app.listen(3000, ()=>{
     console.log('server work');
+    createAdminAccount();
   
 })
