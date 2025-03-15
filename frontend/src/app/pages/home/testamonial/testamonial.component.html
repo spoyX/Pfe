@@ -1,0 +1,62 @@
+<section class="testimonial-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="section-heading text-center mb-5">
+          <h2 class="section-title">Témoignages de nos membres</h2>
+          <p class="section-subtitle">Découvrez ce que nos membres disent de nous</p>
+        </div>
+        
+        <div class="testimonial-container">
+          <!-- Testimonial 1 -->
+          <div [class.active]="currentIndex === 0" class="testimonial-item">
+            <div class="testimonial-image">
+              <img src="assets/model-1.jpg" alt="Marie Dupont" class="img-fluid rounded-circle">
+            </div>
+            <div class="testimonial-content">
+              <p>"La CCCT a été un partenaire essentiel pour notre expansion sur le marché tunisien. Leur soutien et leur expertise nous ont permis de naviguer avec succès dans un nouvel environnement commercial."</p>
+            </div>
+            <div class="testimonial-author">
+              <h4>Marie Dupont</h4>
+              <p>Directrice, Entreprise XYZ</p>
+            </div>
+          </div>
+          
+          <!-- Testimonial 2 -->
+          <div [class.active]="currentIndex === 1" class="testimonial-item">
+            <div class="testimonial-image">
+              <img src="assets/model-2.jpg" alt="Jean Martin" class="img-fluid rounded-circle">
+            </div>
+            <div class="testimonial-content">
+              <p>"Working with CCCT transformed our business operations in Tunisia. Their local knowledge combined with international business understanding made all the difference in our market entry strategy."</p>
+            </div>
+            <div class="testimonial-author">
+              <h4>Jean Martin</h4>
+              <p>CEO, ABC Corporation</p>
+            </div>
+          </div>
+          
+          <!-- Testimonial 3 -->
+          <div [class.active]="currentIndex === 2" class="testimonial-item">
+            <div class="testimonial-image">
+              <img src="assets/model-3.jpg" alt="Sophie Lefevre" class="img-fluid rounded-circle">
+            </div>
+            <div class="testimonial-content">
+              <p>"CCCT's comprehensive approach to business development helped us establish a strong foothold in Tunisia. Their team's professionalism and market insights were invaluable to our success."</p>
+            </div>
+            <div class="testimonial-author">
+              <h4>Sophie Lefevre</h4>
+              <p>Marketing Director, DEF Industries</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="slider-dots mt-5">
+          <span (click)="goToSlide(0)" [class.active]="currentIndex === 0" class="dot"></span>
+          <span (click)="goToSlide(1)" [class.active]="currentIndex === 1" class="dot"></span>
+          <span (click)="goToSlide(2)" [class.active]="currentIndex === 2" class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

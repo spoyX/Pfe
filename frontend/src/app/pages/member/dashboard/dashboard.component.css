@@ -1,0 +1,10 @@
+.logo-img {
+  width: 170px; /* Adjust this value to make the logo bigger or smaller */
+  height: auto;
+}
+
+/* To position the toggle button correctly */
+.toggle-sidebar-btn {
+  position: absolute;
+  right: 40px;
+}

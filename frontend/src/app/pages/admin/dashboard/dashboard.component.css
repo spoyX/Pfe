@@ -1,0 +1,154 @@
+ .body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      background-color: #fff;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 0rem;
+    }
+    
+    .sidebar-header {
+      padding: 1.5rem 1rem;
+      margin-bottom: 0rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+    
+    /* Logo - Utilisation du dégradé pour correspondre au titre */
+    .sidebar-header .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .membra-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(45deg, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Sidebar User Info - Horizontal icons */
+    .sidebar-header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .iconLink {
+      color: #555;
+      font-size: 18px;
+      text-decoration: none;
+    }
+    .iconLink:hover {
+      color: #3b82f6;
+    }
+    
+    /* Sidebar Search Bar */
+    .search-bar {
+      padding: 0.5rem 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+    }
+    
+    /* Sidebar Navigation */
+    .nav.flex-column {
+      padding: 0 1rem;
+    }
+    .nav.flex-column .nav-link {
+      padding: 0.8rem 1rem;
+      color: #333;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      border-left: 3px solid transparent;
+      margin-bottom: 4px;
+    }
+    .nav.flex-column .nav-link:hover {
+      background-color: #f0f0f0;
+    }
+    .nav.flex-column .nav-link .nav-icon {
+      margin-right: 0.5rem;
+    }
+    .nav.flex-column .nav-link.active {
+      background-color: #f0f0f0;
+      border-left-color: #3b82f6;
+      font-weight: 500;
+      color: #3b82f6;
+    }
+    
+    /* Main Content */
+    main {
+      margin-left: 240px;
+      padding-top: 20px;
+      background-color: #fff;
+      min-height: 100vh;
+    }
+    
+    /* Top Navigation Bar */
+    .navbar {
+      padding: 0.5rem 1rem;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .navbar .nav-link {
+      color: #333;
+      padding: 0.5rem 1rem;
+      font-size: 14px;
+    }
+    .navbar .nav-link:hover {
+      background-color: #e9ecef;
+    }
+    .navbar .nav-link.active {
+      color: #3b82f6;
+      font-weight: 500;
+    }
+    
+    /* Dashboard Title Above Navbar */
+    .dashboard-header {
+      padding: 0 1rem;
+      margin-bottom: 10px;
+    }
+    .dashboard-header h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #3b82f6;
+    }
+    .dashboard-header .subtext {
+      font-size: 14px;
+      color: #6b7280;
+    }
+    
+    /* Date Inputs in Navbar */
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .date-range input[type="date"] {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 14px;
+      color: #666;
+      background-color: #fff;
+    }
