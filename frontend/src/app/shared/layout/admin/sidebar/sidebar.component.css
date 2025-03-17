@@ -1,0 +1,130 @@
+    /* Add this to your CSS */
+.dropdown-menu-end {
+  right: auto !important; /* Override the default right alignment */
+  left: 0; /* Align to the left of the icon instead */
+  margin-top: 10px; /* Add some space below the icon */
+}
+
+/* Make sure the dropdown has enough z-index to appear above other elements */
+.dropdown-menu {
+  z-index: 1050;
+}
+
+/* Ensure the sidebar has proper overflow handling */
+#sidebar {
+  overflow: visible; /* This allows dropdowns to extend beyond sidebar boundaries */
+}
+/* Sidebar */
+    .sidebar {
+      background-color: #fff;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      padding-top: 0rem;
+    }
+    
+    .sidebar-header {
+      padding: 1.5rem 1rem;
+      margin-bottom: 0rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+    
+    /* Logo - Utilisation du dégradé pour correspondre au titre */
+    .sidebar-header .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .membra-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(45deg, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Sidebar  - Horizontal icons */
+    .sidebar-header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .iconLink {
+      color: #555;
+      font-size: 18px;
+      text-decoration: none;
+    }
+    .iconLink:hover {
+      color: #3b82f6;
+    }
+user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* This centers the icons horizontally */
+    width: 100%; /* Ensure the div takes full width of its container */
+}
+
+.iconLink {
+    margin-right: 30px; /* Adds space to the right of each icon */
+    font-size: 1.2rem; /* Optional: makes icons slightly larger */
+    color: #333; /* Optional: sets icon color */
+}
+
+/* Remove margin from the last icon */
+.iconLink:last-child {
+    margin-right: 0;
+}
+
+/* Optional: If you're in a sidebar and want to ensure proper positioning */
+.sidebar-header .user-info {
+    width: 100%;
+    padding: 10px 0;
+}
+    
+    /* Sidebar Search Bar */
+    .search-bar {
+      padding: 0.5rem 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+    }
+    
+    /* Sidebar Navigation */
+    .nav.flex-column {
+      padding: 0 1rem;
+    }
+    .nav.flex-column .nav-link {
+      padding: 0.8rem 1rem;
+      color: #333;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      border-left: 3px solid transparent;
+      margin-bottom: 4px;
+    }
+    .nav.flex-column .nav-link:hover {
+      background-color: #f0f0f0;
+    }
+    .nav.flex-column .nav-link .nav-icon {
+      margin-right: 0.5rem;
+    }
+    .nav.flex-column .nav-link.active {
+      background-color: #f0f0f0;
+      border-left-color: #3b82f6;
+      font-weight: 500;
+      color: #3b82f6;
+    }

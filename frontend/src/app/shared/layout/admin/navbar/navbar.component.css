@@ -1,0 +1,19 @@
+/* Top Navigation Bar */
+    .navbar {
+      padding: 0.5rem 1rem;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .navbar .nav-link {
+      color: #333;
+      padding: 0.5rem 1rem;
+      font-size: 14px;
+    }
+    .navbar .nav-link:hover {
+      background-color: #e9ecef;
+    }
+    .navbar .nav-link.active {
+      color: #3b82f6;
+      font-weight: 500;
+    }
+    

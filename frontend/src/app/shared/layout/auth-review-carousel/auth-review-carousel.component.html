@@ -1,0 +1,22 @@
+<div class="testimonial-container">
+  <div class="testimonial-content">
+    <div class="testimonial-quote">
+      <i class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i>
+      <span class="statistic">5k+</span> Satisfied clients
+    </div>
+    
+    <div class="testimonial-text">
+      {{ testimonials[currentTestimonialIndex].quote }}
+    </div>
+    
+    <div class="testimonial-author">
+      <h4 class="author-name">{{ testimonials[currentTestimonialIndex].author }}</h4>
+      <p class="author-title">{{ testimonials[currentTestimonialIndex].title }}</p>
+    </div>
+  </div>
+  
+  <div class="navigation-buttons">
+    <button (click)="prevSlide()" class="nav-btn prev-btn">←</button>
+    <button (click)="nextSlide()" class="nav-btn next-btn">→</button>
+  </div>
+</div>

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-  :root {
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+   :root {
             --primary-color: #000;
             --secondary-color: #e60000;
             --accent-color: #f8f9fa;
@@ -22,17 +24,19 @@
         }
         
         .navbar-brand img {
-            height: 40px;
+            height: 50px;
+            object-fit: contain;
+          
         }
         
-        .nav-link {
+        .nav-link1 {
             color: var(--primary-color);
             font-weight: 500;
             margin: 0 0.5rem;
             transition: color 0.3s ease;
         }
         
-        .nav-link:hover {
+        .nav-link1:hover {
             color: var(--secondary-color);
         }
         
@@ -238,50 +242,115 @@
             margin-left: 0.5rem;
         }
         
-        /* FAQ Section */
-        .faq-section {
-            padding: 6rem 0;
-            background-color: #f8f9fa;
-        }
-        
-        .faq-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--primary-color);
-        }
-        
-        .faq-subtitle {
-            color: var(--dark-gray);
-            margin-bottom: 2rem;
-        }
-        
-        .accordion-item {
-            border: none;
-            border-bottom: 1px solid var(--light-gray);
-        }
-        
-        .accordion-button {
-            padding: 1.5rem 0;
-            font-weight: 600;
-            background-color: transparent;
-            box-shadow: none;
-        }
-        
-        .accordion-button:not(.collapsed) {
-            color: var(--secondary-color);
-            background-color: transparent;
-            box-shadow: none;
-        }
-        
-        .accordion-button:focus {
-            box-shadow: none;
-        }
-        
-        .accordion-body {
-            padding: 0 0 1.5rem 0;
-        }
-        
+      /* FAQ Section */
+.faq-section {
+    padding: 80px 0;
+    background-color: #fff;
+  }
+
+  .faq-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .faq-description {
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  .btn-contact {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 1px solid #000;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-contact:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .accordion-item {
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .accordion-button {
+    padding: 20px 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    color: #000;
+  }
+
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+
+  .accordion-button::after {
+    display: none;
+  }
+
+  .accordion-icon {
+    position: absolute;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  .accordion-button.collapsed .accordion-icon::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .accordion-button:not(.collapsed) .accordion-icon::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: translateY(-50%) rotate(-135deg);
+  }
+
+  .accordion-body {
+    padding: 0 0 20px 0;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: 50px 0;
+    }
+    
+    .col-md-4 {
+      margin-bottom: 30px;
+    }
+  }
+
         /* Testimonial Section */
         .testimonial-section {
             padding: 6rem 0;
@@ -341,92 +410,7 @@
         }
         
         /* Footer */
-        .footer {
-            padding: 4rem 0 2rem;
-            background-color: #000;
-            color: white;
-        }
         
-        .footer-logo img {
-            height: 40px;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-text {
-            color: #ccc;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #333;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--secondary-color);
-        }
-        
-        .newsletter-form {
-            display: flex;
-            margin-bottom: 1rem;
-        }
-        
-        .newsletter-form input {
-            border-radius: 0;
-            border-right: none;
-            border: 1px solid #333;
-        }
-        
-        .newsletter-form button {
-            border-radius: 0;
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-        }
-        
-        .footer-bottom {
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid #333;
-            font-size: 0.8rem;
-            color: #666;
-        }
         
         @media (max-width: 992px) {
             .hero-image {
@@ -441,3 +425,89 @@
                 font-size: 1.8rem;
             }
         }
+        .footer1 {
+  padding: 4rem 0 2rem;
+  background-color: #000;
+  color: white;
+}
+
+.footer-logo img {
+  height: 40px;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background-color: #e60000; /* or any accent color you want */
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #e60000;
+}
+
+.newsletter-form {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.newsletter-form input {
+  border-radius: 0;
+  border-right: none;
+  border: 1px solid #333;
+}
+
+.newsletter-form button {
+  border-radius: 0;
+  background-color: #e60000;
+  color: white;
+  border: none;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid #333;
+  font-size: 0.8rem;
+  color: #666;
+}
