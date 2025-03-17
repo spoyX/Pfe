@@ -2,7 +2,7 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const transporter = require('../../config/email')
-
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY )
 
 exports.createAdminAccount = async () => {
 
@@ -97,14 +97,15 @@ exports.createUserAccount = async (req, res, fileName) => {
 }
 
 exports.signIn = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-      const { email, password } = req.body;
+      
 
-      const user = await User.findOne({ email: email });
-      if (!user) {
+    const user = await User.findOne({ email });
+      if (!user) 
           return res.status(401).json({ message: 'Invalid email or password' });
-      }
-
+      
       const valid = bcrypt.compareSync(password, user.password);
       if (!valid) {
           return res.status(401).json({ message: 'Invalid email or password' });
@@ -183,54 +184,8 @@ exports.updateProfile = async (req, res) => {
       updateData.profileImage = req.file.filename; // Multer attaches the file info here
     }
 
-    // Update the user (using new: true to return the updated document)
-    let updatedUser = await User.findByIdAndUpdate( userId, updateData);
-    
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    res.status(200).json({ message: 'Profile updated successfully', user: updatedUser });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-};exports.updateProfile = async (req, res) => {
-  try {
-    const userId = req.params.id;
-    const { 
-      username, 
-      firstName, 
-      lastName, 
-      email, 
-      phone, 
-      gender, 
-      job, 
-      aboutMe, 
-      country, 
-      city 
-    } = req.body;
-
-    const updateData = Object.fromEntries(
-      Object.entries({
-        username,
-        firstName,
-        lastName,
-        email,
-        phone,
-        gender,
-        job,
-        aboutMe,
-        country,
-        city
-      }).filter(([key, value]) => value !== undefined)
-    );
-
-    if (req.file) {
-      updateData.profileImage = req.file.filename;
-    }
-
-    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, updateData, { new: true });
+  
+    let updatedUser = await User.findByIdAndUpdate( {_id:userId}, updateData);
     
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
@@ -242,9 +197,10 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
 exports.changePassword = async (req, res) => {
   try {
-    const userId = req.user._id; 
+    const userId = req.params.id; 
     const { currentPassword, newPassword } = req.body;
 
 
@@ -289,7 +245,53 @@ async function sendVerificationCode(email, code) {
       to: email,
       subject: 'Password Reset Verification Code',
       text: `Your verification code is: ${code}`,
-      html: `<p>Your verification code is: <strong>${code}</strong></p>`
+      html: `<table align="center" width="600" cellpadding="0" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <tr>
+          <td style="background-color: #007bff; padding: 20px; text-align: center;">
+            <h1 style="margin: 0; color: #ffffff;">Company Name</h1>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 40px 20px;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+              <tr>
+                <td style="padding-bottom: 20px;">
+                  <p style="margin: 0; font-size: 16px; color: #333; line-height: 1.5;">Hello,</p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 20px;">
+                  <p style="margin: 0; font-size: 16px; color: #333; line-height: 1.5;">
+                    You have requested to reset your password. Please use the following verification code to proceed:
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 20px; text-align: center;">
+                  <div style="display: inline-block; padding: 10px 20px; background-color: #e9f5ff; border: 1px solid #007bff; border-radius: 5px;">
+                    <p style="margin: 0; font-size: 24px; font-weight: bold; color: #007bff;">${code}</p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 20px;">
+                  <p style="margin: 0; font-size: 16px; color: #333; line-height: 1.5;">
+                    Enter this code on the password reset page to continue. This code will expire in 15 minutes.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color: #f2f2f2; padding: 20px; text-align: center; font-size: 14px; color: #666;">
+            <p style="margin: 0;">
+              If you did not request a password reset, please ignore this email or <a href="https://example.com/support" style="color: #007bff; text-decoration: none;">contact support</a>.
+            </p>
+            <p style="margin: 10px 0 0;">Company Name, 123 Street, City, Country</p>
+          </td>
+        </tr>
+      </table>`
     });
     console.log('Verification code sent');
   } catch (error) {
@@ -367,5 +369,4 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
-
 

@@ -26,9 +26,13 @@ router.post('/createuseraccount', upload.single('image') , (req, res)=>{
 router.post('/signin',userController.signIn);
 router.get('/byid/:id', userController.getUserProfile );
 
+router.put('/updateprofile/:id',userController.updateProfile)
+router.put('/changepassword/:id',userController.changePassword)
+
+router.post('/forgot-password', userController.forgotPassword);
 
 
-router.post('/forgot-password', UserController.forgotPassword);
+router.put('/reset-password', userController.resetPassword);
 
 
-router.put('/reset-password', UserController.resetPassword);
+module.exports = router;
