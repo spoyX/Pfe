@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { TestamonialComponent } from '../testamonial/testamonial.component';
 import { FooterComponent } from '../footer/footer.component';
 
@@ -7,7 +7,8 @@ import { FooterComponent } from '../footer/footer.component';
   standalone: true,
   imports: [TestamonialComponent,FooterComponent],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.css'
+  styleUrl: './homepage.component.css',
+  
 })
 export class HomepageComponent {
 
