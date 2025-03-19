@@ -15,6 +15,7 @@ app.use(cors());
 app.use('/api/payments',paymentRouter)
 app.use('/api/user',userRouter)
 
+app.use('/files', express.static('./public'));
 app.listen(3000, ()=>{
     console.log('server work');
     createAdminAccount();

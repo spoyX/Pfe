@@ -23,7 +23,10 @@ const userSchema = new mongoose.Schema({
 
   },
   verificationCode: String,
-  codeExpires: Date
+  codeExpires: Date,
+  facebookLink:String,
+  instagramLink:String,
+  linkedinLink:String
 }, { timestamps: true });  
 
 module.exports = mongoose.model("User", userSchema);

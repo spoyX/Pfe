@@ -16,9 +16,10 @@ exports.createAdminAccount = async () => {
                 username: 'ADMIN ADMIN',
                 email: process.env.EMAIL,
                 password: process.env.PASS,
-                image: 'admin.png',
+                
                 phone: process.env.PHONE,
                 role: 'admin',
+                
                 
 
             }
@@ -123,6 +124,11 @@ exports.signIn = async (req, res) => {
           phone: user.phone,
           profileImage: user.profileImage,
           role: user.role,
+          aboutMe:user.aboutMe,
+          gender:user.gender,
+          country:user.country,
+          city:user.city,
+          dateOfBirth:user.dateOfBirth,
           status: user.status,
           createdAt: user.createdAt,
           firstName: user.firstName,
@@ -131,7 +137,7 @@ exports.signIn = async (req, res) => {
 
       let token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' });
 
-      res.status(200).json({ token, user: payload });
+      res.status(200).send({ myToken: token });
   } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
   }
@@ -158,7 +164,7 @@ exports.getUserProfile = async (req, res) => {
   }
 };
 
-exports.updateProfile = async (req, res) => {
+exports.updateProfile = async (req, res,fileName) => {
   try {
     // Assume userId is provided in URL params (or you can extract it from the token)
     const userId = req.params.id;
