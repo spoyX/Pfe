@@ -26,8 +26,19 @@
               <i class="bi bi-search search-icon"></i>
           </form>
           <div class="d-flex">
-              <a href="#" class="btn btn-outline-dark me-2">Adhérer</a>
-              <a routerLink="/login" class="btn btn-dark">Login</a>
+            @if(_user.isLoggedIn()){
+              @if(_auth.getDataFromToken().role === 'user'){
+                <a routerLink="/member" class="btn btn-dark">Account</a>
+              } @else if (_auth.getDataFromToken().role === 'admin') {
+                <a routerLink="/admin" class="btn btn-dark">Account</a>
+              }
+             
+          }
+          @if(_user.isLoggedIn()==false){
+            <a href="#" class="btn btn-outline-dark me-2">Adhérer</a>
+            <a routerLink="/login" class="btn btn-dark">Login</a>
+          }
+        
           </div>
       </div>
   </div>

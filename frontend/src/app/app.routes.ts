@@ -18,6 +18,8 @@ export const routes: Routes = [
    {path:'reset-password',loadComponent:()=>import('./pages/login/reset-password/reset-password.component').then(c=>c.ResetPasswordComponent)},
    {path:'code-verfication',loadComponent:()=>import('./pages/login/code-verfication/code-verfication.component').then(c=>c.CodeVerficationComponent)},
    
+    {path:'subscription-plan',loadComponent:()=>import('./pages/payment/subscriptionplan/subscriptionplan.component').then(c=>c.SubscriptionplanComponent)},
+    {path:'payment-success',loadComponent:()=>import('./pages/payment/paymentsucces/paymentsucces.component').then(c=>c.PaymentsuccesComponent)},
 
 
    {path:'member',canActivate:[dashGuard],loadComponent:()=>import('./pages/member/dashboard/dashboard.component').then(c=>c.DashboardComponent) ,children: [

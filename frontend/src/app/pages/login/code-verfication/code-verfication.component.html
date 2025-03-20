@@ -42,12 +42,13 @@
                 </div>
         
                 <div class="mt-4">
-                  <form >
+                  <form  [formGroup]="code" (ngSubmit)="send()">
                     <div class="mb-3">
                       <label for="verificationCode" class="form-label">Code verification</label>
                       <input 
                         type="text" 
                         class="form-control" 
+                        formControlName="code"
                         id="verificationCode" 
                         name="verificationCode" 
                         placeholder="Enter the code" 

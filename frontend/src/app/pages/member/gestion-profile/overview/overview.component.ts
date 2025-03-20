@@ -21,7 +21,7 @@ export class OverviewComponent {
     this._user.byid(this.id).subscribe({
       next: (res: any)=>{
         this.data=res
-        console.log(this.data)
+    
       
       }
     })

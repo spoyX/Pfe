@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthentificationService } from '../../../../core/auth/authentification.service';
+import { UserService } from '../../../../core/services/users/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,14 +11,22 @@ import { AuthentificationService } from '../../../../core/auth/authentification.
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-   
+   id:any
    data:any
-  constructor(private _auth :AuthentificationService){
+   
+  constructor(private _auth :AuthentificationService , private _user:UserService){
     
 
   }
   ngOnInit(){
-  this.data=this._auth.getDataFromToken()
+    this.id=this._auth.getDataFromToken()._id
+    this._user.byid(this.id).subscribe({
+      next: (res: any)=>{
+        this.data=res
+    
+      
+      }
+    })
   }
 
 

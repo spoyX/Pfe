@@ -1,0 +1,102 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="card-title text-center mb-4">Sign Up</h2>
+          <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
+            <!-- Section 1: Personal Information -->
+            <div class="form-section">
+              <h5 class="section-title">Personal Information</h5>
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter your username">
+                <div *ngIf="signForm.get('username')?.invalid && signForm.get('username')?.touched" class="text-danger">
+                  Username is required.
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input id="firstName" type="text" formControlName="firstName" class="form-control" placeholder="Enter your first name">
+                  <div *ngIf="signForm.get('firstName')?.invalid && signForm.get('firstName')?.touched" class="text-danger">
+                    First name is required.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input id="lastName" type="text" formControlName="lastName" class="form-control" placeholder="Enter your last name">
+                  <div *ngIf="signForm.get('lastName')?.invalid && signForm.get('lastName')?.touched" class="text-danger">
+                    Last name is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Account Details -->
+            <div class="form-section">
+              <h5 class="section-title">Account Details</h5>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" formControlName="email" class="form-control" placeholder="Enter your email">
+                <div *ngIf="signForm.get('email')?.invalid && signForm.get('email')?.touched" class="text-danger">
+                  Valid email is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password">
+                <div *ngIf="signForm.get('password')?.invalid && signForm.get('password')?.touched" class="text-danger">
+                  Password is required and must be at least 6 characters.
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Additional Information -->
+            <div class="form-section">
+              <h5 class="section-title">Additional Information</h5>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input id="phone" type="text" formControlName="phone" class="form-control" placeholder="Enter your phone number">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                  <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="form-control">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" formControlName="gender" class="form-select">
+                  <option value="" disabled selected>Select your gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                <div *ngIf="signForm.get('gender')?.invalid && signForm.get('gender')?.touched" class="text-danger">
+                  Gender is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Upload ID Document -->
+            <div class="form-section">
+              <h5 class="section-title">Upload ID Document</h5>
+              <div class="mb-3">
+                <input type="file" id="profileImage" (change)="onFileChange($event)" accept="image/*" class="form-control">
+              </div>
+              <div *ngIf="filePreview" class="mt-2 text-center">
+                <img [src]="filePreview" alt="ID Preview" class="img-thumbnail" style="max-height: 200px;">
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="signForm.invalid">Sign Up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

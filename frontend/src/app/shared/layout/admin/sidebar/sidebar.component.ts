@@ -9,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+
+
+  constructor(){
+
+  }
+  logout(){
+    localStorage.removeItem('token')
+    window.location.reload()
+  }
+
 }
