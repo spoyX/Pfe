@@ -170,7 +170,7 @@ exports.updateProfile = async (req, res,fileName) => {
     const userId = req.params.id;
 
     // Destructure only the fields that are allowed to be updated
-    const { username, firstName, lastName, email, phone, gender, job, aboutMe, country, city } = req.body;
+    const { username, firstName, lastName, email, phone, gender, job, aboutMe, country, city ,facebookLink,instagramLink,linkedinLink} = req.body;
 
     // Build the update object
     const updateData = {};
@@ -181,6 +181,12 @@ exports.updateProfile = async (req, res,fileName) => {
     if (phone) updateData.phone = phone;
     if (gender) updateData.gender = gender;
     if (job) updateData.job = job;
+   if(facebookLink) updateData.facebookLink=facebookLink;
+   if(instagramLink) updateData.instagramLink=instagramLink;
+   if(linkedinLink) updateData.linkedinLink=linkedinLink;
+
+
+   
     if (aboutMe) updateData.aboutMe = aboutMe;
     if (country) updateData.country = country;
     if (city) updateData.city = city;
@@ -334,31 +340,48 @@ exports.forgotPassword = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+// Function to check if the verification code is valid
+exports.checkVerificationCode = async (req, res) => {
+  try {
+    
+    const { verificationCode } = req.body;
+
+    
+    
+
+  
+
+    // Check if the verification code matches and is not expired
+    if (User.verificationCode !== verificationCode || User.codeExpires < new Date()) {
+      return res.status(401).json({ message: 'Invalid or expired verification code' });
+    }
+
+    // If code is valid, respond with success
+    res.status(200).json({ message: 'Verification code is valid' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
 
 // Reset password with verification code
 exports.resetPassword = async (req, res) => {
   try {
-    const { email, verificationCode, newPassword, confirmPassword } = req.body;
+    const {   email ,newPassword } = req.body;
+    
 
-    // Validate input
-    if (!email || !verificationCode || !newPassword || !confirmPassword) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
+    
+  
 
-    if (newPassword !== confirmPassword) {
-      return res.status(400).json({ message: 'New password and confirm password do not match' });
-    }
+  
 
-    // Find user by email
+  
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(400).json({ message: 'wrong email' });
     }
-
-    // Verify code is correct and not expired
-    if (user.verificationCode !== verificationCode || user.codeExpires < new Date()) {
-      return res.status(401).json({ message: 'Invalid or expired verification code' });
-    }
+    
 
     // Hash new password
     const hashedPassword = bcrypt.hashSync(newPassword, 10);
@@ -367,6 +390,9 @@ exports.resetPassword = async (req, res) => {
     user.password = hashedPassword;
     user.verificationCode = undefined;
     user.codeExpires = undefined;
+  
+
+
     await user.save();
 
     res.status(200).json({ message: 'Password reset successfully' });
@@ -375,4 +401,30 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+exports.sendContactMessage = async (req, res) => {
+  try {
+    // Extract fields from request body
+    const { name, email, subject, message } = req.body;
+    
+    
+    
+    
+
+    // Use the transporter to send the email
+    await transporter.sendMail({
+      from: email, // You might use a fixed sender address if needed
+      to: 'adembenchiboub74@gmail.com', // Replace with the desired contact email address
+      subject: subject,
+      text: `Message from ${name} (${email}):\n\n${message}`,
+      html: `<p>Message from <strong>${name}</strong> (<a href="mailto:${email}">${email}</a>):</p><p>${message}</p>`
+    });
+
+    res.status(200).json({ message: 'Your message has been sent successfully.' });
+  } catch (error) {
+    console.error('Error sending contact message:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
 
