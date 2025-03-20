@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, HomenavbarComponent,HomefooterComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

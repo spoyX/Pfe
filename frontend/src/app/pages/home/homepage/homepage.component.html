@@ -373,7 +373,7 @@
               </button>
           </div>
           <div class="modal-body">
-              <form id="contactForm">
+              <form [formGroup]="contactForm" (ngSubmit)="send()" id="contactForm">
                   <div class="form-section">
                       <div class="form-section-title">
                           <i class="bi bi-person-circle"></i> Informations personnelles
@@ -384,7 +384,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-person"></i>
                                   </span>
-                                  <input type="text" class="form-control" id="firstName" placeholder="Prénom" required>
+                                  <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="Prénom" required>
                               </div>
                           </div>
                           <div class="col-md-6">
@@ -392,7 +392,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-person-fill"></i>
                                   </span>
-                                  <input type="text" class="form-control" id="lastName" placeholder="Nom" required>
+                                  <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="Nom" required>
                               </div>
                           </div>
                       </div>
@@ -408,7 +408,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-briefcase"></i>
                                   </span>
-                                  <input type="text" class="form-control" id="company" placeholder="Entreprise">
+                                  <input type="text" class="form-control" formControlName="company" id="company" placeholder="Entreprise">
                               </div>
                           </div>
                           <div class="col-md-6">
@@ -416,7 +416,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-person-badge"></i>
                                   </span>
-                                  <input type="text" class="form-control" id="jobTitle" placeholder="Fonction">
+                                  <input type="text" formControlName="jobTitle" class="form-control" id="jobTitle" placeholder="Fonction">
                               </div>
                           </div>
                       </div>
@@ -432,7 +432,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-envelope"></i>
                                   </span>
-                                  <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                  <input type="email"  formControlName="email" class="form-control" id="email" placeholder="Email" required>
                               </div>
                           </div>
                           <div class="col-md-6">
@@ -440,7 +440,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-telephone"></i>
                                   </span>
-                                  <input type="tel" class="form-control" id="phone" placeholder="Téléphone">
+                                  <input type="tel" formControlName="phone" class="form-control" id="phone" placeholder="Téléphone">
                               </div>
                           </div>
                           <div class="col-md-12">
@@ -448,7 +448,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-geo-alt"></i>
                                   </span>
-                                  <select class="form-control" id="country" required>
+                                  <select formControlName="country" class="form-control" id="country" required>
                                       <option value="" selected disabled>Sélectionnez votre pays</option>
                                       <option value="CA">Canada</option>
                                       <option value="TN">Tunisie</option>
@@ -471,7 +471,7 @@
                                   <span class="input-group-text">
                                       <i class="bi bi-list-check"></i>
                                   </span>
-                                  <select class="form-control" id="subject" required>
+                                  <select  formControlName="subject" class="form-control" id="subject" required>
                                       <option value="" selected disabled>Sujet de votre message</option>
                                       <option value="adhesion">Adhésion</option>
                                       <option value="services">Services</option>
@@ -483,7 +483,7 @@
                           </div>
                           <div class="col-md-12">
                               <div class="form-floating">
-                                  <textarea class="form-control form-control-textarea" id="message" placeholder="Votre message" style="height: 150px" required></textarea>
+                                  <textarea  formControlName="message" class="form-control form-control-textarea" id="message" placeholder="Votre message" style="height: 150px" required></textarea>
                                   <label for="message">Votre message</label>
                               </div>
                           </div>

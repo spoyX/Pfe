@@ -1,4 +1,4 @@
-
+<app-homenavbar></app-homenavbar>
 <div class="model">
   <form class="form">
     <div class="banner"></div>
@@ -53,7 +53,7 @@
         <sup>$</sup>{{ selectedPlan === 'monthly' ? monthlyPrice : annualPrice }}<sub>{{ selectedPlan === 'monthly' ? '/mo' : '/yr' }}</sub>
       </label>
       <button type="button" class="upgrade-btn" (click)="upgradePlan()">Upgrade to PRO</button>
-      <button type='button' (click)="upgradePlan()" class="button" style="--clr: #00ad54;">
+      <button type='button' (click)="upgradePlan()" class="button" style="--clr: #f54242;">
     <span class="button-decor"></span>
     <div class="button-content">
         <div class="button__icon">
@@ -80,3 +80,4 @@
   </form>
 
 </div>
+<app-homefooter></app-homefooter>

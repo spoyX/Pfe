@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PaymentService } from '../../../core/services/payment/payment.service';
-
+import { HomefooterComponent } from '../../../shared/layout/homefooter/homefooter.component';
+import { HomenavbarComponent } from '../../../shared/layout/homenavbar/homenavbar.component';
 
 @Component({
   selector: 'app-paymentsucces',
   standalone: true,
-  imports: [],
+  imports: [HomenavbarComponent,HomefooterComponent,RouterLink],
   templateUrl: './paymentsucces.component.html',
   styleUrl: './paymentsucces.component.css'
 })

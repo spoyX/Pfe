@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { PaymentService } from '../../../core/services/payment/payment.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HomefooterComponent } from '../../../shared/layout/homefooter/homefooter.component';
+import { HomenavbarComponent } from '../../../shared/layout/homenavbar/homenavbar.component';
 
 @Component({
   selector: 'app-subscriptionplan',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,HomenavbarComponent,HomefooterComponent],
   templateUrl: './subscriptionplan.component.html',
   styleUrl: './subscriptionplan.component.css'
 })

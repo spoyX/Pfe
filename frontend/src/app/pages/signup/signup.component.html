@@ -1,102 +1,165 @@
+<app-homenavbar></app-homenavbar>
+<div class="bodysignup">
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
+    <div class="col-md-10">
       <div class="card shadow-sm">
-        <div class="card-body p-4">
-          <h2 class="card-title text-center mb-4">Sign Up</h2>
-          <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
-            <!-- Section 1: Personal Information -->
-            <div class="form-section">
-              <h5 class="section-title">Personal Information</h5>
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter your username">
-                <div *ngIf="signForm.get('username')?.invalid && signForm.get('username')?.touched" class="text-danger">
-                  Username is required.
-                </div>
+        <div class="row g-0">
+          <!-- Sidebar -->
+          <div class="col-md-5 signup-sidebar">
+            <div class="sidebar-content">
+              <div class="sidebar-logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/306138658_470827161743010_2379414372101747057_n-f1mlBzUKHXCcOF95n2ZvK0c6ejGsZ4.png" alt="CCCT Logo">
+                <span>CCCT</span>
               </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="firstName" class="form-label">First Name</label>
-                  <input id="firstName" type="text" formControlName="firstName" class="form-control" placeholder="Enter your first name">
-                  <div *ngIf="signForm.get('firstName')?.invalid && signForm.get('firstName')?.touched" class="text-danger">
-                    First name is required.
+              <h1 class="sidebar3-title3">Rejoignez la communauté CCCT</h1>
+              <p class="sidebar3-text3">Créez votre compte et accédez à tous les avantages offerts par la Chambre de Commerce Canada Tunisienne.</p>
+              <ul class="sidebar-features3">
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Accès aux événements exclusifs</span>
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Opportunités de réseautage</span>
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Ressources commerciales</span>
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Soutien à l'expansion internationale</span>
+                </li>
+              </ul>
+            </div>
+            <div class="sidebar-footer">
+              &copy; 2025 Chambre de Commerce Canada Tunisienne. Tous droits réservés.
+            </div>
+          </div>
+
+          <!-- Form Container -->
+          <div class="col-md-7 signup-form-container">
+            <div class="card-body p-4">
+              <h2 class="card-title text-center mb-4">Créer Votre Compte</h2>
+              <p class="form-subtitle">Complétez vos informations pour rejoindre la CCCT</p>
+              <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                  <h5 class="section-title">Informations personnelles</h5>
+                  <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter your username">
+                    @if (signForm.get('username')?.invalid && signForm.get('username')?.touched) {
+                      <div class="text-danger">
+                        Le nom d'utilisateur est requis.
+                      </div>
+                    }
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName" class="form-label">First Name</label>
+                      <input id="firstName" type="text" formControlName="firstName" class="form-control" placeholder="Enter your first name">
+                      @if (signForm.get('firstName')?.invalid && signForm.get('firstName')?.touched) {
+                        <div class="text-danger">
+                          First name est requis.
+                        </div>
+                      }
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input id="lastName" type="text" formControlName="lastName" class="form-control" placeholder="Enter your last name">
+                      @if (signForm.get('lastName')?.invalid && signForm.get('lastName')?.touched) {
+                        <div class="text-danger">
+                          Last name est requis.
+                        </div>
+                      }
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="lastName" class="form-label">Last Name</label>
-                  <input id="lastName" type="text" formControlName="lastName" class="form-control" placeholder="Enter your last name">
-                  <div *ngIf="signForm.get('lastName')?.invalid && signForm.get('lastName')?.touched" class="text-danger">
-                    Last name is required.
+
+                <!-- Account Details Section -->
+                <div class="form-section">
+                  <h5 class="section-title">Détails du compte</h5>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" type="email" formControlName="email" class="form-control" placeholder="Enter your email">
+                    @if (signForm.get('email')?.invalid && signForm.get('email')?.touched) {
+                      <div class="text-danger">
+                        Valid email est requis.
+                      </div>
+                    }
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password">
+                    @if (signForm.get('password')?.invalid && signForm.get('password')?.touched) {
+                      <div class="text-danger">
+                        Le mot de passe est requis et doit comporter au moins 6 caractères.
+                      </div>
+                    }
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <!-- Section 2: Account Details -->
-            <div class="form-section">
-              <h5 class="section-title">Account Details</h5>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" formControlName="email" class="form-control" placeholder="Enter your email">
-                <div *ngIf="signForm.get('email')?.invalid && signForm.get('email')?.touched" class="text-danger">
-                  Valid email is required.
+                <!-- Additional Information Section -->
+                <div class="form-section">
+                  <h5 class="section-title">Informations Complémentaires</h5>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="phone" class="form-label">Phone</label>
+                      <input id="phone" type="text" formControlName="phone" class="form-control" placeholder="Enter your phone number">
+                      @if (signForm.get('phone')?.invalid && signForm.get('phone')?.touched) {
+                        <div class="text-danger">
+                          num tel est requis
+                        </div>
+                      }
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                      <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select id="gender" formControlName="gender" class="form-select">
+                      <option value="" disabled selected>Sélectionnez votre sexe</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                    @if (signForm.get('gender')?.invalid && signForm.get('gender')?.touched) {
+                      <div class="text-danger">
+                        Gender est requis.
+                      </div>
+                    }
+                  </div>
                 </div>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password">
-                <div *ngIf="signForm.get('password')?.invalid && signForm.get('password')?.touched" class="text-danger">
-                  Password is required and must be at least 6 characters.
-                </div>
-              </div>
-            </div>
 
-            <!-- Section 3: Additional Information -->
-            <div class="form-section">
-              <h5 class="section-title">Additional Information</h5>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="phone" class="form-label">Phone</label>
-                  <input id="phone" type="text" formControlName="phone" class="form-control" placeholder="Enter your phone number">
+                <!-- ID Document Upload Section -->
+                <div class="form-section">
+                  <h5 class="section-title">Upload ID Document</h5>
+                  <div class="mb-3">
+                    <input type="file" id="profileImage" (change)="onFileChange($event)" accept="image/*" class="form-control">
+                  </div>
+                  @if (filePreview) {
+                    <div class="mt-2 text-center">
+                      <img [src]="filePreview" alt="ID Preview" class="img-thumbnail" style="max-height: 200px;">
+                    </div>
+                  }
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                  <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="form-control">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="gender" class="form-label">Gender</label>
-                <select id="gender" formControlName="gender" class="form-select">
-                  <option value="" disabled selected>Select your gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-                <div *ngIf="signForm.get('gender')?.invalid && signForm.get('gender')?.touched" class="text-danger">
-                  Gender is required.
-                </div>
-              </div>
-            </div>
 
-            <!-- Section 4: Upload ID Document -->
-            <div class="form-section">
-              <h5 class="section-title">Upload ID Document</h5>
-              <div class="mb-3">
-                <input type="file" id="profileImage" (change)="onFileChange($event)" accept="image/*" class="form-control">
-              </div>
-              <div *ngIf="filePreview" class="mt-2 text-center">
-                <img [src]="filePreview" alt="ID Preview" class="img-thumbnail" style="max-height: 200px;">
-              </div>
+                <!-- Submit Button -->
+                <div class="text-center mt-4">
+                  <button type="submit" class="btn btn-primary btn-lg" [disabled]="signForm.invalid">Sign Up</button>
+                </div>
+              </form>
             </div>
-
-            <!-- Submit Button -->
-            <div class="text-center mt-4">
-              <button type="submit" class="btn btn-primary btn-lg" [disabled]="signForm.invalid">Sign Up</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+
+<app-homefooter></app-homefooter>

@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule , FormBuilder,FormControl,Validators,FormGroup} from '@angular/forms';
 import {UserService} from '../../core/services/users/user.service';
 import {AuthentificationService} from '../../core/auth/authentification.service'
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -55,11 +56,23 @@ export class LoginComponent {
 
       },
       error: (err:any)=>{
+        let errorMessage = '';
+        if (err.status === 403) {
         
-        
+            errorMessage = 'Your account is currently inactive. Please check your email to activate it or contact support.';
+          } else {
+            errorMessage = 'Access denied. Please check your credentials.';
+          
+        } 
+  
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: errorMessage
+        });
       }
-    })
-
+    });
   }
+
 
 }
