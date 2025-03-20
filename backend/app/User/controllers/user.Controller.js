@@ -260,7 +260,7 @@ async function sendVerificationCode(email, code) {
       html: `<table align="center" width="600" cellpadding="0" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <tr>
           <td style="background-color: #007bff; padding: 20px; text-align: center;">
-            <h1 style="margin: 0; color: #ffffff;">Company Name</h1>
+            <h1 style="margin: 0; color: #ffffff;">Membra</h1>
           </td>
         </tr>
         <tr>
@@ -404,26 +404,61 @@ exports.resetPassword = async (req, res) => {
 
 exports.sendContactMessage = async (req, res) => {
   try {
-    // Extract fields from request body
-    const { name, email, subject, message } = req.body;
-    
-    
-    
-    
+    // Extract all fields from request body
+    const { 
+      firstName, 
+      lastName, 
+      company, 
+      jobTitle, 
+      email, 
+      phone, 
+      country, 
+      subject, 
+      message 
+    } = req.body;
+
+    // Construct full name
+    const fullName = `${firstName} ${lastName}`;
 
     // Use the transporter to send the email
     await transporter.sendMail({
-      from: email, // You might use a fixed sender address if needed
-      to: 'adembenchiboub74@gmail.com', // Replace with the desired contact email address
+      from: email, // Consider using a fixed sender address if needed
+      to: 'adembenchiboub74@gmail.com', // Replace with your contact email
       subject: subject,
-      text: `Message from ${name} (${email}):\n\n${message}`,
-      html: `<p>Message from <strong>${name}</strong> (<a href="mailto:${email}">${email}</a>):</p><p>${message}</p>`
+      text: `
+        Message from ${fullName} (${email}):
+        
+        ${message}
+        
+        Additional Information:
+        Company: ${company}
+        Job Title: ${jobTitle}
+        Phone: ${phone}
+        Country: ${country}
+      `,
+      html: `
+        <p>Message from <strong>${fullName}</strong> (<a href="mailto:${email}">${email}</a>):</p>
+        <p>${message}</p>
+        
+        <h4>Additional Information:</h4>
+        <ul>
+          <li><strong>Company:</strong> ${company}</li>
+          <li><strong>Job Title:</strong> ${jobTitle}</li>
+          <li><strong>Phone:</strong> ${phone}</li>
+          <li><strong>Country:</strong> ${country}</li>
+        </ul>
+      `
     });
 
-    res.status(200).json({ message: 'Your message has been sent successfully.' });
+    res.status(200).json({ 
+      message: 'Your message has been sent successfully.' 
+    });
   } catch (error) {
     console.error('Error sending contact message:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ 
+      message: 'Server error', 
+      error: error.message 
+    });
   }
 };
 

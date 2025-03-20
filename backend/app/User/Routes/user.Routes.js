@@ -36,6 +36,6 @@ router.post('/forgot-password', userController.forgotPassword);
 router.post('/checkVerificationCode',userController.checkVerificationCode)
 
 router.put('/reset-password', userController.resetPassword);
-
+router.post('/contact',userController.sendContactMessage)
 
 module.exports = router;
