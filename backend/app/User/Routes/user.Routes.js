@@ -4,6 +4,7 @@ const router = express.Router();
 const userController=require('../controllers/user.Controller')
 
 
+
 const multer = require('multer')
 
 let fileName = '';
@@ -37,5 +38,10 @@ router.post('/checkVerificationCode',userController.checkVerificationCode)
 
 router.put('/reset-password', userController.resetPassword);
 router.post('/contact',userController.sendContactMessage)
+
+
+
+
+
 
 module.exports = router;

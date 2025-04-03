@@ -14,6 +14,10 @@ router.post('/checkout', paymentController.createCheckoutSession);
 
 // Endpoint to confirm payment after redirection from Stripe
 router.post('/confirm', paymentController.confirmPayment);
+router.get('/allpayments',paymentController.getPayments)
+router.post('/validate/:id',paymentController.validatePayment)
+
+
 
 
 

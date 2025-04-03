@@ -343,24 +343,25 @@ exports.forgotPassword = async (req, res) => {
 // Function to check if the verification code is valid
 exports.checkVerificationCode = async (req, res) => {
   try {
+    const { email, code } = req.body;
+
+    // Ensure the verification code from the request is trimmed
     
-    const { verificationCode } = req.body;
 
     
-    
-
+    const user = await User.findOne({ email });
   
 
-    // Check if the verification code matches and is not expired
-    if (User.verificationCode !== verificationCode || User.codeExpires < new Date()) {
-      return res.status(401).json({ message: 'Invalid or expired verification code' });
-    }
 
-    // If code is valid, respond with success
-    res.status(200).json({ message: 'Verification code is valid' });
+    // Check if the verification code matches and is not expired
+    if (user.verificationCode !== code || user.codeExpires < new Date()) {
+      return res.status(401).json({ message: 'Invalid or expired verification code' });
+    } else {
+      return res.status(200).json({ message: 'Verification code is valid' });
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error("Error checking verification code:", error);
+    return res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -368,39 +369,36 @@ exports.checkVerificationCode = async (req, res) => {
 // Reset password with verification code
 exports.resetPassword = async (req, res) => {
   try {
-    const {   email ,newPassword } = req.body;
-    
+    const { email, newPassword } = req.body;
 
-    
-  
-
-  
-
-  
+    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'wrong email' });
+      return res.status(400).json({ message: 'User not found' });
     }
-    
+
+  
 
     // Hash new password
-    const hashedPassword = bcrypt.hashSync(newPassword, 10);
+    const hashedPassword = await bcrypt.hashSync(newPassword, 10);
 
     // Update password and clear verification data
     user.password = hashedPassword;
     user.verificationCode = undefined;
     user.codeExpires = undefined;
-  
-
 
     await user.save();
 
     res.status(200).json({ message: 'Password reset successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ 
+      message: 'Server error', 
+      error: error.message 
+    });
   }
-};
+
+}
 
 exports.sendContactMessage = async (req, res) => {
   try {

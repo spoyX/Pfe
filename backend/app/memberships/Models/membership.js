@@ -7,8 +7,8 @@ const membershipSchema = new mongoose.Schema({
   { type: Date, required: true },
   endDate: 
   { type: Date, required: true },
-  membershipStatus: 
-  { type: String, required: true },
+  planType: { type: String, enum: ['monthly', '3months', '6months'], required: true },
+  status: { type: String, enum: ['active', 'expired'], default: 'active' },
   notesId: 
   { type: String },
   userId: 

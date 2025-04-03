@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors');
 require('./app/config/connect');
 require('dotenv').config();
-
+require('./app/config/cronJob');
 const paymentRouter=require('./app/payment/Routes/payment.Routes')
 const userRouter=require('./app/User/Routes/user.Routes')
+const blogRoute=require('./app/blog/router/blog.router')
 
 const { createAdminAccount } = require('./app/User/controllers/user.Controller');
 const app = express();
@@ -14,7 +15,7 @@ app.use(cors());
 
 app.use('/api/payments',paymentRouter)
 app.use('/api/user',userRouter)
-
+app.use('/api/blog',blogRoute)
 app.use('/files', express.static('./public'));
 app.listen(3000, ()=>{
     console.log('server work');
