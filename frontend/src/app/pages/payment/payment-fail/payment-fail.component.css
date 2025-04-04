@@ -28,21 +28,7 @@
   }
 }
 
-.progress-container {
-  margin-bottom: 2rem;
-}
-
-.progress {
-  height: 20px;
-  border-radius: 10px;
-}
-
-.progress-bar {
-  background-color: #0d6efd;
-  border-radius: 10px;
-}
-
-.instructions {
+.payment-details {
   background-color: #f8f9fa;
   border-radius: 10px;
   padding: 1.5rem;
@@ -63,6 +49,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -75,10 +62,26 @@
   transform: translateY(-2px);
 }
 
-.bi-check-circle-fill {
+.bi-arrow-repeat,
+.bi-credit-card,
+.bi-envelope,
+.bi-headset {
   font-size: 1.2rem;
 }
 
-.bi-hourglass-split {
-  font-size: 1.2rem;
+.badge {
+  font-weight: 500;
+}
+
+/* Make sure buttons wrap on smaller screens */
+@media (max-width: 576px) {
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
 }

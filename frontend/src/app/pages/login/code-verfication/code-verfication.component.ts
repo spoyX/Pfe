@@ -13,23 +13,31 @@ import Swal from 'sweetalert2';
   styleUrl: './code-verfication.component.css'
 })
 export class CodeVerficationComponent {
-  code:FormGroup
+  codeForm:FormGroup
+  data:any
+  email:any
   constructor(private _user:UserService,private fb:FormBuilder,private _router:Router){
 
     let controls={
       code:new FormControl('',[Validators.required]),
       
     }
-    this.code=this.fb.group(controls)
+    this.codeForm=this.fb.group(controls)
 
     
 
 
   }
+  ngOnInit(){
+    this.email=localStorage.getItem("email")
+    
+  }
+  
+  
   send(){
-    this._user.checkVerificationCode(this.code.value).subscribe({
+    this._user.checkVerificationCode(this.codeForm.value.code,this.email).subscribe({
       next:(res:any)=>{
-
+       
         this._router.navigate(['/reset-password'])
 
       },

@@ -14,13 +14,16 @@ export const routes: Routes = [
 
 
    {path:'forgot-password',loadComponent:()=>import('./pages/login/forget-password/forget-password.component').then(c=>c.ForgetPasswordComponent)},
-   {path:'email-verfication',loadComponent:()=>import('./pages/login/verficationsend/verficationsend.component').then(c=>c.VerficationsendComponent)},
+   {path:'check-mail',loadComponent:()=>import('./pages/login/verficationsend/verficationsend.component').then(c=>c.VerficationsendComponent)},
    {path:'reset-password',loadComponent:()=>import('./pages/login/reset-password/reset-password.component').then(c=>c.ResetPasswordComponent)},
    {path:'code-verfication',loadComponent:()=>import('./pages/login/code-verfication/code-verfication.component').then(c=>c.CodeVerficationComponent)},
+  
+
    
     {path:'subscription-plan',loadComponent:()=>import('./pages/payment/subscriptionplan/subscriptionplan.component').then(c=>c.SubscriptionplanComponent)},
     {path:'payment-success',loadComponent:()=>import('./pages/payment/paymentsucces/paymentsucces.component').then(c=>c.PaymentsuccesComponent)},
-
+    {path:'payment-fail',loadComponent:()=>import('./pages/payment/payment-fail/payment-fail.component').then(c=>c.PaymentFailComponent)},
+    
 
    {path:'member',canActivate:[dashGuard],loadComponent:()=>import('./pages/member/dashboard/dashboard.component').then(c=>c.DashboardComponent) ,children: [
 

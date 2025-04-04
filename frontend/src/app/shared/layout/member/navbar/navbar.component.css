@@ -1,10 +1,38 @@
-.membra-logo {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      background: linear-gradient(45deg, #3b82f6, #9333ea);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    }
+/* Top Navigation Bar */
+.navbar {
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.navbar .nav-link {
+  color: #333;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+}
+.navbar .nav-link:hover {
+  background-color: #e9ecef;
+}
+.navbar .nav-link.active {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+/* Profile Image CSS */
+.nav-profile img, .rounded-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* For the container that holds both the image and username */
+.nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Make sure the text is properly sized */
+.nav-profile .dropdown-toggle {
+  font-size: 14px;
+}

@@ -1,10 +1,32 @@
-.logo-img {
-  width: 170px; /* Adjust this value to make the logo bigger or smaller */
-  height: auto;
-}
-
-/* To position the toggle button correctly */
-.toggle-sidebar-btn {
-  position: absolute;
-  right: 40px;
-}
+ .body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+    }
+    
+    
+    
+    /* Main Content */
+    main {
+      margin-left: 240px;
+      padding-top: 20px;
+      background-color: #fff;
+      min-height: 100vh;
+    }
+    
+    
+    /* Dashboard Title Above Navbar */
+    .dashboard-header {
+      padding: 0 1rem;
+      margin-bottom: 10px;
+    }
+    .dashboard-header h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #3b82f6;
+    }
+    .dashboard-header .subtext {
+      font-size: 14px;
+      color: #6b7280;
+    }
+    

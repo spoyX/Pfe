@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class ForgetPasswordComponent {
   forgotPassword:FormGroup
+
   constructor(private _user:UserService,private fb:FormBuilder,private _router:Router){
 
     let controls={
@@ -27,15 +28,17 @@ export class ForgetPasswordComponent {
 
 
   }
+
   send(){
     this._user.forgotPassword(this.forgotPassword.value).subscribe({
       next:(res:any)=>{
+        localStorage.setItem('email',this.forgotPassword.value.email)
         Swal.fire({
           title: "email sent!",
           icon: "success",
           draggable: true
         });
-        this._router.navigate(['/code-verfication'])
+        this._router.navigate(['/check-mail'])
         
       },
       error:(err:any)=>{

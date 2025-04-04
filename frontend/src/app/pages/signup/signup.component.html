@@ -1,165 +1,163 @@
 <app-homenavbar></app-homenavbar>
+
 <div class="bodysignup">
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-10">
-      <div class="card shadow-sm">
-        <div class="row g-0">
-          <!-- Sidebar -->
-          <div class="col-md-5 signup-sidebar">
-            <div class="sidebar-content">
-              <div class="sidebar-logo">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/306138658_470827161743010_2379414372101747057_n-f1mlBzUKHXCcOF95n2ZvK0c6ejGsZ4.png" alt="CCCT Logo">
-                <span>CCCT</span>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card shadow-sm">
+          <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-md-5 signup-sidebar">
+              <div class="sidebar-content">
+                <div class="sidebar-logo">
+                  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/306138658_470827161743010_2379414372101747057_n-f1mlBzUKHXCcOF95n2ZvK0c6ejGsZ4.png" alt="CCCT Logo">
+                  <span>CCCT</span>
+                </div>
+                <h1 class="sidebar-title">Join the CCCT Community</h1>
+                <p class="sidebar-text">Create your account and access all the benefits offered by the Canada-Tunisia Chamber of Commerce.</p>
+                <ul class="sidebar-features">
+                  <li><i class="bi bi-check-circle-fill"></i> Access to exclusive events</li>
+                  <li><i class="bi bi-check-circle-fill"></i> Networking opportunities</li>
+                  <li><i class="bi bi-check-circle-fill"></i> Commercial resources</li>
+                  <li><i class="bi bi-check-circle-fill"></i> Support for international expansion</li>
+                </ul>
               </div>
-              <h1 class="sidebar3-title3">Rejoignez la communauté CCCT</h1>
-              <p class="sidebar3-text3">Créez votre compte et accédez à tous les avantages offerts par la Chambre de Commerce Canada Tunisienne.</p>
-              <ul class="sidebar-features3">
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Accès aux événements exclusifs</span>
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Opportunités de réseautage</span>
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Ressources commerciales</span>
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Soutien à l'expansion internationale</span>
-                </li>
-              </ul>
+              <div class="sidebar-footer">
+                &copy; 2025 Canada-Tunisia Chamber of Commerce. All rights reserved.
+              </div>
             </div>
-            <div class="sidebar-footer">
-              &copy; 2025 Chambre de Commerce Canada Tunisienne. Tous droits réservés.
-            </div>
-          </div>
 
-          <!-- Form Container -->
-          <div class="col-md-7 signup-form-container">
-            <div class="card-body p-4">
-              <h2 class="card-title text-center mb-4">Créer Votre Compte</h2>
-              <p class="form-subtitle">Complétez vos informations pour rejoindre la CCCT</p>
-              <form [formGroup]="signForm" (ngSubmit)="onSubmit()">
-                <!-- Personal Information Section -->
-                <div class="form-section">
-                  <h5 class="section-title">Informations personnelles</h5>
-                  <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input id="username" type="text" formControlName="username" class="form-control" placeholder="Enter your username">
-                    @if (signForm.get('username')?.invalid && signForm.get('username')?.touched) {
-                      <div class="text-danger">
-                        Le nom d'utilisateur est requis.
-                      </div>
-                    }
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="firstName" class="form-label">First Name</label>
-                      <input id="firstName" type="text" formControlName="firstName" class="form-control" placeholder="Enter your first name">
-                      @if (signForm.get('firstName')?.invalid && signForm.get('firstName')?.touched) {
-                        <div class="text-danger">
-                          First name est requis.
+            <!-- Form Container -->
+            <div class="col-md-7 signup-form-container">
+              <div class="card-body p-4">
+                <h2 class="card-title text-center mb-4">Create Your Account</h2>
+                <p class="form-subtitle text-center mb-4">Complete your information to join the CCCT</p>
+                <mat-horizontal-stepper linear>
+                  <!-- Step 1: Personal Information -->
+                  <mat-step [stepControl]="personalForm">
+                    <form [formGroup]="personalForm">
+                      <ng-template matStepLabel>Personal Information</ng-template>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>First Name</mat-label>
+                            <input matInput formControlName="firstName" placeholder="Enter your first name" required>
+                            <mat-error *ngIf="personalForm.get('firstName')?.hasError('required')">First name is required</mat-error>
+                          </mat-form-field>
                         </div>
-                      }
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="lastName" class="form-label">Last Name</label>
-                      <input id="lastName" type="text" formControlName="lastName" class="form-control" placeholder="Enter your last name">
-                      @if (signForm.get('lastName')?.invalid && signForm.get('lastName')?.touched) {
-                        <div class="text-danger">
-                          Last name est requis.
+                        <div class="col-md-6">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="lastName" placeholder="Enter your last name" required>
+                            <mat-error *ngIf="personalForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
+                          </mat-form-field>
                         </div>
-                      }
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Account Details Section -->
-                <div class="form-section">
-                  <h5 class="section-title">Détails du compte</h5>
-                  <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" type="email" formControlName="email" class="form-control" placeholder="Enter your email">
-                    @if (signForm.get('email')?.invalid && signForm.get('email')?.touched) {
-                      <div class="text-danger">
-                        Valid email est requis.
                       </div>
-                    }
-                  </div>
-                  <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input id="password" type="password" formControlName="password" class="form-control" placeholder="Enter your password">
-                    @if (signForm.get('password')?.invalid && signForm.get('password')?.touched) {
-                      <div class="text-danger">
-                        Le mot de passe est requis et doit comporter au moins 6 caractères.
-                      </div>
-                    }
-                  </div>
-                </div>
-
-                <!-- Additional Information Section -->
-                <div class="form-section">
-                  <h5 class="section-title">Informations Complémentaires</h5>
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="phone" class="form-label">Phone</label>
-                      <input id="phone" type="text" formControlName="phone" class="form-control" placeholder="Enter your phone number">
-                      @if (signForm.get('phone')?.invalid && signForm.get('phone')?.touched) {
-                        <div class="text-danger">
-                          num tel est requis
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Username</mat-label>
+                            <input matInput formControlName="username" placeholder="Choose a username" required>
+                            <mat-error *ngIf="personalForm.get('username')?.hasError('required')">Username is required</mat-error>
+                          </mat-form-field>
                         </div>
-                      }
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                      <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="form-control">
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="gender" class="form-label">Gender</label>
-                    <select id="gender" formControlName="gender" class="form-select">
-                      <option value="" disabled selected>Sélectionnez votre sexe</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                    @if (signForm.get('gender')?.invalid && signForm.get('gender')?.touched) {
-                      <div class="text-danger">
-                        Gender est requis.
                       </div>
-                    }
-                  </div>
-                </div>
+                      <div class="button-row">
+                        <button mat-raised-button color="primary" matStepperNext [disabled]="!personalForm.valid">Next</button>
+                      </div>
+                    </form>
+                  </mat-step>
 
-                <!-- ID Document Upload Section -->
-                <div class="form-section">
-                  <h5 class="section-title">Upload ID Document</h5>
-                  <div class="mb-3">
-                    <input type="file" id="profileImage" (change)="onFileChange($event)" accept="image/*" class="form-control">
-                  </div>
-                  @if (filePreview) {
-                    <div class="mt-2 text-center">
-                      <img [src]="filePreview" alt="ID Preview" class="img-thumbnail" style="max-height: 200px;">
-                    </div>
-                  }
-                </div>
+                  <!-- Step 2: Account Details -->
+                  <mat-step [stepControl]="accountForm">
+                    <form [formGroup]="accountForm">
+                      <ng-template matStepLabel>Account Details</ng-template>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" placeholder="Enter your email" required>
+                            <mat-error *ngIf="accountForm.get('email')?.hasError('required')">Email is required</mat-error>
+                            <mat-error *ngIf="accountForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" formControlName="password" placeholder="Enter your password" required>
+                            <mat-error *ngIf="accountForm.get('password')?.hasError('required')">Password is required</mat-error>
+                            <mat-error *ngIf="accountForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="button-row">
+                        <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+                        <button mat-raised-button color="primary" matStepperNext [disabled]="!accountForm.valid">Next</button>
+                      </div>
+                    </form>
+                  </mat-step>
 
-                <!-- Submit Button -->
-                <div class="text-center mt-4">
-                  <button type="submit" class="btn btn-primary btn-lg" [disabled]="signForm.invalid">Sign Up</button>
-                </div>
-              </form>
+                  <!-- Step 3: Additional Information -->
+                  <mat-step [stepControl]="additionalForm">
+                    <form [formGroup]="additionalForm">
+                      <ng-template matStepLabel>Additional Information</ng-template>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Phone</mat-label>
+                            <input matInput formControlName="phone" placeholder="Enter your phone number" required>
+                            <mat-error *ngIf="additionalForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Date of Birth</mat-label>
+                            <input matInput type="date" formControlName="dateOfBirth" required>
+                            <mat-error *ngIf="additionalForm.get('dateOfBirth')?.hasError('required')">Date of birth is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Gender</mat-label>
+                            <mat-select formControlName="gender" required>
+                              <mat-option value="male">Male</mat-option>
+                              <mat-option value="female">Female</mat-option>
+                              <mat-option value="other">Other</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="additionalForm.get('gender')?.hasError('required')">Gender is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="file-upload">
+                            <label>Upload ID Document</label>
+                            <input type="file" (change)="onFileChange($event)" accept="image/*" required> <!-- No formControlName here -->
+                            <div *ngIf="filePreview" class="mt-2 text-center">
+                              <img [src]="filePreview" alt="ID Preview" class="img-thumbnail" style="max-height: 200px;">
+                            </div>
+                            <mat-error *ngIf="!filePreview">ID document upload is required</mat-error>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="button-row">
+                        <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+                        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!additionalForm.valid || !filePreview">Submit</button>
+                      </div>
+                    </form>
+                  </mat-step>
+                </mat-horizontal-stepper>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <app-homefooter></app-homefooter>

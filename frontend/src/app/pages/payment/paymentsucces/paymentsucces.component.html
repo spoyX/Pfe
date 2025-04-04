@@ -1,10 +1,55 @@
 <app-homenavbar></app-homenavbar>
-<div class="bodymodel">
-  <div class="model">
-    <div class="payment-success-container">
-      <h2>Payment Successful! 🎉</h2>
-      <p>Votre compte est actuellement en cours d'examen et sera vérifié dans les 48 heures..</p>
-      <button style="--clr: #f54242;" routerLink="/">Retour à l'accueil</button>
+
+<div class="bg-light">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-body text-center p-5">
+            <div class="status-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#0d6efd" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                <path d="M2 6a.5.5 0 0 1 .5-.5h1V1.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1h1a.5.5 0 0 1 .5.5 2 2 0 0 1 .5 2v6a2.5 2.5 0 0 1-.5 2h-3a2.5 2.5 0 0 1-2-2V8a2 2 0 0 1-.5-2h-1a.5.5 0 0 1-.5-.5V1.5a.5.5 0 0 1 .5-.5h1zm1 8a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm4.5-8h3a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1zm-3 3a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1z"/>
+              </svg>
+            </div>
+            <h2 class="mt-4 mb-3">Thank You for Your Submission</h2>
+            <p class="lead mb-4">Your account is currently under review and will be verified within 48 hours.</p>
+            
+            <div class="progress-container mb-4">
+              <p class="text-muted">We're reviewing your application</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+              </div>
+            </div>
+            
+            <div class="instructions mb-4">
+              <h5>What Happens Next?</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                  <span>Your application has been received</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="bi bi-hourglass-split text-primary"></i>
+                  <span>Our team is reviewing your application</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="bi bi-hourglass-split text-primary"></i>
+                  <span>You will receive an email once verified</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="buttons mt-4">
+              <button class="btn btn-primary me-2" >
+                Go to Home Page
+              </button>
+              <button class="btn btn-outline-primary">
+                Contact Support
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

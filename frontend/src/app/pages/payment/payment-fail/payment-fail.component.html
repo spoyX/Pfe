@@ -1,0 +1,87 @@
+<app-homenavbar></app-homenavbar>
+
+<div class="bg-light">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-body text-center p-5">
+            <div class="status-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+              </svg>
+            </div>
+            <h2 class="mt-4 mb-3">Payment Failed</h2>
+            <p class="lead mb-4">We're sorry, your payment couldn't be completed at this time.</p>
+            
+            <div class="payment-details mb-4">
+              <h5>Transaction Details</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Transaction ID</span>
+                  <span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Amount</span>
+                  <span>$</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Plan</span>
+                  <span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Date</span>
+                  <span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Status</span>
+                  <span class="badge bg-danger">Failed</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Error Code</span>
+                  <span></span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="instructions mb-4">
+              <h5>What Can You Do Next?</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="bi bi-arrow-repeat text-primary"></i>
+                  <span>Try again with a different payment method</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="bi bi-credit-card text-primary"></i>
+                  <span>Check your payment details for errors</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="bi bi-envelope text-primary"></i>
+                  <span>Contact your bank for payment issues</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="bi bi-headset text-primary"></i>
+                  <span>Contact our support team for assistance</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="buttons mt-4">
+              <button class="btn btn-primary me-2" >
+                Retry Payment
+              </button>
+              <button class="btn btn-outline-primary" >
+                Contact Support
+              </button>
+              <button class="btn btn-link text-decoration-none" >
+                Go to Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-homefooter></app-homefooter>

@@ -1,25 +1,33 @@
-<app-navbar></app-navbar>
-  <!-- End Header -->
+<div class="body">
 
-<!-- ======= Sidebar ======= -->
-  <app-sidbar></app-sidbar>
-<!-- End Sidebar-->
-
-<main id="main" class="main">
-<router-outlet></router-outlet>
-
-
-</main><!-- End #main -->
-
-<!-- ======= Footer ======= -->
-<footer  class="footer">
-  <div class="copyright">
-    &copy; Copyright <strong><span>Membra</span></strong>. All Rights Reserved
+  <div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <app-sidbar></app-sidbar>
+  
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+           <!-- Dashboard Title above Navbar -->
+           <div class="dashboard-header mt-3">
+            <h2>Dashboard</h2>
+            <p class="subtext">Welcome to your Membra Dashboard</p>
+          </div>
+            <!-- Top Navigation Bar -->
+          
+               <app-navbar></app-navbar>
+            <!-- Main Content Area -->
+            <router-outlet></router-outlet>
+          
+        </main>
+    </div>
   </div>
-  <div class="credits">
-    
-    Designed by <a href="">Adem Ben Chiboub</a>
   </div>
-</footer><!-- End Footer -->
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <footer  class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Membra</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      
+      Designed by <a href="">Adem Ben Chiboub</a>
+    </div>
+  </footer><!-- End Footer -->

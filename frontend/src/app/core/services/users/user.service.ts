@@ -30,12 +30,12 @@ forgotPassword(data:any){
   return this.http.post(this.url + 'forgot-password' ,data )
 
 }
-checkVerificationCode(data:any){
-  return this.http.post(this.url +'/checkVerificationCode',data)
+checkVerificationCode(code:any,email:any){
+  return this.http.post(this.url +'/checkVerificationCode',{code,email })
 
 }
-resetPassword(data:any){
-  return this.http.put(this.url + 'reset-password' , data)
+resetPassword(newPassword: any,email:any){
+  return this.http.put(this.url + 'reset-password' , {newPassword,email})
 }
 
 isLoggedIn(){

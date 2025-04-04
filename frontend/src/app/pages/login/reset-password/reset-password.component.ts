@@ -13,47 +13,59 @@ import Swal from 'sweetalert2';
   styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
-  resetPassword:FormGroup
-  constructor(private _user:UserService,private fb:FormBuilder,private _router:Router){
+  resetPassword: FormGroup;
+  email: any;
 
-    let controls={
-      email:new FormControl('',[Validators.required,Validators.email]),
-
-      newPassword:new FormControl('',[Validators.required]),
+  constructor(
+    private _user: UserService,
+    private fb: FormBuilder,
+    private _router: Router
+  ) {
+    this.resetPassword = this.fb.group({
+      newPassword: ['', [
+        Validators.required, 
+        Validators.minLength(6)
+      ]],
       confirmPassword: ['', Validators.required]
-      
-    }
-    this.resetPassword=this.fb.group(controls)
-
-    
-
-
+    }, { 
+      validators: this.passwordMatchValidator 
+    });
   }
 
-  passwordsMatch(form: FormGroup) {
-    const newPassword = form.get('newPassword')?.value;
-    const confirmPassword = form.get('confirmPassword')?.value;
-    return newPassword === confirmPassword ? null : { mismatch: true };
+  ngOnInit() {
+    this.email = localStorage.getItem("email");
   }
 
-  send(){
-     this._user.resetPassword(this.resetPassword.value).subscribe({
-      next:(res:any)=>{
-          this._router.navigate(['/login'])
-      },
-      error:(err:any)=>{
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: '<a href="#">Why do I have this issue?</a>'
+  // Custom validator to check password match
+  passwordMatchValidator(form: FormGroup) {
+    const newPassword = form.get('newPassword');
+    const confirmPassword = form.get('confirmPassword');
+
+    return newPassword && confirmPassword && newPassword.value === confirmPassword.value 
+      ? null 
+      : { mismatch: true };
+  }
+
+  send() {
+  
+      const newPassword = this.resetPassword.value.newPassword;
+      this._user.resetPassword(newPassword, this.email)
+        .subscribe({
+          next: () => {
+            Swal.fire({
+              icon: "success",
+              title: "Password Reset",
+              text: "Your password has been successfully reset!"
+            });
+            this._router.navigate(['/login']);
+          },
+          error: (err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Reset Failed",
+              text: err.message || "Something went wrong during password reset."
+            });
+          }
         });
-
-      }
-    })
-     
-
+    } 
   }
-
-
-}

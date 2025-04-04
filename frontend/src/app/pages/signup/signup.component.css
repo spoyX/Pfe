@@ -1,16 +1,21 @@
 :root {
-  --primary: #E31837;          /* Vibrant Red */
-  --primary-dark: #C41530;     /* Darker Red */
-  --accent: #F59E0B;           /* Gold/Accent color for icons or highlights */
-  --gradient: linear-gradient(135deg, #E31837 0%, #C41530 100%);
-  /* Feel free to adjust or add more color variables */
+  --primary: #E31837;
+  --primary-dark: #C41530;
+  --accent: #F59E0B;
+  --light-bg: #f8f9fa;
+  --text-dark: #2B2B2F;
+  --text-light: #ffffff;
+  --border-color: #e9ecef;
 }
 
 .bodysignup {
   font-family: 'Poppins', sans-serif;
-  background-color: #f8f9fa; /* or any light background for the overall page */
+  background-color: var(--light-bg);
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .card {
@@ -18,44 +23,46 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
 /* --- SIDEBAR STYLING --- */
 .signup-sidebar {
-  position: relative;
-  background: var(--gradient);
-  /* Ensures text is white by default */
-  color: #fff;
+  background: linear-gradient(135deg, #E31837 0%, #C41530 100%);
+color: white; 
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden; /* to hide the ::before if it goes outside */
+  overflow: hidden;
+  position: relative;
 }
 
-/* Pseudo-element for the background image */
+/* Decorative elements */
 .signup-sidebar::before {
   content: "";
   position: absolute;
-  top: 0; 
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* So it doesn't interfere with clicks */
-  background: url("https://images.unsplash.com/flagged/photo-1593005510509-d05b264f1c9c?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat;
-  /* Adjust the opacity or blend-mode to keep red visible and text bright */
-  
-  mix-blend-mode: multiply; 
-  /* 
-     Try different values:
-       – opacity: 0.4 to 0.6
-       – mix-blend-mode: multiply, overlay, or soft-light 
-     to get the best visual result 
-  */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff10' d='M50 0 L100 50 L50 100 L0 50 Z'/%3E%3C/svg%3E") center/cover no-repeat;
+  opacity: 0.1;
   z-index: 0;
 }
 
-/* Force any text in the sidebar to remain above the pseudo-element */
+.signup-sidebar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff10' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") center/cover no-repeat;
+  z-index: 0;
+}
+
+/* Force any text in the sidebar to remain above the decorative elements */
 .signup-sidebar > * {
   position: relative;
   z-index: 1;
@@ -65,7 +72,7 @@
 .sidebar-logo {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .sidebar-logo img {
@@ -83,16 +90,15 @@
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 1rem;
-  /* White text explicitly, if needed */
-  color: #fff; 
+  color: var(--text-light);
 }
 
 .sidebar-text {
   font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 2rem;
-  color: #fff; /* ensure text is white */
-  opacity: 0.95; /* slightly less than full to soften, optional */
+  color: var(--text-light);
+  opacity: 0.95;
 }
 
 /* Features list inside the sidebar */
@@ -106,44 +112,44 @@
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-  color: #fff; 
+  color: white;
 }
 
 .sidebar-features li i {
   margin-right: 0.8rem;
   font-size: 1.2rem;
-  color: var(--accent); /* gold color for the icon */
+    color: #F59E0B
 }
 
 .sidebar-footer {
   font-size: 0.9rem;
   opacity: 0.8;
-  color: #fff; 
+  color: var(--text-light);
 }
 
 /* --- MAIN FORM AREA (RIGHT SIDE) --- */
 .signup-form-container {
   background-color: #fff;
   padding: 3rem 2rem;
-  color: #2B2B2F; /* normal text color in the form area */
+  color: var(--text-dark);
 }
 
 .card-title {
   font-weight: bold;
-  color: #333;
+  color: var(--text-dark);
 }
 
 /* Form sections with bottom border */
 .form-section {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .section-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-dark);
   margin-bottom: 1rem;
 }
 
@@ -198,13 +204,9 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card {
-    border-radius: 0; /* optional, let it fill the screen on mobile */
+    border-radius: 0;
   }
 
-  .signup-card {
-    flex-direction: column;
-  }
-  
   .signup-sidebar,
   .signup-form-container {
     width: 100%;
@@ -224,5 +226,111 @@
   
   .sidebar-features li {
     font-size: 0.9rem;
+  
   }
+}
+
+/* Angular Material specific styles */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+mat-error {
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+button {
+  min-width: 100px;
+}
+
+/* Progress indicator for the stepper */
+.mat-horizontal-stepper-header {
+  display: flex;
+  align-items: center;
+}
+
+.mat-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+}
+
+/* Animation for form elements */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+mat-form-field {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Custom stepper header styling */
+.mat-horizontal-stepper-header-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Custom stepper content styling */
+.mat-step-content {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Custom submit button styling */
+button[matStepperNext],
+button[matStepperPrevious] {
+  transition: all 0.3s ease;
+}
+
+button[matStepperNext]:hover,
+button[matStepperPrevious]:hover {
+  transform: translateY(-2px);
+}
+
+/* Custom file upload styling */
+.file-upload {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.file-upload:hover {
+  border-color: var(--primary);
+}
+
+.file-upload input[type="file"] {
+
+}
+
+.file-upload label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-upload label:hover {
+  background-color: var(--primary-dark);
 }
