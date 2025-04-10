@@ -1,0 +1,67 @@
+
+
+<div class="bg-light">
+  <div class="container py-5">
+    <div class="row text-center mb-5">
+      <div class="col">
+        <h2 class="display-4 fw-bold">CCCT Subscription Plans</h2>
+        <p class="text-muted">Choose the perfect subscription plan for your business needs</p>
+      </div>
+    </div>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <!-- Monthly Plan -->
+      <div class="col">
+        <div class="card h-100 pricing-card shadow-sm">
+          <div class="card-body p-5">
+            <h5 class="card-title text-muted text-uppercase mb-4">Monthly</h5>
+            <h1 class="display-5 mb-4">$9<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled feature-list">
+              <li><i class="bi bi-check2 text-primary me-2"></i>Access to CCCT events</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Basic networking opportunities</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Monthly business resources</li>
+            </ul>
+            <button class="btn btn-outline-primary btn-lg w-100 mt-4" (click)="selectPlan('monthly')">Get Started</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Months Plan -->
+      <div class="col">
+        <div class="card h-100 pricing-card shadow position-relative">
+          <span class="badge gradient-custom text-white popular-badge px-4 py-2">Popular</span>
+          <div class="card-body p-5">
+            <h5 class="card-title text-primary text-uppercase mb-4">3 Months</h5>
+            <h1 class="display-5 mb-4">$24<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled feature-list">
+              <li><i class="bi bi-check2 text-primary me-2"></i>Priority access to CCCT events</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Enhanced networking opportunities</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Quarterly business resources</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Exclusive member discounts</li>
+            </ul>
+            <button class="btn gradient-custom text-white btn-lg w-100 mt-4" (click)="selectPlan('3months')">Get Started</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 Months Plan -->
+      <div class="col">
+        <div class="card h-100 pricing-card shadow-sm">
+          <div class="card-body p-5">
+            <h5 class="card-title text-muted text-uppercase mb-4">6 Months</h5>
+            <h1 class="display-5 mb-4">$42<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list-unstyled feature-list">
+              <li><i class="bi bi-check2 text-primary me-2"></i>Unlimited access to CCCT events</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Premium networking opportunities</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Comprehensive business resources</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Priority member discounts</li>
+              <li><i class="bi bi-check2 text-primary me-2"></i>Customized business support</li>
+            </ul>
+            <button class="btn btn-outline-primary btn-lg w-100 mt-4" (click)="selectPlan('6months')">Get Started</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

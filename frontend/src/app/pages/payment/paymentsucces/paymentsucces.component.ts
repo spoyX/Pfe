@@ -21,7 +21,7 @@ export class PaymentsuccesComponent {
 
   ngOnInit() {
     this.sessionId = this.route.snapshot.queryParamMap.get('session_id');
-    console.log(this.sessionId)
+  
 
     if (this.sessionId) {
       this.paymentService.confirmPayment(this.sessionId).subscribe({

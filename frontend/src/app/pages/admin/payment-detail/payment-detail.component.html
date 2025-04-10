@@ -1,0 +1,135 @@
+<div class="body">
+<div class="payment-container">
+  <h1 class="page-title fade-in">Payment Details</h1>
+  
+  <div class="row">
+      <!-- Left Column - User Profile -->
+      <div class="col-lg-4 mb-4">
+          <div class="profile-section slide-up">
+            
+              <div class="profile-info">
+                  <h2 class="profile-name">{{data.userId.firstName}} {{data.userId.lastName}}</h2>
+                  <div class="profile-username">{{data.userId.username}}</div>
+                  
+                  <div class="profile-contact">
+                      <div class="profile-contact-item">
+                          <i class="fas fa-envelope"></i>
+                          <span>{{data.userId.email}}</span>
+                      </div>
+                      <div class="profile-contact-item">
+                          <i class="fas fa-phone"></i>
+                          <span>{{data.userId.phone}}</span>
+                      </div>
+                    
+                  </div>
+              </div>
+          </div>
+          
+          <!-- User Details Card -->
+          <div class="dashboard-card slide-up" style="animation-delay: 0.1s;">
+              <div class="card-header-gradient info">
+                  <h5><i class="fas fa-user-circle"></i> User Information</h5>
+              </div>
+              <div class="card-body">
+                  <div class="user-details-grid">
+                      <div class="user-detail-item">
+                          <div class="user-detail-label">Gender</div>
+                          <div class="user-detail-value">{{data.userId.gender}}</div>
+                      </div>
+                      <div class="user-detail-item">
+                          <div class="user-detail-label">Date of Birth</div>
+                          <div class="user-detail-value">{{ data.userId.dateOfBirth | date: 'MMMM d, yyyy' }}</div>
+                      </div>
+                      
+                      <div class="user-detail-item">
+                          <div class="user-detail-label">Account Since</div>
+                          <div class="user-detail-value">{{ data.userId.createdAt | date: 'yyyy' }}</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Right Column - Payment Details -->
+      <div class="col-lg-8">
+          <!-- Payment Summary Card -->
+          <div class="dashboard-card slide-up" style="animation-delay: 0.2s;">
+              <div class="card-header-gradient">
+                  <h5><i class="fas fa-file-invoice-dollar"></i> Payment Summary</h5>
+              </div>
+              <div class="card-body">
+                  <div class="text-center mb-4">
+                      <div class="payment-amount">{{data.amount}}</div>
+                      <div class="status-badge status-completed">
+                          <i class="fas fa-check-circle"></i>
+                          Completed
+                      </div>
+                  </div>
+                  
+                  <ul class="payment-details-list">
+                      <li class="payment-detail-item">
+                          <div class="payment-detail-label">
+                              <i class="fas fa-hashtag"></i> Payment ID
+                          </div>
+                          <div class="payment-detail-value">{{data.paymentId}}</div>
+                      </li>
+                      <li class="payment-detail-item">
+                          <div class="payment-detail-label">
+                              <i class="fas fa-calendar-alt"></i> Payment Date
+                          </div>
+                          <div class="payment-detail-value"> {{ data.paymentDate | date: 'MMMM d, yyyy, h:mm a' }}</div>
+                      </li>
+                      <li class="payment-detail-item">
+                          <div class="payment-detail-label">
+                              <i class="fas fa-credit-card"></i> Payment Method
+                          </div>
+                          <div class="payment-detail-value">
+                              <i class="payment-method-icon fas fa-credit-card"></i>
+                              Credit Card
+                              <span class="card-type-badge visa">{{data.cardType}}</span>
+                          </div>
+                      </li>
+                      <li class="payment-detail-item">
+                          <div class="payment-detail-label">
+                              <i class="fas fa-fingerprint"></i> Transaction ID
+                          </div>
+                          <div class="payment-detail-value">{{data.stripeTransactionId}}</div>
+                      </li>
+                  </ul>
+                  
+                
+              </div>
+          </div>
+          
+          <!-- ID Document Card -->
+          <div class="dashboard-card slide-up" style="animation-delay: 0.3s;">
+              <div class="card-header-gradient warning">
+                  <h5><i class="fas fa-id-card"></i> ID Document</h5>
+              </div>
+              <div class="card-body">
+                  <div class="id-document-container">
+                      <img [src]="'http://127.0.0.1:3000/files/'+data.userId.idType" alt="ID Document" class="id-document">
+                      <div class="id-document-overlay">
+                          <button><i class="fas fa-search-plus"></i> View Full Size</button>
+                      </div>
+                  </div>
+                  <p class="text-center text-muted mt-2">Identification document provided by the customer</p>
+              </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="action-buttons slide-up" style="animation-delay: 0.4s;">
+              <button (click)="validate(data._id)" class="action-button primary">
+                  <i class="fas fa-check-circle fa-lg"></i> Validate
+              </button>
+              <button class="action-button success">
+                  <i class="fas fa-download"></i> Download PDF
+              </button>
+              <button  routerLink="/admin" class="action-button secondary">
+                  <i  class="fas fa-arrow-left"></i> Back to Payments
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
+</div>

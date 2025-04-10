@@ -88,7 +88,7 @@ export class SignupComponent {
 
       this.userService.signup(formData).subscribe({
         next: (res: any) => {
-          console.log('User account created successfully', res);
+        
           localStorage.setItem('userId', res.user._id);
           this.router.navigate(['/subscription-plan']);
         },

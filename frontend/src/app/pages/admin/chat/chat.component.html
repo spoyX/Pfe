@@ -1,0 +1,152 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+      <div class="col-12">
+          <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+              <h4 class="mb-sm-0 font-size-18">Chat</h4>
+              <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                      <li class="breadcrumb-item"><a href="javascript: void(0);">Skote</a></li>
+                      <li class="breadcrumb-item active">Chat</li>
+                  </ol>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- end page title -->
+
+  <div class="d-lg-flex">
+      <!-- Left Sidebar -->
+      <div class="chat-leftsidebar me-lg-4">
+          <div class="">
+              <div class="py-4 border-bottom">
+                  <div class="d-flex">
+                      <div class="flex-shrink-0 align-self-center me-3">
+                        <img [src]="'http://127.0.0.1:3000/files/' + data.user.profileImage" class="avatar-xs rounded-circle" alt="">
+                      </div>
+                      <div class="flex-grow-1">
+                          <h5 class="font-size-15 mb-1">{{data.user.username}}</h5>
+                          <p class="text-muted mb-0">
+                            <i class="mdi mdi-circle text-success align-middle me-1"></i> Active
+                          </p>
+                      </div>
+                      <div>
+                          <div class="dropdown chat-noti-dropdown active">
+                              <button class="btn" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="bx bx-bell bx-tada"></i>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="p-3">
+                <img class="imgchat img-fluid rounded" src="assets/chat.png" alt="Chat Image">
+              </div>
+          </div>
+      </div>
+
+      <!-- User Chat Section -->
+      <div class="w-100 user-chat">
+          <div class="card">
+              <!-- Chat Header -->
+              <div class="p-4 border-bottom">
+                  <div class="row">
+                      <div class="col-md-4 col-9">
+                          <h5 class="font-size-15 mb-1">General</h5>
+                          <p class="text-muted mb-0">
+                            <i class="mdi mdi-circle text-success align-middle me-1"></i> Active now
+                          </p>
+                      </div>
+                      <div class="col-md-8 col-3">
+                          <ul class="list-inline user-chat-nav text-end mb-0">
+                              <li class="list-inline-item d-none d-sm-inline-block">
+                                  <div class="dropdown">
+                                      <button class="btn nav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="bx bx-search-alt-2"></i>
+                                      </button>
+                                      <div class="dropdown-menu dropdown-menu-end dropdown-menu-md">
+                                          <form class="p-3">
+                                              <div class="form-group m-0">
+                                                  <div class="input-group">
+                                                      <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                                      <button class="btn btn-primary" type="submit">
+                                                        <i class="mdi mdi-magnify"></i>
+                                                      </button>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </li>
+                              <li class="list-inline-item d-none d-sm-inline-block">
+                                  <div class="dropdown">
+                                      <button class="btn nav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="bx bx-cog"></i>
+                                      </button>
+                                      <div class="dropdown-menu dropdown-menu-end">
+                                          <a class="dropdown-item" href="#">View Profile</a>
+                                          <a class="dropdown-item" href="#">Clear chat</a>
+                                          <a class="dropdown-item" href="#">Muted</a>
+                                          <a class="dropdown-item" href="#">Delete</a>
+                                      </div>
+                                  </div>
+                              </li>
+                              <li class="list-inline-item">
+                                  <div class="dropdown">
+                                      <button class="btn nav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="bx bx-dots-horizontal-rounded"></i>
+                                      </button>
+                                      <div class="dropdown-menu dropdown-menu-end">
+                                          <a class="dropdown-item" href="#">Action</a>
+                                          <a class="dropdown-item" href="#">Another action</a>
+                                          <a class="dropdown-item" href="#">Something else</a>
+                                      </div>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Simple Chat Container Inserted at the Top -->
+              <div class="chat-container p-3" style="border-bottom:1px solid #dee2e6;">
+                  <div class="messages">
+                    <div *ngFor="let msg of messages" class="message">
+                      <strong>{{ msg.sender.username || msg.sender }}</strong>: {{ msg.content }}
+                      <span class="timestamp">{{ msg.createdAt | date:'shortTime' }}</span>
+                    </div>
+                  </div>
+                  <div class="send-message mt-3">
+                    <input [(ngModel)]="content" class="form-control" placeholder="Type your message...">
+                    <button (click)="sendMessage()" class="btn btn-primary mt-2">Send</button>
+                  </div>
+              </div>
+
+              <!-- Existing Chat Conversation Section -->
+            
+          </div>
+      </div>
+  </div>
+  <!-- end row -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

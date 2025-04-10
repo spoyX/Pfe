@@ -1,0 +1,535 @@
+.body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f6f9fc 0%, #eef2f5 100%);
+    color: #1e293b;
+    min-height: 100vh;
+    padding: 40px 0;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #6366f1, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.payment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    margin-bottom: 30px;
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-5px);
+}
+
+.card-header-gradient {
+    background: linear-gradient(120deg, #6366f1, #4f46e5);
+    color: white;
+    padding: 20px 25px;
+    border-bottom: none;
+    position: relative;
+}
+
+.card-header-gradient.success {
+    background: linear-gradient(120deg, #10b981, #059669);
+}
+
+.card-header-gradient.info {
+    background: linear-gradient(120deg, #3b82f6, #0ea5e9);
+}
+
+.card-header-gradient.warning {
+    background: linear-gradient(120deg, #f59e0b, #d97706);
+}
+
+.card-header-gradient h5 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.card-header-gradient h5 i {
+    margin-right: 10px;
+    font-size: 1.4rem;
+}
+
+.card-header-gradient::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(180deg, #f8fafc 0%, white 100%);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(120deg, #818cf8, #6366f1);
+    z-index: 0;
+}
+
+.profile-image-container {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 15px;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.profile-info {
+    position: relative;
+    z-index: 1;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 10px 0 5px;
+}
+
+.profile-username {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.profile-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.profile-contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.profile-contact-item i {
+    color: #6366f1;
+    font-size: 1rem;
+}
+
+.payment-amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    display: inline-block;
+}
+
+.payment-amount::before {
+    content: '$';
+    position: absolute;
+    top: 5px;
+    left: -15px;
+    font-size: 1.5rem;
+    color: #94a3b8;
+}
+
+.payment-details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.payment-detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.payment-detail-item:last-child {
+    border-bottom: none;
+}
+
+.payment-detail-label {
+    color: #94a3b8;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.payment-detail-label i {
+    margin-right: 10px;
+    color: #6366f1;
+}
+
+.payment-detail-value {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.status-badge {
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-completed {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.status-pending {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.status-failed {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.card-type-badge {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 10px;
+}
+
+.visa {
+    background: linear-gradient(135deg, #0077b6, #023e8a);
+    color: white;
+}
+
+.mastercard {
+    background: linear-gradient(135deg, #ff9500, #ff4d00);
+    color: white;
+}
+
+.amex {
+    background: linear-gradient(135deg, #0a2463, #3e92cc);
+    color: white;
+}
+
+.discover {
+    background: linear-gradient(135deg, #ff7b00, #ff9e00);
+    color: white;
+}
+
+.id-document-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.id-document {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.id-document:hover {
+    transform: scale(1.02);
+}
+
+.id-document-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.id-document-container:hover .id-document-overlay {
+    opacity: 1;
+}
+
+.id-document-overlay button {
+    background: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.id-document-overlay button:hover {
+    background: #6366f1;
+    color: white;
+}
+
+.user-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.user-detail-item {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.user-detail-item:hover {
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-detail-label {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.user-detail-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-button {
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.action-button.primary {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+}
+
+.action-button.primary:hover {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+}
+
+.action-button.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.action-button.success:hover {
+    background: linear-gradient(135deg, #059669, #10b981);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
+}
+
+.action-button.secondary {
+    background: white;
+    color: #1e293b;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.action-button.secondary:hover {
+    background: #f8fafc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.payment-method-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.transaction-timeline {
+    position: relative;
+    padding-left: 30px;
+    margin: 30px 0;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: #94a3b8;
+}
+
+.timeline-item:last-child::before {
+    height: 15px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -38px;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #6366f1;
+    z-index: 1;
+}
+
+.timeline-item.completed .timeline-dot {
+    background: #10b981;
+    border-color: #10b981;
+}
+
+.timeline-item.pending .timeline-dot {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.timeline-item.failed .timeline-dot {
+    background: #ef4444;
+    border-color: #ef4444;
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 5px;
+}
+
+.timeline-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.timeline-description {
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .user-details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .payment-amount {
+        font-size: 2rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Animation classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

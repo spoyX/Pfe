@@ -39,7 +39,7 @@
                               </div>
   
                               <div class="mt-4">
-                                  <form  [formGroup]="loginForm" (ngSubmit)="login()">
+                                  <form  [formGroup]="loginForm" (ngSubmit)="login($event)">
       
                                       <div class="mb-3">
                                           <label for="username" class="form-label">Email</label>

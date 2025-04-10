@@ -1,0 +1,142 @@
+<div class="page-content">
+  <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-sm-0 font-size-18">Blog Details</h4>
+
+                  <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                          <li class="breadcrumb-item"><a routerLink="/admin/blog">Blog</a></li>
+                          <li class="breadcrumb-item active">Blog Details</li>
+                      </ol>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      <!-- end page title -->
+
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="pt-3">
+                          <div class="row justify-content-center">
+                              <div class="col-xl-8">
+                                  <div>
+                                      <div class="text-center">
+                                          <div class="mb-4">
+                                              <a href="javascript: void(0);" class="badge bg-light font-size-12">
+                                                  <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> {{data.tags}}
+                                              </a>
+                                          </div>
+                                          <h4>{{data.title}}</h4>
+                                          <p class="text-muted mb-4"><i class="mdi mdi-calendar me-1"></i>  {{ data.createdAt | date: 'dd MMMM yyyy' }}</p>
+                                      </div>
+
+                                      <hr>
+                                      <div class="text-center">
+                                          <div class="row">
+                                              <div class="col-sm-4">
+                                                  <div>
+                                                      <p class="text-muted mb-2">Categories</p>
+                                                      <h5 class="font-size-15">{{data.tags}}</h5>
+                                                  </div>
+                                              </div>
+                                              <div class="col-sm-4">
+                                                  <div class="mt-4 mt-sm-0">
+                                                      <p class="text-muted mb-2">Date</p>
+                                                      <h5 class="font-size-15">{{ data.createdAt | date: 'dd MMMM yyyy' }}</h5>
+                                                  </div>
+                                              </div>
+                                              <div class="col-sm-4">
+                                                  <div class="mt-4 mt-sm-0">
+                                                      <p class="text-muted mb-2">Post by</p>
+                                                      <h5 class="font-size-15">Admin</h5>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <hr>
+
+                                      <div class="my-5">
+                                          <img [src]="'http://127.0.0.1:3000/files/'+ data.image" alt="" class="img-thumbnail mx-auto d-block">
+                                      </div>
+
+                                      <hr>
+
+                                      <div class="mt-4">
+                                          <div class="text-muted font-size-14">
+                                            <p [innerHTML]="data.content | stripHtml"></p>
+
+                                          </div>
+
+                                          <hr>
+
+                                          <div class="mt-5">
+                                              <h5 class="font-size-15"><i class="bx bx-message-dots text-muted align-middle me-1"></i> Comments :</h5>
+                                              
+                                              <div>
+                                                 
+                                                @for(cmnt of comment ;track cmnt._id){
+                                                  <div class="d-flex py-3 border-top">
+                                                    <div class="flex-shrink-0 me-3">
+                                                        <div class="avatar-xs">
+                                                            <img [src]="'http://127.0.0.1:3000/files/'+cmnt.user.profileImage" alt="" class="img-fluid d-block rounded-circle">
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="flex-grow-1">
+                                                        <h5 class="font-size-14 mb-1">{{cmnt.user.username}} <small class="text-muted float-end"> {{ cmnt.createdAt | timeAgo }}</small></h5>
+                                                        <p class="text-muted">{{cmnt.content}}</p>
+                                                      
+    
+                                                      
+                                                    </div>
+                                                </div>
+
+                                                }
+                                              
+                                                
+    
+                                                
+      
+                                              </div>
+                                          </div>
+
+                                          <div class="mt-4">
+                                            
+
+                                              <form [formGroup]="comments" (ngSubmit)="send()">
+                                                
+
+                                                  <div class="mb-3">
+                                                      <label for="commentmessage-input" class="form-label">Your Comment</label>
+                                                      <textarea formControlName="content" class="form-control" id="commentmessage-input" placeholder="Your Comment..." rows="3"></textarea>
+                                                  </div>
+
+                                                  <div class="text-end">
+                                                      <button  type="submit" class="btn btn-success w-sm">Submit</button>
+                                                  </div>
+                                              </form>
+                                          </div>
+                                      </div>
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- end card body -->
+              </div>
+              <!-- end card -->
+          </div>
+          <!-- end col -->
+      </div>
+      <!-- end row -->
+      
+  </div> <!-- container-fluid -->
+</div>

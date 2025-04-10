@@ -1,0 +1,48 @@
+<div class="body">
+<div class="expired-container">
+  <div class="expired-card">
+      <div class="card-header">
+          <div class="icon-container">
+              <i class="fas fa-hourglass-end expired-icon"></i>
+          </div>
+      </div>
+      
+      <div class="card-body">
+          <h1 class="expired-title">Your Membership Has Expired</h1>
+          <p class="expired-message">
+              Your premium membership has expired and your access to exclusive content and features has been limited. Renew now to continue enjoying all the benefits.
+          </p>
+          
+          <div class="membership-details">
+              <div class="detail-item">
+                  <span class="detail-label">Membership Type:</span>
+                  <span class="detail-value">{{data.planType}}</span>
+              </div>
+              <div class="detail-item">
+                  <span class="detail-label">Expiration Date:</span>
+                  <span class="detail-value expired">{{data.endDate | date: 'dd MMMM yyyy' }}</span>
+              </div>
+              <div class="detail-item">
+                  <span class="detail-label">Account:</span>
+                  <span class="detail-value">{{data.userId.email}}</span>
+              </div>
+          </div>
+          
+          <div class="action-buttons">
+              <button routerLink="/login" class="btn btn-login">
+                  <i class="fas fa-sign-in-alt"></i> Logout
+              </button>
+              <button routerLink="/subscription" class="btn btn-renew">
+                  <i class="fas fa-sync-alt"></i> Renew Membership
+              </button>
+          </div>
+      </div>
+      
+      <div class="card-footer">
+          <p class="help-text">
+              Need assistance? <a href="#" class="help-link">Contact our support team</a>
+          </p>
+      </div>
+  </div>
+</div>
+</div>
