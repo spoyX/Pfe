@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const paymentSchema = new mongoose.Schema({
   paymentId:
-   { type: Number, required: true, unique: true },
+   { type: String, required: true, unique: true },
   amount: 
   { type: Number, required: true },
   paymentDate: 
@@ -14,7 +14,9 @@ const paymentSchema = new mongoose.Schema({
   stripeTransactionId: 
   { type: String },
   status:
-  { type: String, required: true }
+  { type: String, required: true },
+  cardType:{type:String},
+  cardLastFour:{type:Number}
 
 });
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const blogController=require('../controller/blog.controller')
-const cmmntController=require('../comments/controller/blog.controller')
+const cmmntController=require('../comments/controller/cmnt.controller')
 const router = express.Router();
 const multer = require('multer')
 
@@ -29,6 +29,7 @@ router.get('/byid/:id', blogController.getBlog);
 router.get('/:id/comments', cmmntController.getComments);
 // Create a comment
 router.post('/:id/comments', cmmntController.createComment);
+router.delete('/comment/:id', cmmntController.deleteComment);
 
 module.exports = router;
 

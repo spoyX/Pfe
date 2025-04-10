@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const transporter = require('../../config/email')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY )
-
+const Membership = require('../../memberships/Models/membership');
 exports.createAdminAccount = async () => {
 
     try {
@@ -113,9 +113,26 @@ exports.signIn = async (req, res) => {
       }
 
       // Check if account is active
-      if (user.status !== 'active') {
+      if (user.role !== 'admin' && (user.status !== 'active')) {
+        const membership = await Membership.findOne({ userId: user._id });
+        if (user.status === 'expired') {
+          return res.status(403).json({ message: 'Account expired. Please contact support.',userId: user._id });
+          
+        }
           return res.status(403).json({ message: 'Account is not active' });
       }
+       //  check membership status
+    if (user.role !== 'admin') {
+      const membership = await Membership.findOne({ userId: user._id });
+    
+      if (!membership || membership.status === 'expired') {
+        return res.status(403).json({
+          message: 'Your membership has expired. Please renew your membership to continue using the platform.'
+          
+        });
+      }
+    }
+      
 
       let payload = {
           _id: user._id,
@@ -127,6 +144,7 @@ exports.signIn = async (req, res) => {
           aboutMe:user.aboutMe,
           gender:user.gender,
           country:user.country,
+          
           city:user.city,
           dateOfBirth:user.dateOfBirth,
           status: user.status,

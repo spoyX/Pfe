@@ -25,7 +25,8 @@ async function sendReminderEmail(email, expiryDate, planType) {
     const compiledTemplate = handlebars.compile(template);
     const emailHTML = compiledTemplate({
       planType: planType,
-      expiryDate: formattedExpiryDate
+      expiryDate: formattedExpiryDate,
+      email: email
     });
 
     // Email options
@@ -45,7 +46,7 @@ async function sendReminderEmail(email, expiryDate, planType) {
   }
 }
 
-cron.schedule('24 17 * * *', async () => {
+cron.schedule('52 9 * * *', async () => {
   try {
     const REMINDER_WINDOW_DAYS = 7;
     console.log('Running membership reminder job...');

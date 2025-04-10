@@ -5,7 +5,7 @@ const blogSchema = new mongoose.Schema({
   content: { type: String, required: true },
   image: { type: String }, 
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
-  tags: [{ type: String }], 
+  tags: { type: String }, 
 }, { timestamps: true });
 
 module.exports = mongoose.model('Blog', blogSchema);

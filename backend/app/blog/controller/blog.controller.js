@@ -8,7 +8,7 @@ exports.createBlog = async (req, res,fileName) => {
     const blogData = {
       title: req.body.title,
       content: req.body.content,
-      tags: req.body.tags.split(',').map(tag => tag.trim()),
+      tags: req.body.tags
     };
 
     if (req.file) {
