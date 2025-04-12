@@ -24,6 +24,13 @@ router.get('/getall', blogController.getBlogs);
 
 // Get a specific blog
 router.get('/byid/:id', blogController.getBlog);
+// update a specific blog
+router.put('/update/:id',upload.single('image'),(req,res)=>{
+  blogController.updateBlog(req, res, fileName)
+  fileName=""
+})
+// Delete a blog
+router.delete('/delete/:id', blogController.deleteBlog);
 
 // Get all comments for a specific blog
 router.get('/:id/comments', cmmntController.getComments);

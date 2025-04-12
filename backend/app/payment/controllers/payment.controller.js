@@ -87,6 +87,46 @@ exports.expiredMembership = async (req, res) => {
     return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+exports.renewMembership = async (req, res) => {
+  try {
+  
+    const { userId, amount } = req.body;
+
+    
+    if (typeof amount !== 'number' || amount <= 0) {
+      return res.status(400).json({ message: 'Invalid amount' });
+    }
+
+    // Create a Stripe Checkout Session 
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Membership Payment',
+            },
+            unit_amount: amount, // e.g., amount in cents (e.g., 50*100 for $50)
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: 'http://localhost:4200/member/subscription-succes?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'http://localhost:4200/payment-fail',
+      metadata: {
+        userId: userId 
+      }
+    });
+
+    
+    return res.status(200).json({ url: session.url });
+  } catch (error) {
+    console.error("Error creating Stripe checkout session:", error);
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 function generateRandomNumber() {
   return Math.floor(Math.random() * 10000); 
 }
@@ -183,6 +223,29 @@ exports.getPaymentById = async (req, res) => {
     }
 
     res.json(payment);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getPaymentsByUserId = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    // Find all payments for the given user, sorted by paymentDate in descending order.
+    const payments = await Payment.find({ userId: userId })
+      .populate('userId', 'username email firstName lastName')
+      .sort({ paymentDate: -1 });
+
+    if (!payments || payments.length === 0) {
+      return res.status(404).json({ message: 'No payments found for this user' });
+    }
+
+    res.json(payments);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -413,3 +476,118 @@ async function updateMembership(userId, amount) {
     throw error;
   }
 }
+exports.confirmRenew = async (req, res) => {
+  try {
+    const { sessionId } = req.body;
+
+    // Retrieve the Stripe session (expanding payment_intent for card details)
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['payment_intent']
+    });
+
+    // Check if the payment was successful
+    if (session.payment_status === 'paid') {
+      const userId = session.metadata.userId;
+      
+      // Get card details from the payment intent
+      let cardType = '';
+      let cardLastFour = '';
+      if (session.payment_intent && session.payment_intent.payment_method) {
+        const paymentMethod = await stripe.paymentMethods.retrieve(
+          session.payment_intent.payment_method
+        );
+        if (paymentMethod.card && paymentMethod.card.brand) {
+          cardType = paymentMethod.card.brand;
+          cardLastFour = paymentMethod.card.last4;
+        }
+      }
+
+      // Create a Payment record for the renewal
+      const paymentData = {
+        paymentId: generatePaymentIdNew(),
+        amount: session.amount_total / 100,
+        paymentDate: new Date(),
+        userId: userId,
+        method: 'stripe',
+        cardType: cardType,
+        cardLastFour: cardLastFour,
+        stripeTransactionId: session.payment_intent.id || session.payment_intent,
+        status: 'successful'
+      };
+
+      const paymentRecord = new Payment(paymentData);
+      await paymentRecord.save();
+
+      // Determine the base duration and planType based on payment amount
+      let baseDuration; // in days
+      let planType;
+      switch (paymentRecord.amount) {
+        case 9:
+          baseDuration = 30;
+          planType = 'monthly';
+          break;
+        case 24:
+          baseDuration = 90;
+          planType = '3months';
+          break;
+        case 42:
+          baseDuration = 180;
+          planType = '6months';
+          break;
+        default:
+          baseDuration = 30;
+          planType = 'monthly';
+      }
+
+      const now = new Date();
+      let newEndDate;
+      // Check if user has an active membership with remaining days
+      const membership = await Membership.findOne({ userId: userId });
+      if (membership && membership.status === 'active' && membership.endDate > now) {
+        // Calculate remaining days
+        const remainingTime = membership.endDate.getTime() - now.getTime();
+        const remainingDays = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
+        // New duration is base duration + remaining days
+        newEndDate = new Date(now.getTime() + (baseDuration + remainingDays) * 24 * 60 * 60 * 1000);
+      } else {
+        // Otherwise, simply set new end date as now + base duration
+        newEndDate = new Date(now.getTime() + baseDuration * 24 * 60 * 60 * 1000);
+      }
+
+      // Update the membership record (or create one if it doesn't exist)
+      if (membership) {
+        membership.startDate = now;
+        membership.endDate = newEndDate;
+        membership.planType = planType;
+        membership.status = 'active';
+        await membership.save();
+      } else {
+        const newMembership = new Membership({
+          membershipId: Date.now(), // Or use another generator
+          userId: userId,
+          planType: planType,
+          startDate: now,
+          endDate: newEndDate,
+          status: 'active'
+        });
+        await newMembership.save();
+      }
+
+      // Update user status to active
+      const user = await User.findById(userId);
+      if (user) {
+        user.status = 'active';
+        await user.save();
+      }
+
+      return res.status(200).json({
+        message: 'Renewal payment successful. Membership has been updated.'
+      });
+    } else {
+      return res.status(400).json({ message: 'Payment not successful' });
+    }
+  } catch (error) {
+    console.error("Error confirming renewal payment:", error);
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+};

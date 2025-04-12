@@ -43,3 +43,44 @@ exports.getBlog = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.updateBlog = async (req, res) => {
+  try {
+    // Find the existing blog by ID
+    const blog = await Blog.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    // Update the blog data
+    blog.title = req.body.title;
+    blog.content = req.body.content;
+    blog.tags = req.body.tags;
+
+    // If a new file is provided, update the image
+    if (req.file && req.file.filename) {
+      blog.image = req.file.filename; // Assuming your file upload middleware sets this
+    }
+
+    // Save the updated blog
+    const updatedBlog = await blog.save();
+
+    res.json(updatedBlog);
+  } catch (error) {
+    console.error('Error updating blog:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+// Delete a blog
+exports.deleteBlog = async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    await blog.deleteOne();
+    res.status(204).json({ message: 'Blog deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

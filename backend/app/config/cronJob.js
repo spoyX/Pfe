@@ -46,7 +46,7 @@ async function sendReminderEmail(email, expiryDate, planType) {
   }
 }
 
-cron.schedule('52 9 * * *', async () => {
+cron.schedule('36 22 * * *', async () => {
   try {
     const REMINDER_WINDOW_DAYS = 7;
     console.log('Running membership reminder job...');
