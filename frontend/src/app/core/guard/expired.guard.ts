@@ -9,11 +9,11 @@ export const expiredGuard: CanActivateFn = (route, state) => {
   
   
   if ( _auth.getDataFromToken().status === 'expired') {
-    router.navigate(['/']);
-    return false;
-  }else{
     
     return true;
+  }else{
+    router.navigate(['/']);
+    return false;
   }
 
 

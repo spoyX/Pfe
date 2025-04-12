@@ -33,4 +33,12 @@ export class BlogService {
     return this.http.delete(this.url +'comment/'+id)
   }
 
+  updateBlog(id:any,data:any){
+    return this.http.put(this.url +'update/' + id ,data)
+  }
+
+  delete(id:any){
+    return this.http.delete(this.url +'delete/' + id)
+  }
+
 }

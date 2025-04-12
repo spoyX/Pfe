@@ -20,6 +20,11 @@ export class PaymentService {
     return this.http.post(this.url+'checkout-expired',{userId,amount})
 
   }
+  checkoutRenew(userId: string, amount: number){
+    return this.http.post(this.url+'checkout-renew',{userId,amount})
+
+  }
+
 
 
   confirmPayment(sessionId: string){
@@ -28,12 +33,19 @@ export class PaymentService {
   confirm(sessionId: string){
     return this.http.post(this.url + 'confirm-expired', { sessionId: sessionId });
   }
+  confirmRenew(sessionId: string){
+    return this.http.post(this.url + 'confirm-renew', { sessionId: sessionId });
+  }
 
   getPayment(){
     return this.http.get(this.url+ 'allpayments')
    }
    byId(id:any){
     return this.http.get(this.url +'byId/' +id)
+
+   }
+   byUserId(id:any){
+    return this.http.get(this.url +'byUser/' +id)
 
    }
 

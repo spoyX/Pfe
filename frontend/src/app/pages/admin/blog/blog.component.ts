@@ -26,6 +26,9 @@ export class BlogComponent {
       }
     })
   }
+  trackById(index: number, blog: any): string {
+    return blog._id;
+  }
 
 }
 

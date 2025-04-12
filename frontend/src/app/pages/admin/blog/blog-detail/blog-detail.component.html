@@ -61,6 +61,14 @@
                                           </div>
                                       </div>
                                       <hr>
+                                      <div class="text-end mb-3">
+                                        <button  [routerLink]="['/admin/blog-update', data._id ]"class="btn btn-warning me-2" >
+                                          <i class="bx bx-edit"></i> Edit
+                                        </button>
+                                        <button (click)="ondelete(data._id)" class="btn btn-danger">
+                                          <i  class="bx bx-trash"></i> Delete
+                                        </button>
+                                      </div>
 
                                       <div class="my-5">
                                           <img [src]="'http://127.0.0.1:3000/files/'+ data.image" alt="" class="img-thumbnail mx-auto d-block">

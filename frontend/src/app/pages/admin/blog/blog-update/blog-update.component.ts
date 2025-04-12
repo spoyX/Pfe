@@ -1,17 +1,17 @@
-// blog-create.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HtmlEditorService, ImageService, LinkService, QuickToolbarService, RichTextEditorModule, ToolbarService, ToolbarSettingsModel } from '@syncfusion/ej2-angular-richtexteditor';
 import { BlogService } from '../../../../core/services/blog/blog.service';
 
 @Component({
-  selector: 'app-blog-create',
+  selector: 'app-blog-update',
   standalone: true,
   imports: [CommonModule, RichTextEditorModule, ReactiveFormsModule],
-  templateUrl: './blog-create.component.html',
-  styleUrls: ['./blog-create.component.css'],
+  templateUrl: './blog-update.component.html',
+  styleUrls: ['./blog-update.component.css'],
   providers: [
     ToolbarService,
     LinkService,
@@ -20,16 +20,18 @@ import { BlogService } from '../../../../core/services/blog/blog.service';
     QuickToolbarService
   ]
 })
-export class BlogCreateComponent {
+export class BlogUpdateComponent {
   blogForm: FormGroup;
   toolbarSettings!: ToolbarSettingsModel;
   imagePreview: string | null = null;
   isSubmitting = false;
+  id: any;
 
   constructor(
     private fb: FormBuilder,
     private blogService: BlogService,
-    private router: Router
+    private router: Router,
+    private _act: ActivatedRoute
   ) {
     // Build form controls
     const controls = {
@@ -56,34 +58,55 @@ export class BlogCreateComponent {
         'FullScreen'
       ]
     };
+
+    // Get blog ID from route parameters
+    this.id = this._act.snapshot.paramMap.get('id');
+
+    // Fetch the blog details by ID
+    this.blogService.getById(this.id).subscribe({
+      next: (res: any) => {
+        // Use patchValue to update the form with response data
+        this.blogForm.patchValue({
+          title: res.title,
+          content: res.content,
+          tags: res.tags
+          // Note: For the image, we only display the preview; we don't patch the file input.
+        });
+
+        // If the response has an image, build the full URL for the preview
+        if (res.image) {
+          this.imagePreview = 'http://127.0.0.1:3000/files/' + res.image;
+        }
+      },
+      error: (err: any) => {
+        console.error('Error loading blog:', err);
+      }
+    });
   }
 
   onSubmit() {
     this.isSubmitting = true;
+    // Log the form values for debugging
+    console.log('Submitting blog update with values:', this.blogForm.value);
+
     const formData = new FormData();
     formData.append('title', this.blogForm.value.title);
     formData.append('content', this.blogForm.value.content);
     formData.append('tags', this.blogForm.value.tags);
 
-
-  
-
-    // Add image if selected
+    // Add image if one is selected
     if (this.blogForm.value.image) {
       formData.append('image', this.blogForm.value.image);
     }
 
-    // Create the blog post
-    this.blogService.create(formData).subscribe({
-      next: (res) => {
-        // Show success notification
-        console.log('Blog created successfully', res);
-        // Navigate to the blog list or the created blog
-        this.router.navigate(['/blogs']);
+    // Call the update blog API
+    this.blogService.updateBlog(this.id, formData).subscribe({
+      next: (res: any) => {
+        console.log('Blog updated successfully', res);
+        this.router.navigate(['/admin/blog']);
       },
-      error: (err) => {
-        console.error('Error creating blog', err);
-        // Show error notification
+      error: (err: any) => {
+        console.error('Error updating blog', err);
       },
       complete: () => {
         this.isSubmitting = false;
@@ -94,10 +117,10 @@ export class BlogCreateComponent {
   onImageUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
-      // Update form control
+      // Update form control with the file
       this.blogForm.patchValue({ image: file });
 
-      // Generate preview
+      // Generate a preview using FileReader
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;
@@ -109,7 +132,7 @@ export class BlogCreateComponent {
   removeImage() {
     this.imagePreview = null;
     this.blogForm.patchValue({ image: null });
-    // Reset file input
+    // Reset the file input element
     const fileInput = document.getElementById('image') as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';

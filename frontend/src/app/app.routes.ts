@@ -16,6 +16,8 @@ export const routes: Routes = [
     {path:'blog-list',loadComponent:()=>import('./pages/admin/blog/blog-list/blog-list.component').then(c=>c.BlogListComponent)},
     {path:'blog-detail/:id',loadComponent:()=>import('./pages/admin/blog/blog-detail/blog-detail.component').then(c=>c.BlogDetailComponent)},
     {path:'blog-create',loadComponent:()=>import('./pages/admin/blog/blog-create/blog-create.component').then(c=>c.BlogCreateComponent)},
+    {path:'blog-update/:id',loadComponent:()=>import('./pages/admin/blog/blog-update/blog-update.component').then(c=>c.BlogUpdateComponent)},
+
     
  
   ]},
@@ -30,20 +32,25 @@ export const routes: Routes = [
    {path:'code-verfication',loadComponent:()=>import('./pages/login/code-verfication/code-verfication.component').then(c=>c.CodeVerficationComponent)},
   
 
-   {path:'expired',loadComponent:()=>import('./shared/layout/expired-membership/expired-membership.component').then(c=>c.ExpiredMembershipComponent)},
-   {path:'subscription',loadComponent:()=>import('./shared/layout/expired-membership/subscription/subscription.component').then(c=>c.SubscriptionComponent)},
+   {path:'expired',canActivate:[expiredGuard],loadComponent:()=>import('./shared/layout/expired-membership/expired-membership.component').then(c=>c.ExpiredMembershipComponent)},
+   {path:'subscription',canActivate:[expiredGuard],loadComponent:()=>import('./shared/layout/expired-membership/subscription/subscription.component').then(c=>c.SubscriptionComponent)},
 
-   {path:'success',loadComponent:()=>import('./shared/layout/expired-membership/succes/succes.component').then(c=>c.SuccesComponent)},
+   {path:'success',canActivate:[expiredGuard],loadComponent:()=>import('./shared/layout/expired-membership/succes/succes.component').then(c=>c.SuccesComponent)},
 
     {path:'subscription-plan',loadComponent:()=>import('./pages/payment/subscriptionplan/subscriptionplan.component').then(c=>c.SubscriptionplanComponent)},
     {path:'payment-success',loadComponent:()=>import('./pages/payment/paymentsucces/paymentsucces.component').then(c=>c.PaymentsuccesComponent)},
     {path:'payment-fail',loadComponent:()=>import('./pages/payment/payment-fail/payment-fail.component').then(c=>c.PaymentFailComponent)},
     
 
-   {path:'member',canActivate:[dashGuard,expiredGuard],loadComponent:()=>import('./pages/member/dashboard/dashboard.component').then(c=>c.DashboardComponent) ,children: [
+   {path:'member',canActivate:[dashGuard],loadComponent:()=>import('./pages/member/dashboard/dashboard.component').then(c=>c.DashboardComponent) ,children: [
     {path:'chat',loadComponent:()=>import('./pages/member/chat/chat.component').then(c=>c.ChatComponent)},
     {path:'transaction',loadComponent:()=>import('./pages/member/transaction/transaction.component').then(c=>c.TransactionComponent)},
     {path:'faq',loadComponent:()=>import('./shared/layout/faq/faq.component').then(c=>c.FaqComponent)},
+    {path:'subscription-renew',loadComponent:()=>import('./pages/member/subscription-renew/subscription-renew.component').then(c=>c.SubscriptionRenewComponent)},
+    {path:'subscription-succes',loadComponent:()=>import('./pages/member/subscription-succes/subscription-succes.component').then(c=>c.SubscriptionSuccesComponent)},
+
+
+
     
 
     {path:'blog',loadComponent:()=>import('./pages/member/blog/blog.component').then(c=>c.BlogComponent)},

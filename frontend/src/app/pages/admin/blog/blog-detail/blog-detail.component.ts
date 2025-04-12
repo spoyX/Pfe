@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {BlogService} from '../../../../core/services/blog/blog.service'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StripHtmlPipe} from '../../../../core/pipe/strip-html.pipe'
 import { TimeAgoPipe } from '../../../../core/pipe/time-ago.pipe';
@@ -22,7 +22,7 @@ export class BlogDetailComponent {
   userId:any
   comment:any
   comments:FormGroup
-  constructor(private _blog:BlogService,private _act:ActivatedRoute,private fb:FormBuilder,private _auth:AuthentificationService){
+  constructor(private _blog:BlogService,private _act:ActivatedRoute,private fb:FormBuilder,private _auth:AuthentificationService,private _router:Router) {
     let controls={
       content:new FormControl('',[])
     }
@@ -83,4 +83,19 @@ export class BlogDetailComponent {
       }
     });
   }
+
+  ondelete(id:any){
+  this._blog.delete(id).subscribe({
+    next:(res:any)=>{
+      this._router.navigate(['/admin/blog']);
+    },
+    error:(err:any)=>{
+      console.log(err);
+      
+    }
+  })
+  }
 }
+
+
+
