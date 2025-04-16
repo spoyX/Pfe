@@ -48,6 +48,8 @@ export const routes: Routes = [
     {path:'faq',loadComponent:()=>import('./shared/layout/faq/faq.component').then(c=>c.FaqComponent)},
     {path:'subscription-renew',loadComponent:()=>import('./pages/member/subscription-renew/subscription-renew.component').then(c=>c.SubscriptionRenewComponent)},
     {path:'subscription-succes',loadComponent:()=>import('./pages/member/subscription-succes/subscription-succes.component').then(c=>c.SubscriptionSuccesComponent)},
+    {path:'my-membership',loadComponent:()=>import('./pages/member/dashboard/my-membership/my-membership.component').then(c=>c.MyMembershipComponent)},
+
 
 
 

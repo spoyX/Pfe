@@ -119,15 +119,22 @@
           
           <!-- Action Buttons -->
           <div class="action-buttons slide-up" style="animation-delay: 0.4s;">
+            @if (data.userId.status !== 'active') {
               <button (click)="validate(data._id)" class="action-button primary">
                   <i class="fas fa-check-circle fa-lg"></i> Validate
               </button>
-              <button class="action-button success">
-                  <i class="fas fa-download"></i> Download PDF
+            } @else {
+              <button class="action-button primary" disabled>
+                  <i class="fas fa-check-circle fa-lg"></i> Accepted
               </button>
-              <button  routerLink="/admin" class="action-button secondary">
-                  <i  class="fas fa-arrow-left"></i> Back to Payments
-              </button>
+            }
+          
+            <button class="action-button success">
+                <i class="fas fa-download"></i> Download PDF
+            </button>
+            <button routerLink="/admin" class="action-button secondary">
+                <i class="fas fa-arrow-left"></i> Back to Payments
+            </button>
           </div>
       </div>
   </div>

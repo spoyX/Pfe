@@ -17,6 +17,8 @@ export class MainComponent {
   id:any
   data:any
   payments:any
+  totalAmount: number = 0;
+  paymentCount: number = 0;
   
  constructor(private _auth :AuthentificationService , private _user:UserService,private _payment:PaymentService){
    
@@ -35,7 +37,7 @@ export class MainComponent {
     next:(res:any)=>{
       this.payments=res
       console.log(this.payments);
-      
+      this.calculatePaymentStats();
 
     },
     error:(err)=>{
@@ -44,6 +46,13 @@ export class MainComponent {
     }
    })
  }
+
+ calculatePaymentStats() {
+  if (this.payments) {
+    this.paymentCount = this.payments.length;
+    this.totalAmount = this.payments.reduce((sum: number, payment: any) => sum + payment.amount, 0);
+  }
+}
  
 
 }
