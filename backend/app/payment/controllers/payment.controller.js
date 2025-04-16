@@ -169,6 +169,10 @@ exports.confirmPayment = async (req, res) => {
         if (paymentMethod.card && paymentMethod.card.brand) {
           cardType = paymentMethod.card.brand; 
         }
+        if (paymentMethod.card && paymentMethod.card.brand) {
+          cardType = paymentMethod.card.brand; 
+          cardLastFour = paymentMethod.card.last4; // Extract the last four digits
+        }
       }
 
       // Create a Payment record with the details from the session
@@ -179,6 +183,7 @@ exports.confirmPayment = async (req, res) => {
         userId: userId,
         method: 'stripe',
         cardType: cardType, // Store the card type
+        cardLastFour:cardLastFour,
         stripeTransactionId: session.payment_intent.id || session.payment_intent,
         status: 'successful'
       };
@@ -217,7 +222,7 @@ exports.getPaymentById = async (req, res) => {
     }
 
     // Find the payment
-    const payment = await Payment.findById(paymentId).populate('userId', 'username email firstName lastName idType city profileImage country job gender dateOfBirth phone createdAt');
+    const payment = await Payment.findById(paymentId).populate('userId', 'username email firstName lastName idType city profileImage country job gender dateOfBirth phone createdAt _id status');
     if (!payment) {
       return res.status(404).json({ message: 'Payment not found' });
     }
@@ -562,6 +567,7 @@ exports.confirmRenew = async (req, res) => {
         membership.status = 'active';
         await membership.save();
       } else {
+        
         const newMembership = new Membership({
           membershipId: Date.now(), // Or use another generator
           userId: userId,

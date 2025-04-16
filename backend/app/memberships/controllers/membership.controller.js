@@ -8,7 +8,7 @@ exports.getMembershipByUserId = async (req, res) => {
       return res.status(400).json({ message: 'User ID is required' });
     }
 
-    const membership = await Membership.findOne({ userId: userId }).populate('userId', 'email');;
+    const membership = await Membership.findOne({ userId: userId }).populate('userId', 'email firstName lastName job');;
     if (!membership) {
       return res.status(404).json({ message: 'Membership not found' });
     }
