@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCCT Membership Renewal Confirmation</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #1d1e3a;
+            margin: 0;
+            font-size: 24px;
+        }
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .receipt-table th, .receipt-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .receipt-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        .total-row {
+            font-weight: 600;
+            border-top: 2px solid #1d1e3a;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1d1e3a;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #2a2b4a;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>CCCT Membership Renewal Confirmation</h1>
+            <p>Thank you for renewing your membership with CCCT!</p>
+        </div>
+        
+        <h2>Payment Receipt</h2>
+        <table class="receipt-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Membership Renewal Fee</td>
+                    <td>$${{ amount }}</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total</td>
+                    <td>$${{ amount }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Membership Details</h3>
+        <p>Your membership plan: {{ planType }}</p>
+        <p>Start Date: {{ startDate }}</p>
+        <p>End Date: {{ endDate }}</p>
+        
+        <p>If you have any questions or need further assistance, please contact our support team.</p>
+        
+        <a href="https://ccct-portal.com" class="button">Visit CCCT Portal</a>
+        
+        <div class="footer">
+            <p>CCCT Inc. | 2896 Howell Rd, Russellville, AR, 72823</p>
+            <p>© 2023 CCCT. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

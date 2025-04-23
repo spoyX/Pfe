@@ -477,5 +477,3 @@ exports.sendContactMessage = async (req, res) => {
     });
   }
 };
-
-

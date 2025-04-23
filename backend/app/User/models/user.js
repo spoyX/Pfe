@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
    
 
   },
+  oneSignalPlayerIds:[String],
   verificationCode: String,
   codeExpires: Date,
   facebookLink:{String},

@@ -567,7 +567,6 @@ exports.confirmRenew = async (req, res) => {
         membership.status = 'active';
         await membership.save();
       } else {
-        
         const newMembership = new Membership({
           membershipId: Date.now(), // Or use another generator
           userId: userId,
@@ -586,9 +585,34 @@ exports.confirmRenew = async (req, res) => {
         await user.save();
       }
 
-      return res.status(200).json({
-        message: 'Renewal payment successful. Membership has been updated.'
+      // Read the email template
+      const template = await fs.promises.readFile('app/view/emailRenew.html', 'utf-8');
+      const compiledTemplate = handlebars.compile(template);
+      const emailHTML = compiledTemplate({
+        amount: paymentRecord.amount,
+        planType: planType,
+        startDate: now.toLocaleDateString(),
+        endDate: newEndDate.toLocaleDateString()
       });
+
+      // Send welcome email with receipt
+      const mailOptions = {
+        from: 'adembenchiboub74@gmail.com',
+        to: user.email,
+        subject: 'CCCT Membership Renewal Confirmation',
+        html: emailHTML
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ message: 'Error sending email' });
+        } else {
+          console.log('Email sent: ' + info.response);
+          res.json({ message: 'Renewal payment successful. Membership has been updated.' });
+        }
+      });
+
     } else {
       return res.status(400).json({ message: 'Payment not successful' });
     }

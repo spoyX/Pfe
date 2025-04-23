@@ -6,8 +6,10 @@ require('./app/config/cronJob');
 const paymentRouter=require('./app/payment/Routes/payment.Routes')
 const userRouter=require('./app/User/Routes/user.Routes')
 const blogRoute=require('./app/blog/router/blog.router')
+const notificationRoutes =require('./app/notifcation/Routes/notif.routes')
 const membershipRoute=require('./app/memberships/Routes/membership.Routes')
 const chatRoute=require('./app/chat/router/chat.routes')
+const oneSignal=require('./app/config/lib/signal.routes')
 const { createAdminAccount } = require('./app/User/controllers/user.Controller');
 const { startScheduler } = require('./app/config/scheduler'); 
 const app = express();
@@ -16,6 +18,8 @@ app.use(cors());
 
 startScheduler();
 
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/onesignal',oneSignal)
 app.use('/api/membership',membershipRoute)
 app.use('/api/payments',paymentRouter)
 app.use('/api/user',userRouter)
