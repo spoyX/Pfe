@@ -3,19 +3,18 @@ import{AuthentificationService} from '../auth/authentification.service'
 import { inject } from '@angular/core';
 
 export const expiredGuard: CanActivateFn = (route, state) => {
-  const _auth=inject(AuthentificationService)
+  
   const router=inject(Router)
 
   
   
-  if ( _auth.getDataFromToken().status === 'expired') {
-    
+  
+  const membershipStatus = localStorage.getItem('membershipStatus');
+
+  if (membershipStatus === 'expired') {
     return true;
-  }else{
-    router.navigate(['/']);
+  } else {
+    router.navigate(['/member']);
     return false;
   }
-
-
-
 };

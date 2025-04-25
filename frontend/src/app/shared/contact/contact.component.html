@@ -1,0 +1,204 @@
+<!-- Contact Modal -->
+<div class="body2">
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-decorations">
+                  <div class="maple-leaf"></div>
+                  <div class="crescent"></div>
+              </div>
+              <div class="modal-header">
+                  <h5 class="modal-title" id="contactModalLabel">Contact us</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                      <i class="bi bi-x"></i>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form [formGroup]="contactForm" (ngSubmit)="send()" id="contactForm">
+                      <div class="form-section">
+                          <div class="form-section-title">
+                              <i class="bi bi-person-circle"></i> Personal Information
+                          </div>
+                          <div class="row g-3">
+                              <div class="col-md-6">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-person"></i>
+                                      </span>
+                                      <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="First Name" required>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-person-fill"></i>
+                                      </span>
+                                      <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="Last Name" required>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+    
+                      <div class="form-section">
+                          <div class="form-section-title">
+                              <i class="bi bi-building"></i> Professional Information
+                          </div>
+                          <div class="row g-3">
+                              <div class="col-md-6">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-briefcase"></i>
+                                      </span>
+                                      <input type="text" class="form-control" formControlName="company" id="company" placeholder="Company">
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-person-badge"></i>
+                                      </span>
+                                      <input type="text" formControlName="jobTitle" class="form-control" id="jobTitle" placeholder="Job Title">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+    
+                      <div class="form-section">
+                          <div class="form-section-title">
+                              <i class="bi bi-envelope-check"></i> Contact Information
+                          </div>
+                          <div class="row g-3">
+                              <div class="col-md-6">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-envelope"></i>
+                                      </span>
+                                      <input type="email"  formControlName="email" class="form-control" id="email" placeholder="Email" required>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-telephone"></i>
+                                      </span>
+                                      <input type="tel" formControlName="phone" class="form-control" id="phone" placeholder="Phone">
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-geo-alt"></i>
+                                      </span>
+                                      <select formControlName="country" class="form-control" id="country" required>
+                                          <option value="" selected disabled>Select your country</option>
+                                          <option value="CA">Canada</option>
+                                          <option value="TN">Tunisia</option>
+                                          <option value="FR">France</option>
+                                          <option value="US">United States</option>
+                                          <option value="other">Other</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+    
+                      <div class="form-section">
+                          <div class="form-section-title">
+                              <i class="bi bi-chat-dots"></i> Your Message
+                          </div>
+                          <div class="row g-3">
+                              <div class="col-md-12">
+                                  <div class="input-group">
+                                      <span class="input-group-text">
+                                          <i class="bi bi-list-check"></i>
+                                      </span>
+                                      <select  formControlName="subject" class="form-control" id="subject" required>
+                                          <option value="" selected disabled>Subject of your message</option>
+                                          <option value="adhesion">Membership</option>
+                                          <option value="services">Services</option>
+                                          <option value="evenements">Events</option>
+                                          <option value="partenariat">Partnership</option>
+                                          <option value="autre">Other</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <div class="form-floating">
+                                      <textarea  formControlName="message" class="form-control form-control-textarea" id="message" placeholder="Your message" style="height: 150px" required></textarea>
+                                      <label for="message">Your message</label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+    
+                      <div class="form-divider">
+                          <span class="form-divider-text">Preferences</span>
+                      </div>
+    
+                      <div class="form-check mb-3">
+                          <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                          <label class="form-check-label" for="newsletter">
+                              I would like to receive the CCCT newsletter
+                          </label>
+                      </div>
+    
+                      <div class="form-check mb-3">
+                          <input class="form-check-input" type="checkbox" id="privacy" required>
+                          <label class="form-check-label" for="privacy">
+                              I accept the CCCT <a href="#" class="text-decoration-none">privacy policy</a>
+                          </label>
+                      </div>
+                  </form>
+    
+                  <!-- Success message (hidden by default) -->
+                  <div class="success-message" id="successMessage">
+                      <i class="bi bi-check-circle-fill success-icon"></i>
+                      <h3 class="success-title">Message sent successfully!</h3>
+                      <p class="success-text">Thank you for contacting us. Our team will respond to you as soon as possible.</p>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-submit" form="contactForm">
+                      <span class="loading-spinner" id="loadingSpinner"></span>
+                      Send
+                  </button>
+              </div>
+          </div>
+      </div>
+    </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const contactForm = document.getElementById('contactForm');
+          const successMessage = document.getElementById('successMessage');
+          const loadingSpinner = document.getElementById('loadingSpinner');
+          
+          contactForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              
+              // Show loading spinner
+              loadingSpinner.style.display = 'inline-block';
+              
+              // Simulate form submission (replace with actual form submission)
+              setTimeout(function() {
+                  // Hide loading spinner
+                  loadingSpinner.style.display = 'none';
+                  
+                  // Hide form and show success message
+                  contactForm.style.display = 'none';
+                  successMessage.style.display = 'block';
+              }, 1500);
+          });
+          
+          // Reset modal when it's hidden
+          const contactModal = document.getElementById('contactModal');
+          contactModal.addEventListener('hidden.bs.modal', function() {
+              contactForm.reset();
+              contactForm.style.display = 'block';
+              successMessage.style.display = 'none';
+              loadingSpinner.style.display = 'none';
+          });
+      });
+    </script>

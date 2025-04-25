@@ -1,0 +1,38 @@
+/* calendar.component.css */
+.dot {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .green { background-color: #4CAF50; }
+  .blue { background-color: #2196F3; }
+  .orange { background-color: #FFA726; }
+  .red { background-color: #F44336; }
+  
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .e-schedule .e-month-view .e-date-header-wrap {
+    background-color: #f8f9fa !important;
+  }
+  p.mb-3 {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem; /* Assuming 'mb-3' means a margin-bottom of 1.5rem */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  p.mb-3:hover {
+    background-color: #f0f0f0;
+  }

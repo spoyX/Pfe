@@ -78,6 +78,12 @@
   display: flex;
   max-width: 70%;
 }
+.emoji-picker-container {
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+  z-index: 1000;
+}
 
 .my-message {
   align-self: flex-end;

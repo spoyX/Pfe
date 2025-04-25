@@ -3,12 +3,18 @@
       <div class="collapse navbar-collapse" id="topNavbar">
           <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                  <a class="nav-link active" href="#"><i class="fa fa-tachometer-alt"></i> Overview</a>
+                  <a class="nav-link"  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }" routerLink="/member"><i class="fa fa-tachometer-alt"></i> Overview</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" routerLink="/member/my-membership"><i class="fa fa-tasks"></i>  My MemberShip</a>
+                <a class="nav-link"
+                   routerLink="/member/my-membership"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                  <i class="fa fa-id-card"></i> My MemberShip
+                </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fa fa-file-alt"></i> Documents </a>
               </li>
               <li class="nav-item">
@@ -19,7 +25,7 @@
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fa fa-user-cog"></i> Admin</a>
-              </li>
+              </li> -->
           </ul>
           
         

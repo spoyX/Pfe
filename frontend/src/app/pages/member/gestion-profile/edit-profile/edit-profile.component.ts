@@ -87,7 +87,7 @@ export class EditProfileComponent {
         next: (res: any) => {
           console.log('Profile updated successfully', res);
           // Navigate to profile view or refresh data
-        window.location.reload()
+       this.router.navigate(['/member/profile/overview'])
         },
         error: (err: any) => {
           console.error('Error updating profile', err);

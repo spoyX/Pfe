@@ -7,6 +7,7 @@ import { TimeAgoPipe } from '../../../../core/pipe/time-ago.pipe';
 import { ReactiveFormsModule , FormBuilder,FormControl,Validators,FormGroup} from '@angular/forms';
 import { AuthentificationService } from '../../../../core/auth/authentification.service';
 import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -72,28 +73,72 @@ export class BlogDetailComponent {
     }
   }
 
-  onDeleteComment(commentId: string){
-    this._blog.deleteComment(commentId).subscribe({
-      next: (res: any) => {
-        console.log('Comment deleted successfully');
-        this.ngOnInit(); // Refresh the page to update the comments list
-      },
-      error: (err: any) => {
-        console.error('Error deleting comment:', err);
+  onDeleteComment(commentId: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This comment will be permanently deleted.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._blog.deleteComment(commentId).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Deleted!',
+              text: 'The comment has been deleted.',
+              timer: 1500,
+              showConfirmButton: false
+            });
+            this.ngOnInit(); // Refresh comments list
+          },
+          error: (err: any) => {
+            console.error('Error deleting comment:', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'An error occurred while deleting the comment.',
+            });
+          }
+        });
       }
     });
   }
 
-  ondelete(id:any){
-  this._blog.delete(id).subscribe({
-    next:(res:any)=>{
-      this._router.navigate(['/admin/blog']);
-    },
-    error:(err:any)=>{
-      console.log(err);
-      
-    }
-  })
+  ondelete(id: any): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will permanently delete the blog entry.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._blog.delete(id).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Deleted',
+              text: 'The blog entry has been deleted.'
+            });
+            this._router.navigate(['/admin/blog']);
+          },
+          error: (err: any) => {
+            console.error('Error deleting blog entry', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Failed to delete the blog entry. Please try again.'
+            });
+          }
+        });
+      }
+    });
   }
 }
 

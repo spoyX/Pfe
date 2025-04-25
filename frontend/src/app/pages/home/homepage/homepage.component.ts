@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { TestamonialComponent } from '../testamonial/testamonial.component';
 import {HomefooterComponent} from '../../../shared/layout/homefooter/homefooter.component'
 
+
 import {HomenavbarComponent} from '../../../shared/layout/homenavbar/homenavbar.component'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/users/user.service';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [TestamonialComponent,HomenavbarComponent,HomefooterComponent,ReactiveFormsModule],
+  imports: [TestamonialComponent,HomenavbarComponent,HomefooterComponent,ReactiveFormsModule,RouterLink],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })

@@ -9,6 +9,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -47,6 +48,8 @@ export class SignupComponent {
       phone: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
+      country: ['', Validators.required], 
+      city: ['', Validators.required],
       idDocument: [null, Validators.required]
     });
   }
@@ -94,9 +97,33 @@ export class SignupComponent {
         },
         error: (err: any) => {
           console.error('Error creating user account', err);
+          if (err.status === 400) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Email is already in use.'
+            });
+          } else if (err.status === 404) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Username is already taken.'
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'An unexpected error occurred. Please try again.'
+            });
+          }
         }
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields.'
       });
     }
   }
-  
 }

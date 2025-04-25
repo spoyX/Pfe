@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLinkActive , RouterLink } from '@angular/router';
 import { AuthentificationService } from '../../../../core/auth/authentification.service';
 import { UserService } from '../../../../core/services/users/user.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -19,10 +19,15 @@ export class NavbarComponent {
 
   }
   ngOnInit(){
+
+    
     this.id=this._auth.getDataFromToken()._id
     this._user.byid(this.id).subscribe({
       next: (res: any)=>{
         this.data=res
+
+       
+        
     
       
       }
@@ -31,7 +36,9 @@ export class NavbarComponent {
 
 
   logout(){
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('membershipStatus');
     window.location.reload()
   }
 

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } 
 import { Router } from '@angular/router';
 import { HtmlEditorService, ImageService, LinkService, QuickToolbarService, RichTextEditorModule, ToolbarService, ToolbarSettingsModel } from '@syncfusion/ej2-angular-richtexteditor';
 import { BlogService } from '../../../../core/services/blog/blog.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-blog-create',
   standalone: true,
@@ -77,13 +77,26 @@ export class BlogCreateComponent {
     this.blogService.create(formData).subscribe({
       next: (res) => {
         // Show success notification
-        console.log('Blog created successfully', res);
-        // Navigate to the blog list or the created blog
-        this.router.navigate(['/blogs']);
+        Swal.fire({
+          icon: 'success',
+          title: 'Blog successfully created!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+    
+        // Navigate after a short delay to let user see the message
+        setTimeout(() => {
+          this.router.navigate(['admin/blog']);
+        }, 1600);
       },
       error: (err) => {
-        console.error('Error creating blog', err);
+        
         // Show error notification
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur!',
+          text: 'An error occurred while creating the blog.',
+        });
       },
       complete: () => {
         this.isSubmitting = false;

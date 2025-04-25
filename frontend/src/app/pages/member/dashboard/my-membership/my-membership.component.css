@@ -242,31 +242,32 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
     font-weight: 500;
 }
-
 .membership-progress {
     margin: 1.5rem 0;
-}
-
-.progress-label {
+  }
+  
+  .progress-label {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
     font-size: 0.875rem;
-}
-
-.progress-bar {
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
-    min-width: 5px; 
-    transition: width 0.8s ease-in-out;
   }
-
-.progress-bar {
+  
+  .progress {
+    height: 8px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 100%;
     background: linear-gradient(90deg, #3b82f6, #2563eb);
     border-radius: 4px;
-    transition: width 1s ease-in-out;
-}
-
+    transition: width 0.5s ease-in-out;
+    
+  }
+  
 .membership-status {
     display: flex;
     justify-content: space-between;

@@ -63,7 +63,7 @@
                         </div>
                       </div>
                       <div class="button-row">
-                        <button mat-raised-button color="primary" matStepperNext [disabled]="!personalForm.valid">Next</button>
+                        <button class="box"  matStepperNext [disabled]="!personalForm.valid">Next</button>
                       </div>
                     </form>
                   </mat-step>
@@ -93,8 +93,8 @@
                         </div>
                       </div>
                       <div class="button-row">
-                        <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
-                        <button mat-raised-button color="primary" matStepperNext [disabled]="!accountForm.valid">Next</button>
+                        <button  class="box1"  matStepperPrevious>Previous</button>
+                        <button  class="box" matStepperNext [disabled]="!accountForm.valid">Next</button>
                       </div>
                     </form>
                   </mat-step>
@@ -133,10 +133,29 @@
                         </div>
                       </div>
                       <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Country</mat-label>
+                            <mat-select formControlName="country" required>
+                              <mat-option value="Canada">Canada</mat-option>
+                              <mat-option value="Tunisia">Tunisia</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="additionalForm.get('country')?.hasError('required')">Country is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                      <div class="col-md-6">
+                          <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>City</mat-label>
+                            <input matInput formControlName="city" placeholder="Enter your city" required>
+                            <mat-error *ngIf="additionalForm.get('city')?.hasError('required')">City is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
                         <div class="col-md-12">
                           <div class="file-upload">
                             <label>Upload ID Document</label>
-                            <input type="file" (change)="onFileChange($event)" accept="image/*" required> <!-- No formControlName here -->
+                            <input type="file" (change)="onFileChange($event)" accept="image/*" required>
                             <div *ngIf="filePreview" class="mt-2 text-center">
                               <img [src]="filePreview" alt="ID Preview" class="img-thumbnail" style="max-height: 200px;">
                             </div>
@@ -145,8 +164,8 @@
                         </div>
                       </div>
                       <div class="button-row">
-                        <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
-                        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!additionalForm.valid || !filePreview">Submit</button>
+                        <button class="box1" matStepperPrevious>Previous</button>
+                        <button  class="box"  (click)="onSubmit()" [disabled]="!additionalForm.valid || !filePreview">Submit</button>
                       </div>
                     </form>
                   </mat-step>

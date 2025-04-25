@@ -10,14 +10,29 @@ import { Component } from '@angular/core';
 export class AuthReviewCarouselComponent {
   testimonials = [
     {
-      quote: '" Fantastic theme with a ton of options. If you just want the HTML to integrate with your project, then this is the package. You can find the files in the \'dist\' folder...no need to install git and all the other stuff the documentation talks about. "',
-      author: 'Abs1981',
-      title: 'Skote User'
+      quote: '"The CCCT platform helped us connect with Canadian partners faster than ever. A real game-changer for cross-border collaboration."',
+      author: 'Amira B.',
+      title: 'Tunisian Entrepreneur'
     },
     {
-      quote: '" If Every Vendor on Envato are as supportive as Themesbrand, Development with be a nice experience. You guys are Wonderful. Keep up the good work. "',
-      author: 'nezerious',
-      title: 'Skote User'
+      quote: '"Managing memberships and events has become seamless. The dashboard is intuitive and powerful. Great work!"',
+      author: 'Karim D.',
+      title: 'CCCT Admin'
+    },
+    {
+      quote: '"Thanks to CCCT’s online system, we were able to register and join the network from abroad without any hassle."',
+      author: 'Julie C.',
+      title: 'New Member from Montreal'
+    },
+    {
+      quote: '"I really appreciate the payment integration and reminders. Everything is automated and efficient!"',
+      author: 'Mehdi R.',
+      title: 'Business Consultant'
+    },
+    {
+      quote: '"The calendar and event system keeps us informed and involved. I never miss an opportunity anymore."',
+      author: 'Lina S.',
+      title: 'Active Member'
     }
   ];
 

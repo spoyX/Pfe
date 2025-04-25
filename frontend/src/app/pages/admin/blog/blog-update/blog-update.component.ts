@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HtmlEditorService, ImageService, LinkService, QuickToolbarService, RichTextEditorModule, ToolbarService, ToolbarSettingsModel } from '@syncfusion/ej2-angular-richtexteditor';
 import { BlogService } from '../../../../core/services/blog/blog.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-blog-update',
@@ -102,11 +103,24 @@ export class BlogUpdateComponent {
     // Call the update blog API
     this.blogService.updateBlog(this.id, formData).subscribe({
       next: (res: any) => {
-        console.log('Blog updated successfully', res);
-        this.router.navigate(['/admin/blog']);
+       Swal.fire({
+                 icon: 'success',
+                 title: 'Blog successfully created!',
+                 showConfirmButton: false,
+                 timer: 1500
+               });
+           
+               // Navigate after a short delay to let user see the message
+               setTimeout(() => {
+                 this.router.navigate(['admin/blog']);
+               }, 1600);
       },
       error: (err: any) => {
-        console.error('Error updating blog', err);
+         Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur!',
+                  text: 'An error occurred while creating the blog.',
+                });
       },
       complete: () => {
         this.isSubmitting = false;

@@ -1,110 +1,113 @@
 <div class="body">
-    <div class="page-container">
-      <h1 class="page-title">My Membership</h1>
-      
-      <button class="theme-toggle" id="themeToggle">
-          <i class="bi bi-moon-fill"></i>
-      </button>
-      
-      <div class="membership-card-container">
-        <div class="membership-card" id="membershipCard">
-          <div class="card-background"></div>
-          
-          <div class="card-header">
-            <div class="card-logo">
-              <img src="https://via.placeholder.com/100x40?text=CCCT" alt="CCCT Logo">
-              <span class="card-logo-text">CCCT</span>
+  <div class="page-container">
+    <h1 class="page-title">My Membership</h1>
+
+
+
+    <div class="membership-card-container">
+      <div class="membership-card" id="membershipCard">
+        <div class="card-background"></div>
+
+        <div class="card-header">
+          <div class="card-logo">
+
+            <span class="card-logo-text">CCCT</span>
+          </div>
+
+          <div class="card-timer">
+            <div class="countdown-container">
+              <svg class="countdown-ring" width="60" height="60" viewBox="0 0 100 100">
+                <circle class="countdown-circle countdown-bg" cx="50" cy="50" r="45"></circle>
+                <circle class="countdown-circle countdown-progress" cx="50" cy="50" r="45" style="--progress: 70;">
+                </circle>
+              </svg>
+              <div class="countdown-text">
+                <span class="countdown-days">{{ daysRemaining }}</span>
+                days
+              </div>
             </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="member-info">
+            <div class="member-header">
+              <div class="profile-avatar">{{ data.userId.firstName.charAt(0).toUpperCase() }}{{
+                data.userId.lastName.charAt(0).toUpperCase() }}</div>
+              <div>
+                <h2 class="member-name">{{ data.userId.firstName }} {{ data.userId.lastName }}</h2>
+                <div class="member-company">{{ data.userId.job }}.</div>
+              </div>
+            </div>
+
+            <div class="member-details">
+              <div class="detail-item">
+                <span class="detail-label">Membership Number</span>
+                <span class="detail-value">CCCT-2025-{{ data.membershipId }}</span>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-label">Membership Date</span>
+                <span class="detail-value">
+                  {{ data.startDate | date: 'MMMM d, yyyy' }} -
+                  {{ data.endDate | date: 'MMMM d, yyyy' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="membership-progress">
+              <div class="progress-label">
+                <span>Période d’adhésion</span>
+                <span>{{ daysRemaining }} jours restants</span>
+              </div>
             
-            <div class="card-timer">
-              <div class="countdown-container">
-                <svg class="countdown-ring" width="60" height="60" viewBox="0 0 100 100">
-                  <circle class="countdown-circle countdown-bg" cx="50" cy="50" r="45"></circle>
-                  <circle class="countdown-circle countdown-progress" cx="50" cy="50" r="45" style="--progress: 70;"></circle>
-                </svg>
-                <div class="countdown-text">
-                  <span class="countdown-days">{{ daysRemaining }}</span>
-                  days
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-body">
-            <div class="member-info">
-              <div class="member-header">
-                <div class="profile-avatar">{{ data.userId.firstName.charAt(0) }}{{ data.userId.lastName.charAt(0) }}</div>
-                <div>
-                  <h2 class="member-name">{{ data.userId.firstName }} {{ data.userId.lastName }}</h2>
-                  <div class="member-company">{{ data.userId.job }}.</div>
-                </div>
-              </div>
-              
-              <div class="member-details">
-                <div class="detail-item">
-                  <span class="detail-label">Membership Number</span>
-                  <span class="detail-value">CCCT-2025-{{ data.membershipId }}</span>
-                </div>
-                
-                <div class="detail-item">
-                  <span class="detail-label">Membership Date</span>
-                  <span class="detail-value">
-                    {{ data.startDate | date: 'MMMM d, yyyy' }} - 
-                    {{ data.endDate | date: 'MMMM d, yyyy' }}
-                  </span>
-                </div>
-              </div>
-              
-              <div class="membership-progress">
-                <div class="progress-label">
-                  <span>Membership Period</span>
-                  <span>{{ daysRemaining }} days remaining</span>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar"
-    role="progressbar"
-    [style.width.%]="progressPercentage | number: '1.0-0'"
-    [attr.aria-valuenow]="progressPercentage | number: '1.0-0'"
-    aria-valuemin="0"
-    aria-valuemax="100">
-  </div>
-                </div>
-              </div>
-              
-              <div class="membership-status">
-                <div class="status-badge status-active">
-                  <i class="bi bi-check-circle-fill"></i>
-                  Active
-                </div>
-                
-                <div class="tier-badge tier-gold">
-                  <i class="bi bi-star-fill"></i>
-                  Gold
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-footer">
-            @if (canRenew) {
-              <button class="btn btn-renew">
-                Renew Now
-              </button>
-            } @else {
-              <button class="btn btn-renew" disabled>
-                Renew Now
-              </button>
-              <span class="renew-warning">
-                Renewal will be available in {{ daysRemaining - 10 | number: '1.0-0' }} days
-              </span>
-            }
+              <ejs-progressbar
+              #progressBar
+              type="Linear"
+              height="20px"
+              [value]="progressValue"
+              trackColor="#e5e7eb"
+              progressColor="#3b82f6"
+              [showProgressValue]="true"
+              [animation]="{ enable: true, duration: 1000, delay: 0 }"
+            ></ejs-progressbar>
             
-            <button class="btn btn-download">
-                <i class="bi bi-download"></i>
-                Download my certificate
-            </button>
+            </div>
+
+            <div class="membership-status">
+              <div class="status-badge status-active">
+                <i class="bi bi-check-circle-fill"></i>
+                Active
+              </div>
+
+              <div class="tier-badge tier-gold">
+                <i class="bi bi-star-fill"></i>
+                Gold
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div class="card-footer">
+          @if (canRenew) {
+          <button  routerLink="/member/subscription-renew" class="btn btn-renew">
+            Renew Now
+          </button>
+          } @else {
+          <button class="btn btn-renew" disabled>
+            Renew Now
+          </button>
+          <span class="renew-warning">
+            Renewal will be available in {{ daysRemaining - 10 | number: '1.0-0' }} days
+          </span>
+          }
+
+          <button class="btn btn-download">
+            <i class="bi bi-download"></i>
+            Download my certificate
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>

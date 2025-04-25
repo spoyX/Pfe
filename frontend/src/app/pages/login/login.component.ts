@@ -34,6 +34,7 @@ export class LoginComponent {
     event.preventDefault();
     this._user.signin(this.loginForm.value).subscribe({
       next: (res: any) => {
+        localStorage.removeItem('membershipStatus');
         localStorage.setItem('token', res.myToken);
         const role = this._auth.getDataFromToken().role;
       
@@ -54,6 +55,8 @@ export class LoginComponent {
             if (err.error.userId) {
               localStorage.setItem('userId', err.error.userId);
             }
+            localStorage.setItem('membershipStatus', 'expired');
+
             
             // Show alert then navigate
             Swal.fire({

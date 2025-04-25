@@ -30,7 +30,8 @@
       </div>
       <ul class="nav flex-column mt-3">
           <li class="nav-item">
-              <a class="nav-link" href="/admin/dashboard">
+              <a class="nav-link" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/">
                   <i class="bi bi-speedometer2 nav-icon me-2"></i>
                   <span>Dashboard</span>
               </a>
@@ -59,6 +60,22 @@
                   <span>Rapports</span>
               </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/blog">
+                <i class="bi bi-journal-text nav-icon me-2"></i>
+                <span>Blog</span>
+            </a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/chat">
+                <i class="bi bi-chat-dots nav-icon me-2"></i>
+                <span>Chat</span>
+            </a>
+        </li>
+
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="bi bi-gear nav-icon me-2"></i>

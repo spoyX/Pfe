@@ -17,6 +17,10 @@ export const routes: Routes = [
     {path:'blog-detail/:id',loadComponent:()=>import('./pages/admin/blog/blog-detail/blog-detail.component').then(c=>c.BlogDetailComponent)},
     {path:'blog-create',loadComponent:()=>import('./pages/admin/blog/blog-create/blog-create.component').then(c=>c.BlogCreateComponent)},
     {path:'blog-update/:id',loadComponent:()=>import('./pages/admin/blog/blog-update/blog-update.component').then(c=>c.BlogUpdateComponent)},
+    {path:'calendar',loadComponent:()=>import('./pages/admin/calendar/calendar.component').then(c=>c.CalendarComponent)},
+    {path:'user-management',loadComponent:()=>import('./pages/admin/user-management/user-management.component').then(c=>c.UserManagementComponent)},
+
+
 
     
  
@@ -24,6 +28,8 @@ export const routes: Routes = [
   
    {path:'login',canActivate : [loginGuard],loadComponent:()=>import('./pages/login/login.component').then(c=>c.LoginComponent)},
    {path:'signup',loadComponent:()=>import('./pages/signup/signup.component').then(c=>c.SignupComponent)},
+   {path:'contact',loadComponent:()=>import('./shared/contact/contact.component').then(c=>c.ContactComponent)},
+
 
 
    {path:'forgot-password',loadComponent:()=>import('./pages/login/forget-password/forget-password.component').then(c=>c.ForgetPasswordComponent)},
@@ -43,6 +49,8 @@ export const routes: Routes = [
     
 
    {path:'member',canActivate:[dashGuard],loadComponent:()=>import('./pages/member/dashboard/dashboard.component').then(c=>c.DashboardComponent) ,children: [
+    
+   
     {path:'chat',loadComponent:()=>import('./pages/member/chat/chat.component').then(c=>c.ChatComponent)},
     {path:'transaction',loadComponent:()=>import('./pages/member/transaction/transaction.component').then(c=>c.TransactionComponent)},
     {path:'faq',loadComponent:()=>import('./shared/layout/faq/faq.component').then(c=>c.FaqComponent)},

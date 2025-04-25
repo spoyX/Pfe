@@ -3,7 +3,8 @@
       <div class="collapse navbar-collapse" id="topNavbar">
           <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                  <a class="nav-link active" href="#"><i class="fa fa-tachometer-alt"></i> Overview</a>
+                  <a class="nav-link " routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/"><i class="fa fa-tachometer-alt"></i> Overview</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fa fa-tasks"></i> Tasks </a>

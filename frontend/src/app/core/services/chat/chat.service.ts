@@ -41,7 +41,7 @@ export class ChatService {
       // Ensure the message has the proper structure
       const formattedMessage = {
         _id: data._id,
-        sender: data.sender, // This now contains the _id, username, and profileImage
+        sender: data.sender, 
         content: data.content,
         createdAt: data.createdAt
       };
