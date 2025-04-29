@@ -1,77 +1,82 @@
 <aside id="sidebar" class="sidebar">
-    <div class="position-sticky">
-      <div class="sidebar-header d-flex flex-column align-items-start px-3 pt-2 pb-1">
-        <div class="logo">
-          <span class="membra-logo" style="font-weight: bold; color: #555;">Membra</span>
-        </div>
-  
-        <div class="user-info mt-3 position-relative">
-          <a class="iconLink position-relative" (click)="toggleDropdown()">
-            <i class="bi bi-bell"></i>
-            <span *ngIf="unreadCount > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">
-              {{ unreadCount }}
-            </span>
-          </a>
-  
-         
-  
-          <a href="/admin/settings" class="iconLink"><i class="bi bi-gear"></i></a>
-        </div>
-    
+  <div class="position-sticky">
+    <div class="sidebar-header d-flex flex-column align-items-start px-3 pt-2 pb-1">
+      <div class="logo">
+        <span class="membra-logo" style="font-weight: bold; color: #555;">Membra</span>
       </div>
-           <!-- Notifications Dropdown -->
-           <div *ngIf="showDropdown" class="notifications-dropdown shadow p-2 mt-2 rounded bg-white position-absolute z-3" style="width: 250px; left: 0;">
-            <div *ngIf="notifications.length === 0" class="text-muted text-center">No new notifications</div>
-            <div *ngFor="let notif of notifications" class="notification-item border-bottom py-1">
-              <small>{{ notif.message }}</small>
-            </div>
-          </div>
-  
-      <div class="search-bar px-3 mt-3">
-        <input type="text" class="form-control" placeholder="Search for...">
+
+      <div class="user-info mt-3 position-relative">
+        <a class="iconLink position-relative" (click)="toggleDropdown()">
+          <i class="bi bi-bell"></i>
+          <span *ngIf="unreadCount > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+            {{ unreadCount }}
+          </span>
+        </a>
+
+        <a href="/admin/settings" class="iconLink"><i class="bi bi-gear"></i></a>
       </div>
-  
-      <ul class="nav flex-column mt-3">
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member">
-            <i class="bi bi-speedometer2 nav-icon me-2"></i>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="/admin/events">
-            <i class="bi bi-calendar nav-icon me-2"></i>
-            <span>Événements</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/transaction">
-            <i class="bi bi-credit-card nav-icon me-2"></i>
-            <span>Transactions</span>
-          </a>
-        </li>
-      
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/blog">
-            <i class="bi bi-journal-text nav-icon me-2"></i>
-            <span>Blog</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/chat">
-            <i class="bi bi-chat-dots nav-icon me-2"></i>
-            <span>Chat</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/contact">
-            <i class="bi bi-envelope nav-icon me-2"></i>
-            <span>Contact</span>
-          </a>
-        </li>
-        
-      </ul>
     </div>
-  </aside>
-  
+
+    <!-- Notifications Dropdown -->
+    <div *ngIf="showDropdown" class="notifications-dropdown shadow p-2 mt-2 rounded bg-white position-absolute z-3" style="width: 250px; left: 0;">
+      <div *ngIf="notifications.length === 0" class="text-muted text-center">No notifications</div>
+      <div *ngFor="let notif of notifications" class="notification-item border-bottom py-1">
+        <small [class.text-muted]="notif.read" (click)="markAsRead(notif._id)">
+          {{ notif.message }}
+        </small>
+      </div>
+    </div>
+
+    <div class="search-bar px-3 mt-3">
+      <input type="text" class="form-control" placeholder="Search for...">
+    </div>
+
+    <ul class="nav flex-column mt-3">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member">
+          <i class="bi bi-speedometer2 nav-icon me-2"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/events">
+          <i class="bi bi-calendar nav-icon me-2"></i>
+          <span>Événements</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/transaction">
+          <i class="bi bi-credit-card nav-icon me-2"></i>
+          <span>Transactions</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/calendar">
+          <i class="bi bi-calendar-event nav-icon me-2"></i>
+          <span>Calendrier</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/blog">
+          <i class="bi bi-journal-text nav-icon me-2"></i>
+          <span>Blog</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/chat">
+          <i class="bi bi-chat-dots nav-icon me-2"></i>
+          <span>Chat</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/contact">
+          <i class="bi bi-envelope nav-icon me-2"></i>
+          <span>Contact</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>

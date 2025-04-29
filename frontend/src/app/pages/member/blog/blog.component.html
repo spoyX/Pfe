@@ -74,82 +74,74 @@
 
                                           <hr class="mb-4">
 
-                                          @for(blog of data ;track blog._id){
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="card p-1 border shadow-none">
-                                                        <div class="p-3">
-                                                            <h5><a href="blog-details.html" class="text-dark">{{blog.title}}</a></h5>
-                                                            <p class="text-muted mb-0">{{ blog.createdAt | date: 'dd MMMM yyyy' }}</p>
-                                                        </div>
-                                                        
-                                                        <div class="position-relative">
-                                                            <img [src]="'http://127.0.0.1:3000/files/'+ blog.image" alt="" class="img-thumbnail">
-                                                        </div>
-  
-                                                        <div class="p-3">
-                                                            <ul class="list-inline">
-                                                                <li class="list-inline-item me-3">
-                                                                    <a href="javascript: void(0);" class="text-muted">
-                                                                        <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> {{blog.tags}}
-                                                                    </a>
-                                                                </li>
-                                                                <li class="list-inline-item me-3">
-                                                                    <a href="javascript: void(0);" class="text-muted">
-                                                                        <i class="bx bx-comment-dots align-middle text-muted me-1"></i> {{blog.comments.length}} Comments
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                            <p class="clamp-2-lines" [innerHTML]="blog.content | stripHtml"></p>
-  
-  
-                                                            <div>
-                                                                <a [routerLink]="['/member/blog-detail',blog._id]" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
-                                                            </div>
-                                                        </div>
+                                          <div class="row">
+                                            @for(blog of data; track blog._id) {
+                                              <div class="col-sm-6 mb-4">
+                                                <div class="card h-100 p-1 border shadow-none">
+                                                  <div class="p-3">
+                                                    <h5><a href="blog-details.html" class="text-dark">{{blog.title}}</a></h5>
+                                                    <p class="text-muted mb-0">{{ blog.createdAt | date: 'dd MMMM yyyy' }}</p>
+                                                  </div>
+                                                  
+                                                  <div class="position-relative">
+                                                    <img [src]="'http://127.0.0.1:3000/files/'+ blog.image" alt="" class="img-thumbnail">
+                                                  </div>
+                                          
+                                                  <div class="p-3">
+                                                    <ul class="list-inline">
+                                                      <li class="list-inline-item me-3">
+                                                        <a href="javascript: void(0);" class="text-muted">
+                                                          <i class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i> {{blog.tags}}
+                                                        </a>
+                                                      </li>
+                                                      <li class="list-inline-item me-3">
+                                                        <a href="javascript: void(0);" class="text-muted">
+                                                          <i class="bx bx-comment-dots align-middle text-muted me-1"></i> {{blog.comments.length}} Comments
+                                                        </a>
+                                                      </li>
+                                                    </ul>
+                                                    <p class="clamp-2-lines" [innerHTML]="blog.content | stripHtml"></p>
+                                          
+                                                    <div>
+                                                      <a [routerLink]="['/admin/blog-detail',blog._id]" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
                                                     </div>
+                                                  </div>
                                                 </div>
-  
-                                                
-                                            </div>
-  
-                                          }
-  
+                                              </div>
+                                            }
+                                          </div>
   
 
                                           <hr class="my-4">
 
-                                          <div class="text-center">
-                                              <ul class="pagination justify-content-center pagination-rounded">
-                                                  <li class="page-item disabled">
-                                                      <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                                  </li>
-                                                  <li class="page-item">
-                                                      <a href="javascript: void(0);" class="page-link">1</a>
-                                                  </li>
-                                                  <li class="page-item active">
-                                                      <a href="javascript: void(0);" class="page-link">2</a>
-                                                  </li>
-                                                  <li class="page-item">
-                                                      <a href="javascript: void(0);" class="page-link">3</a>
-                                                  </li>
-                                                  <li class="page-item">
-                                                      <a href="javascript: void(0);" class="page-link">...</a>
-                                                  </li>
-                                                  <li class="page-item">
-                                                      <a href="javascript: void(0);" class="page-link">10</a>
-                                                  </li>
-                                                  <li class="page-item">
-                                                      <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                                  </li>
-                                              </ul>
+                                          <div class="row align-items-center">
+                                            <div class="col-md-6">
+                                              <div class="text-md-start">
+                                                <p class="text-muted mb-md-0" *ngIf="totalBlogs > 0">
+                                                  Showing {{ pageIndex * pageSize + 1 }} to {{ (pageIndex * pageSize + pageSize) > totalBlogs ? totalBlogs : (pageIndex * pageSize + pageSize) }} of {{ totalBlogs }} posts
+                                                </p>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="d-flex justify-content-md-end">
+                                                <mat-paginator
+                                                  #paginator
+                                                  [length]="totalBlogs"
+                                                  [pageSize]="pageSize"
+                                                  [pageSizeOptions]="pageSizeOptions"
+                                                  [pageIndex]="pageIndex"
+                                                  (page)="onPageChange($event)"
+                                                  aria-label="Select page"
+                                                  class="bg-transparent shadow-none">
+                                                </mat-paginator>
+                                              </div>
+                                            </div>
                                           </div>
                                       </div>
                                   </div>
                               </div>
                           </div>
                       </div>
-
                       <div class="tab-pane" id="archive" role="tabpanel">
                           <div>
                               <div class="row justify-content-center">

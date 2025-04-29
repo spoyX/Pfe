@@ -51,4 +51,20 @@ export class SidbarComponent {
         }
       });
   }
+  markAsRead(id: string) {
+    this.notificationService.markAsRead(id).subscribe({
+      next: () => {
+        // Find the notification and mark it as read
+        const notificationIndex = this.notifications.findIndex(notif => notif._id === id);
+        if (notificationIndex !== -1) {
+          this.notifications[notificationIndex].read = true;
+          this.unreadCount--;
+        }
+      },
+      error: (err) => {
+        console.error("Error marking notification as read:", err);
+      }
+    });
+  }
 }
+

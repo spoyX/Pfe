@@ -19,7 +19,8 @@ export const routes: Routes = [
     {path:'blog-update/:id',loadComponent:()=>import('./pages/admin/blog/blog-update/blog-update.component').then(c=>c.BlogUpdateComponent)},
     {path:'calendar',loadComponent:()=>import('./pages/admin/calendar/calendar.component').then(c=>c.CalendarComponent)},
     {path:'user-management',loadComponent:()=>import('./pages/admin/user-management/user-management.component').then(c=>c.UserManagementComponent)},
-
+    {path:'profile-view/:id',loadComponent:()=>import('./pages/admin/user-management/profile-view/profile-view.component').then(c=>c.ProfileViewComponent)},
+    
 
 
     
@@ -57,6 +58,10 @@ export const routes: Routes = [
     {path:'subscription-renew',loadComponent:()=>import('./pages/member/subscription-renew/subscription-renew.component').then(c=>c.SubscriptionRenewComponent)},
     {path:'subscription-succes',loadComponent:()=>import('./pages/member/subscription-succes/subscription-succes.component').then(c=>c.SubscriptionSuccesComponent)},
     {path:'my-membership',loadComponent:()=>import('./pages/member/dashboard/my-membership/my-membership.component').then(c=>c.MyMembershipComponent)},
+    {path:'calendar',loadComponent:()=>import('./pages/member/calendar/calendar.component').then(c=>c.CalendarComponent)},
+    {path:'transaction/recipt/:id',loadComponent:()=>import('./pages/member/transaction/recipt/recipt.component').then(c=>c.ReciptComponent)},
+
+
 
 
 

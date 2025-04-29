@@ -13,7 +13,8 @@
                   <a class="nav-link" href="#"><i class="fa fa-file-alt"></i> Documents </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fa fa-users"></i> Team <span class="badge bg-secondary">99+</span></a>
+                  <a class="nav-link" routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/user-management" ><i class="fa fa-users"></i> Users <span class="badge bg-secondary">99+</span></a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="#"><i class="fa fa-chart-line"></i> Reports</a>

@@ -1,0 +1,265 @@
+<div class="body">
+  <div class="container py-4">
+    <!-- Profile Header (Sticky) -->
+    <div class="profile-header" id="profileHeader" *ngIf="data && userFound">
+      <div class="profile-header-content">
+        <div class="profile-user">
+          <div class="avatar-container">
+            <img [src]="'http://127.0.0.1:3000/files/' + data.user.profileImage" alt="Profile Image" class="avatar" />
+            <div class="status-indicator"></div>
+          </div>
+          <div class="profile-info">
+            <h1 class="profile-name">
+              {{ data.user?.username }}
+              @if(data.user?.status === 'active') {
+                <span class="badge status-badge status-active">Active</span>
+              } @else if (data.user?.status === 'inactive') {
+                <span class="badge status-badge status-pending">Inactive</span>
+              } @else if (data.user?.status === 'expired') {
+                <span class="badge status-badge status-expired">Expired</span>
+              
+              }
+        
+            </h1>
+            <p class="profile-id">Member ID: #USR-{{ data.user?._id?.slice(0, 7) }}</p>
+          </div>
+        </div>
+        <div class="profile-actions">
+          <button class="btn btn-primary">
+            <i class="bi bi-pencil-fill btn-icon"></i> Edit Member
+          </button>
+          <button class="btn btn-outline-primary">
+            <i class="bi bi-envelope-fill btn-icon"></i> Send Message
+          </button>
+          <button class="btn btn-outline-danger">
+            <i class="bi bi-pause-circle-fill btn-icon"></i> Suspend Member
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Basic Information Section -->
+    <div class="card animate-fade-in" *ngIf="data && userFound">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span class="card-title-icon icon-info">
+            <i class="bi bi-person-fill"></i>
+          </span> Basic Information
+        </h2>
+      </div>
+      <div class="card-body">
+        <div class="info-grid">
+          <!-- Full Name -->
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-person-badge"></i></div>
+            <div class="info-content">
+              <div class="info-label">Full Name</div>
+              <div class="info-value">{{ data.user?.firstName }} {{ data.user?.lastName }}</div>
+            </div>
+          </div>
+          <!-- Email Address -->
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-envelope"></i></div>
+            <div class="info-content">
+              <div class="info-label">Email Address</div>
+              <div class="info-value">
+                {{ data.user?.email }}
+                <button class="copy-btn" title="Copy email">
+                  <i class="bi bi-clipboard"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Phone Number -->
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-telephone"></i></div>
+            <div class="info-content">
+              <div class="info-label">Phone Number</div>
+              <div class="info-value">
+                {{ data.user?.phone }}
+                <button class="copy-btn" title="Copy phone">
+                  <i class="bi bi-clipboard"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Address -->
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-geo-alt"></i></div>
+            <div class="info-content">
+              <div class="info-label">Address</div>
+              <div class="info-value">{{ data.user?.country }} {{ data.user?.city }}</div>
+            </div>
+          </div>
+          <!-- Registration Date -->
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-calendar-check"></i></div>
+            <div class="info-content">
+              <div class="info-label">Registration Date</div>
+              <div class="info-value">{{ data.user?.createdAt | date : "MMM d, y" }}</div>
+            </div>
+          </div>
+          <!-- Membership Tier -->
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-award"></i></div>
+            <div class="info-content">
+              <div class="info-label">Membership Tier</div>
+              <div class="info-value">{{ datamembership?.planType }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Membership Details Card -->
+    <div class="card animate-fade-in delay-1" *ngIf="membershipFound && datamembership">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span class="card-title-icon icon-membership">
+            <i class="bi bi-star-fill"></i>
+          </span> Membership Details
+        </h2>
+      </div>
+      <div class="card-body p-0">
+        <div class="membership-card">
+          <div class="membership-header">
+            <h3 class="membership-title">{{ data.user?.username }} Membership</h3>
+            <span class="membership-badge">Paid</span>
+          </div>
+          <div class="membership-details">
+            <div class="membership-item">
+              <div class="membership-label">Start Date</div>
+              <div class="membership-value">{{ datamembership.startDate | date : "MMM d, y" }}</div>
+            </div>
+            <div class="membership-item">
+              <div class="membership-label">Expiration Date</div>
+              <div class="membership-value">{{ datamembership.endDate | date : "MMM d, y" }}</div>
+            </div>
+            <div class="membership-item">
+              <div class="membership-label">Billing Cycle</div>
+              <div class="membership-value">{{datamembership.planType}}</div>
+            </div>
+            <div class="membership-item">
+              <div class="membership-label">Next Payment</div>
+              <div class="membership-value">  {{ addDaysToDate(datamembership.endDate, 1) | date : "MMM d, y" }} </div>
+            </div>
+          </div>
+          <div class="membership-benefits">
+            <h4 class="benefits-title">Membership Benefits</h4>
+            <ul class="benefits-list">
+              <li><i class="bi bi-check-circle-fill benefit-icon"></i> Unlimited Access to Premium Content</li>
+              <li><i class="bi bi-check-circle-fill benefit-icon"></i> Priority Customer Support</li>
+              <li><i class="bi bi-check-circle-fill benefit-icon"></i> Exclusive Member Events</li>
+              <li><i class="bi bi-check-circle-fill benefit-icon"></i> Early Access to New Features</li>
+              <li><i class="bi bi-check-circle-fill benefit-icon"></i> Free Monthly Downloads</li>
+              <li><i class="bi bi-check-circle-fill benefit-icon"></i> Personalized Recommendations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    @if( paymentsFound && !membershipFound ) {
+      <div class="card animate-fade-in delay-1">
+        <div class="card-body">
+            <p>Membership validation is pending.  Waiting for your validation Admin .</p>
+        </div>
+      </div>
+      
+    }
+    @else if(!membershipFound && userFound) {
+      <div class="card animate-fade-in delay-1">
+        <div class="card-body">
+            <p>No membership found for this user.</p>
+        </div>
+      </div>
+    }
+  
+    
+
+    
+  
+
+    
+
+
+    <!-- Payment History Section -->
+    <div class="card animate-fade-in delay-2">
+      <div class="card-header">
+        <h2 class="card-title">
+          <span class="card-title-icon icon-payment">
+            <i class="bi bi-credit-card-fill"></i>
+          </span> Payment History
+        </h2>
+      </div>
+      <div class="card-body">
+        <div class="payment-filters">
+          <div class="filter-group">
+            <button class="filter-btn active">All Time</button>
+            <button class="filter-btn">Last 30 Days</button>
+            <button class="filter-btn">Last 6 Months</button>
+          </div>
+          <div class="filter-group">
+            <button class="filter-btn"><i class="bi bi-funnel"></i> Filter</button>
+            <button class="filter-btn"><i class="bi bi-download"></i> Export</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="payment-table">
+            <thead>
+              <tr>
+                <th>Transaction ID</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Payment Method</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of payments">
+                <td>{{ payment.stripeTransactionId }}</td>
+                <td>{{ payment.paymentDate | date : "MMM d, y" }}</td>
+                <td>${{ payment.amount }}</td>
+                <td>
+                  <i class="bi bi-credit-card payment-card-icon"></i> {{ payment.cardType }} •••• {{ payment.cardLastFour }}
+                </td>
+                <td>
+                  <span class="payment-status status-paid">
+                    <i class="bi bi-check-circle-fill me-1"></i> Paid
+                  </span>
+                </td>
+                <td>
+                  <div class="tooltip-container">
+                    <button class="payment-action"><i class="bi bi-receipt"></i></button>
+                    <span class="tooltip-text">View Receipt</span>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="!paymentsFound">
+                <td colspan="6">No payment history found.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card animate-fade-in delay-2" *ngIf="!userFound">
+      <div class="card-body">
+          <p>No user found with this ID.</p>
+      </div>
+  </div>
+  </div>
+</div>
+<!-- Toast Notification -->
+<div class="toast-container" id="toastContainer" style="display: none">
+  <div class="toast toast-success">
+    <div class="toast-icon">
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+    <div class="toast-content">
+      <div class="toast-title">Success!</div>
+      <div class="toast-message">Operation completed successfully.</div>
+    </div>
+  </div>
+</div>

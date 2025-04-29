@@ -1,0 +1,29 @@
+/* Make user page more clean and friendly */
+
+.user-side-card {
+    background: #ffffff;
+    border-radius: 12px;
+    transition: 0.3s;
+  }
+  
+  .user-side-card:hover {
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+  }
+  
+  .calendar-card {
+    background: #ffffff;
+    border-radius: 12px;
+  }
+  
+  .e-custom-schedule .e-schedule-toolbar {
+    background-color: #f8f9fa !important;
+  }
+  
+  .e-custom-schedule .e-schedule-header {
+    background-color: #f8f9fa !important;
+  }
+  
+  .e-schedule .e-vertical-view .e-content-wrap {
+    background-color: #fcfcfc;
+  }
+  

@@ -18,4 +18,5 @@ export class NotificationService {
     markAsRead(id: string) {
       return this.http.put(`${this.url}/${id}/read`, {});
     }
+    
   }

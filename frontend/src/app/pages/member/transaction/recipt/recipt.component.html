@@ -1,0 +1,106 @@
+<div class="body">
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <div class="receipt-container">
+      <div class="receipt-card animate-fade-in">
+        <!-- Receipt Header -->
+        <div class="receipt-header">
+          <div class="receipt-logo">
+            <div class="logo-icon">
+              <i class="bi bi-lightning-charge-fill"></i>
+            </div>
+            <div class="logo-text">Membra Pay</div>
+          </div>
+          <h1 class="receipt-title">Payment Successful!</h1>
+          <p class="receipt-subtitle">Your transaction Recipt</p>
+          <div class="receipt-status">
+            <span class="status-icon pulse-animation"></span>
+            Completed
+          </div>
+        </div>
+  
+        <!-- Receipt Body -->
+        <div class="receipt-body">
+          <!-- Amount Section -->
+          <div class="receipt-section animate-fade-in delay-1">
+            <div class="amount-card">
+              <div class="amount-label">Total Amount</div>
+              <div class="amount-value">${{data.amount}}</div>
+            </div>
+  
+            <div class="detail-row">
+              <div class="detail-label">Transaction ID</div>
+              <div class="detail-value">{{data.stripeTransactionId}}</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Date & Time</div>
+              <div class="detail-value">{{ data.paymentDate | date:'MMMM d, y • HH:mm' }}</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Status</div>
+              <div class="detail-value">
+                <span class="badge badge-success">{{data.status}}</span>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Payment Method Section -->
+          <div class="receipt-section animate-fade-in delay-2">
+            <h2 class="section-title">
+              <i class="bi bi-credit-card section-icon"></i>
+              Payment Method
+            </h2>
+            <div class="payment-method">
+              <div class="payment-icon">
+                <i class="bi bi-visa"></i>
+              </div>
+              <div class="payment-details">
+                <div class="payment-name">{{data.cardType}} Credit Card</div>
+                <div class="payment-number">•••• •••• •••• {{data.cardLastFour}}</div>
+              </div>
+            </div>
+          </div>
+  
+         
+  
+          <!-- QR Code Section -->
+          <div class="qr-section animate-fade-in delay-4">
+            <div class="qr-code">
+                <img [src]="qrCodeImgSrc" alt="QR Code">
+            </div>
+            <div class="qr-text">Scan to view digital receipt</div>
+        </div>
+      
+  
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button  class="btn btn-primary btn-block" id="downloadBtn">
+              <i class="bi bi-download"></i>
+              Download Receipt
+            </button>
+            <button class="btn btn-outline btn-block" id="shareBtn">
+              <i class="bi bi-share"></i>
+              Share Receipt
+            </button>
+          </div>
+        </div>
+  
+        <!-- Receipt Footer -->
+        <div class="receipt-footer">
+          <div class="footer-text">Thank you for your payment!</div>
+          <div class="footer-actions">
+            <button class="footer-btn" title="Print Receipt">
+              <i class="bi bi-printer"></i>
+            </button>
+            <button class="footer-btn" title="Email Receipt">
+              <i class="bi bi-envelope"></i>
+            </button>
+            <button class="footer-btn" title="Help">
+              <i class="bi bi-question-circle"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</div>

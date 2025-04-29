@@ -1,7 +1,37 @@
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+}
+
+/* Ensure images have consistent height */
+.position-relative {
+  height: 200px;
+  overflow: hidden;
+}
+
+.img-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Text truncation for consistent card heights */
 .clamp-2-lines {
   display: -webkit-box;
-  -webkit-line-clamp: 2;     
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 3em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .position-relative {
+    height: 180px;
+  }
 }

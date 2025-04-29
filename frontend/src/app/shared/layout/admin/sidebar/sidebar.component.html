@@ -49,10 +49,11 @@
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/admin/payments">
-                  <i class="bi bi-credit-card nav-icon me-2"></i>
-                  <span>Transactions</span>
-              </a>
+            <a class="nav-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/calendar">
+              <i class="bi bi-calendar-event nav-icon me-2"></i>
+              <span>Calendrier</span>
+            </a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="/admin/reports">
@@ -62,7 +63,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/blog">
+            [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/blog">
                 <i class="bi bi-journal-text nav-icon me-2"></i>
                 <span>Blog</span>
             </a>

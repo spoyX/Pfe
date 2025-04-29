@@ -1,4 +1,5 @@
 <!-- From Uiverse.io by Praashoo7 --> 
+
 <div class="flip-card">
   <div class="flip-card-inner">
       <div class="flip-card-front">
@@ -65,6 +66,43 @@
             <p class="code">***</p>
           </div>
       </div>
+      
+  </div>
+  
+</div>
+<div class="payment-card">
+  <h2 class="card-title"><i class="fas fa-dollar-sign"></i> Payment Summary</h2>
+  
+  <div class="row">
+      <!-- Total Payments Box -->
+      <div class="col-md-4 mb-3 mb-md-0">
+          <div class="info-box payments-box">
+              <div class="info-box-title">
+                  <i class="fas fa-credit-card"></i> Total Payments
+              </div>
+              <div class="info-box-value">{{history.length}}</div>
+          </div>
+      </div>
+      
+      <!-- Total Spent Box -->
+      <div class="col-md-4 mb-3 mb-md-0">
+          <div class="info-box spent-box">
+              <div class="info-box-title">
+                  <i class="fas fa-dollar-sign"></i> Total Spent
+              </div>
+              <div class="info-box-value">${{totalAmount}}</div>
+          </div>
+      </div>
+      
+      <!-- Last Payment Box -->
+      <div class="col-md-4">
+          <div class="info-box last-box">
+              <div class="info-box-title">
+                  <i class="fas fa-calendar"></i> Last Payment
+              </div>
+              <div class="info-box-value">${{firstPayment.amount}}</div>
+          </div>
+      </div>
   </div>
 </div>
 
@@ -83,6 +121,7 @@
           <th>Method</th>
           <th>Status</th>
           <th>Card Type</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -94,6 +133,12 @@
           <td>{{payment.method}}</td>
           <td>{{payment.status}}</td>
           <td>{{payment.cardType}}</td>
+          <td>
+            <div class="tooltip-container">
+              <button [routerLink]="['/member/transaction/recipt',payment._id]" class="payment-action"><i class="bi bi-receipt"></i></button>
+              <span class="tooltip-text">View Receipt</span>
+            </div>
+            </td>
         </tr>
       }
       </tbody>

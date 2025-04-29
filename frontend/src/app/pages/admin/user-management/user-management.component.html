@@ -132,7 +132,7 @@
                     </td>
                     <td class="actions-column">
                       <div class="action-buttons">
-                        <button class="btn btn-sm action-btn" aria-label="View user" data-bs-toggle="tooltip" title="View">
+                        <button class="btn btn-sm action-btn"  [routerLink]="['/admin/profile-view',user._id]"   aria-label="View user" data-bs-toggle="tooltip" title="View">
                           <i class="bi bi-eye"></i>
                         </button>
                         <button class="btn btn-sm action-btn" aria-label="Edit user" data-bs-toggle="tooltip" title="Edit">
@@ -151,28 +151,25 @@
         </div>
     
         <!-- Pagination -->
-        <div class="d-flex justify-content-between align-items-center mt-4">
-          <div class="pagination-info">
-            Showing <span class="fw-medium">1-6</span> of <span class="fw-medium">24</span> users
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <p class="text-muted" *ngIf="totalUsers > 0">
+              Showing {{ pageIndex * pageSize + 1 }} to {{ (pageIndex * pageSize + pageSize) > totalUsers ? totalUsers : (pageIndex * pageSize + pageSize) }} of {{ totalUsers }} users
+            </p>
           </div>
-          <nav aria-label="User table pagination">
-            <ul class="pagination">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <i class="bi bi-chevron-left"></i>
-                </a>
-              </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <i class="bi bi-chevron-right"></i>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <div class="col-md-6">
+            <mat-paginator
+              #paginator
+              [length]="totalUsers"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              [pageIndex]="pageIndex"
+              (page)="onPageChange($event)"
+              aria-label="Select page"
+              class="mat-paginator-container">
+            </mat-paginator>
+          </div>
         </div>
+      </div>
       </div>
     </div>

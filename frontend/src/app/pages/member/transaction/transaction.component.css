@@ -1,8 +1,8 @@
 
 .flip-card {
   background-color: transparent;
-  width: 260px;
-  height: 160px;
+  width: 270px;
+  height: 180px;
   perspective: 1000px;
   color: white;
 }
@@ -14,7 +14,37 @@
   top: 2em;
   left: 18.6em;
 }
-
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #212529;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.75rem;
+}
+.payment-action {
+  color: #6c757d;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
 .logo {
   position: absolute;
   top: 6.8em;
@@ -176,3 +206,81 @@
       background-color: #f1f1f1;
       transition: background-color 0.2s ease;
     }
+
+
+
+    .payment-card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+ 
+      max-width: 900px;
+      margin: 40px auto;
+  }
+  
+  .card-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 30px;
+  }
+  
+  .card-title i {
+      color: #6c5ce7;
+      margin-right: 10px;
+  }
+  
+  .info-box {
+      border-radius: 12px;
+      padding: 20px;
+      height: 100%;
+  }
+  
+  .info-box-title {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+  }
+  
+  .info-box-title i {
+      margin-right: 10px;
+  }
+  
+  .info-box-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #222;
+  }
+  
+  .payments-box {
+      background-color: #f0f3ff;
+  }
+  
+  .payments-box i {
+      color: #6c5ce7;
+  }
+  
+  .spent-box {
+      background-color: #e6fff0;
+  }
+  
+  .spent-box i {
+      color: #00b894;
+  }
+  
+  .last-box {
+      background-color: #f8f0ff;
+  }
+  
+  .last-box i {
+      color: #6c5ce7;
+  }
+  
+  @media (max-width: 768px) {
+      .row > div {
+          margin-bottom: 15px;
+      }
+  }
