@@ -1,6 +1,7 @@
 const Blog = require('../model/blog');
 const Comment = require('../comments/model/comment');
-
+const User = require('../../User/models/user'); 
+const { sendPush } = require('../../config/lib/oneSignal');
 
 // Create a new blog
 exports.createBlog = async (req, res,fileName) => {
@@ -17,6 +18,26 @@ exports.createBlog = async (req, res,fileName) => {
 
     const blog = new Blog(blogData);
     await blog.save();
+
+    // Fetch all users with OneSignal player IDs
+    const users = await User.find({}).select('oneSignalPlayerIds');
+    const playerIds = users.flatMap(user => user.oneSignalPlayerIds).filter(id => id);
+    const userIds = users.map(user => user._id);
+    // Send push notifications
+    if (playerIds.length > 0) {
+      try {
+        await sendPush(
+          playerIds,
+          'New Blog Published', // Notification title
+          `A new blog titled "${blog.title}" has been published!`, // Message
+          `admin/blog/${blog._id}`, 
+          userIds
+        );
+      } catch (error) {
+        console.error('Failed to send notifications:', error);
+      }
+    }
+
     res.status(201).json(blog);
   } catch (error) {
     res.status(500).json({ message: error.message });

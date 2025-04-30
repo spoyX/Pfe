@@ -9,7 +9,7 @@ async function updateExpiredMemberships() {
       { $set: { status: 'expired' } }
     );
     await User.updateMany(
-      { 'memberships.status': 'expired', status: 'active' },
+      { 'status': 'expired', status: 'active' },
       { $set: { status: 'expired' } }
     );
     console.log('Expired memberships updated successfully');
@@ -20,7 +20,7 @@ async function updateExpiredMemberships() {
 
 function startScheduler() {
   // Schedule the task to run every day at midnight using a cron expression:
-  cron.schedule('16 15 * * *', () => {
+  cron.schedule('41 9 * * *', () => {
     console.log('Running scheduled task: updateExpiredMemberships');
     updateExpiredMemberships();
   });

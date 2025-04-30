@@ -26,7 +26,9 @@ router.post('/createuseraccount', upload.single('idType') , (req, res)=>{
 
 router.post('/signin',userController.signIn);
 router.get('/byid/:id', userController.getUserProfile );
+router.get('/search', userController.searchUsers);
 
+router.get('/allusers', userController.findAllNonAdminUsers);
 router.put('/updateprofile/:id',upload.single('profileImage'),(req,res)=>{
   userController.updateProfile(req,res,fileName);
   fileName = '';
@@ -40,7 +42,7 @@ router.put('/reset-password', userController.resetPassword);
 router.post('/contact',userController.sendContactMessage)
 
 
-
+router.delete('delete/:id', userController.deleteUser);
 
 
 

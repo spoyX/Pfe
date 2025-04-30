@@ -54,7 +54,9 @@ exports.createUserAccount = async (req, res, fileName) => {
       password, 
       phone, 
       dateOfBirth,
-      gender
+      gender,
+      country,
+      city,
      
     } = req.body;
 
@@ -77,6 +79,8 @@ exports.createUserAccount = async (req, res, fileName) => {
       phone,
       dateOfBirth,
       gender,
+      country,
+      city,
     
       idType: fileName, // Store the uploaded file name
       status: 'inactive' // Default status is inactive
@@ -87,7 +91,7 @@ exports.createUserAccount = async (req, res, fileName) => {
 
     // Respond with success message
     res.status(201).json({ 
-      message: 'User account created successfully. Please complete your profile to activate.',
+      message: 'User account created successfully.',
       user: newUser
     });
   } catch (error) {
@@ -475,5 +479,95 @@ exports.sendContactMessage = async (req, res) => {
       message: 'Server error', 
       error: error.message 
     });
+  }
+};
+
+exports.searchUsers = async (req, res) => {
+  try {
+    const { query, field, country, status } = req.query;
+
+    // Validate the field to prevent NoSQL injection attacks
+    const allowedFields = ['username', 'firstName', 'lastName', 'country', 'status'];
+    if (field && !allowedFields.includes(field)) {
+      return res.status(400).json({ message: 'Invalid search field' });
+    }
+
+    let queryObj = { role: { $ne: 'admin' } }; // Exclude admin users
+
+    // Handle search query
+    if (query && field) {
+      const searchRegex = new RegExp(query, 'i');
+      if (field === 'username' || field === 'firstName' || field === 'lastName') {
+        queryObj[field] = searchRegex;
+      } else if (field === 'country' || field === 'status') {
+        queryObj[field] = query;
+      }
+    } else if (query) {
+      // If no specific field is provided, search across multiple fields
+      const searchRegex = new RegExp(query, 'i');
+      queryObj = {
+        ...queryObj, // Include the existing query object
+        $or: [
+          { username: searchRegex },
+          { firstName: searchRegex },
+          { lastName: searchRegex }
+        ]
+      };
+    }
+
+    // Apply filters
+    if (country) {
+      queryObj.country = country;
+    }
+    if (status) {
+      queryObj.status = status;
+    }
+
+    // Find users matching the query
+    const users = await User.find(queryObj, { password: 0 }); // Exclude password field
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+    }
+
+    res.status(200).json({ users });
+  } catch (error) {
+    console.error('Error searching users:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Find and delete the user
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully', user });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+
+exports.findAllNonAdminUsers = async (req, res) => {
+  try {
+    
+    const users = await User.find({ role: { $ne: 'admin' } }, { password: 0 }); 
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: 'No non-admin users found' });
+    }
+
+    res.status(200).json({ users });
+  } catch (error) {
+    console.error('Error finding non-admin users:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

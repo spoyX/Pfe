@@ -10,7 +10,7 @@ router.get('/user/:userId', notificationController.getUserNotifications);
 
 
 router.put('/:id/read', notificationController.markAsRead);
-
+router.get('/user/:userId/unread', notificationController.getUnreadNotifications);
 
 
 module.exports = router;

@@ -5,36 +5,42 @@ const client = new OneSignal.Client(
     process.env.ONESIGNAL_API_KEY
   );
   
-  async function sendPush(playerIds, heading, message, url,userId) {
+  async function sendPush(playerIds, heading, message, url, userIds) {
     try {
-      if (!playerIds || playerIds.length === 0) {
-        console.log('No player IDs provided for push notification');
-        return;
-      }
-      
-      const notification = {
-        include_player_ids: playerIds,
-        headings: { en: heading },
-        contents: { en: message },
-        url: url,
-      };
-  
-      console.log('Sending notification to OneSignal...');
-      const response = await client.createNotification(notification);
-      console.log('Push notification sent successfully:', response.body.id);
-  
-      // Save notification to MongoDB
-      const savedNotification = await Notification.create({
-        title: heading,
-        message: message,
-        userId: userId
-      });
-  
-      console.log('Notification saved to DB:', savedNotification._id);
-      return response;
+        if (!playerIds || playerIds.length === 0) {
+            console.log('No player IDs provided for push notification');
+            return;
+        }
+        
+        const notification = {
+            include_player_ids: playerIds,
+            headings: { en: heading },
+            contents: { en: message },
+            url: url,
+        };
+
+        console.log('Sending notification to OneSignal...');
+        const response = await client.createNotification(notification);
+        console.log('Push notification sent successfully:', response.body.id);
+
+        // Save notification to MongoDB for each user
+        if (userIds && userIds.length > 0) {
+            for (const userId of userIds) {
+                const savedNotification = await Notification.create({
+                    title: heading,
+                    message: message,
+                    userId: userId // Use each userId individually
+                });
+
+                console.log(`Notification saved to DB for user ${userId}:`, savedNotification._id);
+            }
+        }
+
+        return response;
     } catch (error) {
-      console.error('Error sending push notification:', error);
-      throw error;
+        console.error('Error sending push notification:', error);
+        throw error;
     }
+
   }
   module.exports = { sendPush };

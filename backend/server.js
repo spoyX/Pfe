@@ -10,6 +10,7 @@ const notificationRoutes =require('./app/notifcation/Routes/notif.routes')
 const membershipRoute=require('./app/memberships/Routes/membership.Routes')
 const chatRoute=require('./app/chat/router/chat.routes')
 const oneSignal=require('./app/config/lib/signal.routes')
+const CalendarRouter = require('./app/Calendar/router/calendar.Routes');
 const { createAdminAccount } = require('./app/User/controllers/user.Controller');
 const { startScheduler } = require('./app/config/scheduler'); 
 const app = express();
@@ -25,6 +26,7 @@ app.use('/api/payments',paymentRouter)
 app.use('/api/user',userRouter)
 app.use('/api/blog',blogRoute)
 app.use('/api/chat', chatRoute);
+app.use('/api/calendar', CalendarRouter);
 app.use('/files', express.static('./public'));
 app.listen(3000, ()=>{
     console.log('server work');

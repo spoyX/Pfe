@@ -83,7 +83,7 @@ async function sendReminderSMS(phoneNumber, expiryDate, planType) {
   }
 }
 
-cron.schedule('10 12 * * *', async () => {
+cron.schedule('58 18 * * *', async () => {
   try {
     const REMINDER_WINDOW_DAYS = 7;
     console.log('Running membership reminder job...');
