@@ -40,7 +40,8 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/admin/events">
+        <a class="nav-link" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }" routerLink="/member/event-list">
           <i class="bi bi-calendar nav-icon me-2"></i>
           <span>Événements</span>
         </a>

@@ -5,10 +5,11 @@ import { StripHtmlPipe} from '../../../../core/pipe/strip-html.pipe'
 import { RouterLink } from '@angular/router';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { BlogSidebarComponent } from '../../../../shared/layout/blog-sidebar/blog-sidebar.component';
 @Component({
   selector: 'app-blog-list',
   standalone: true,
-  imports: [CommonModule,StripHtmlPipe,RouterLink,MatButtonModule,MatPaginatorModule],
+  imports: [CommonModule,StripHtmlPipe,RouterLink,MatButtonModule,MatPaginatorModule,BlogSidebarComponent],
   templateUrl: './blog-list.component.html',
   styleUrl: './blog-list.component.css'
 })

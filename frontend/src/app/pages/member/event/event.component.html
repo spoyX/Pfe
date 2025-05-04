@@ -1,0 +1,176 @@
+
+<div class="body">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">Discover Amazing Events Near You</h1>
+                    <p class="hero-subtitle">Find and join events that match your interests, connect with like-minded people, and create unforgettable experiences.</p>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="assets/events.jpg" alt="Events Illustration" class="img-fluid hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Search & Filter Section -->
+    <section class="search-filter-section">
+        <div class="container">
+          <div class="search-filter-container">
+            <form [formGroup]="searchForm">
+              <div class="row g-3">
+                <div class="col-lg-5">
+                  <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="form-control" placeholder="Search events..." formControlName="title">
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="row g-3">
+                    <div class="col-md-5">
+                      <select class="form-select" formControlName="categories">
+                        <option value="">All Categories</option>
+                        <option value="workshop">Workshops</option>
+                        <option value="conference">Conferences</option>
+                        <option value="networking">Networking</option>
+                        <option value="concerts">Concerts</option>
+                        <option value="sports">Sports</option>
+                      </select>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="date-picker">
+                        <i class="far fa-calendar date-icon"></i>
+                        <input type="date" class="form-control" formControlName="date">
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="button" class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+                        <i class="fas fa-times"></i> Clear
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Events Section -->
+      <section class="events-section">
+        <div class="container">
+          <h2 class="section-title">Events <span class="event-count">({{ data?.length || 0 }})</span></h2>
+          
+          <div class="row g-4">
+            <!-- Event Card -->
+            @for (event of data; track event._id) {
+              <div class="col-md-6 col-lg-4">
+                <div class="event-card">
+                  <!-- Event Status Badge -->
+                  @if (event.status === 'upcoming') {
+                    <div class="event-status upcoming">
+                      <i class="fas fa-clock"></i> Upcoming
+                    </div>
+                  } @else if (event.status === 'completed') {
+                    <div class="event-status completed">
+                      <i class="fas fa-check-circle"></i> Completed
+                    </div>
+                  } @else if (event.status === 'cancelled') {
+                    <div class="event-status cancelled">
+                      <i class="fas fa-times-circle"></i> Cancelled
+                    </div>
+                  } @else if (event.status === 'ongoing') {
+                    <div class="event-status ongoing">
+                      <i class="fas fa-play-circle"></i> Ongoing
+                    </div>
+                  }
+      
+                  <!-- Event Image -->
+                  <div class="event-image-container">
+                    <img [src]="'http://127.0.0.1:3000/files/' + event.coverImage" alt="{{ event.title }}" class="event-image">
+                    <div class="event-image-overlay"></div>
+                    <div class="event-category">{{ event.categories }}</div>
+                  </div>
+      
+                  <!-- Event Details -->
+                  <div class="event-details">
+                    <h3 class="event-title">{{ event.title }}</h3>
+                    <div class="event-meta">
+                      <div class="event-time">
+                        <i class="far fa-clock"></i> {{ event.startTime }}
+                      </div>
+                      <div class="event-time">
+                        <i class="far fa-calendar-alt"></i> {{ event.date | date: 'MMM d, y' }}
+                      </div>
+                      <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i> {{ event.location }}
+                      </div>
+                    </div>
+                    <p class="event-description">{{ event.description }}</p>
+      
+                    <!-- Event Footer -->
+                    <div class="event-footer">
+                      <div class="participants-info">
+                        <div class="participants-info">
+                          @if (event.status !== 'cancelled') {
+                            <div class="total-participants">
+                              {{ event.registrations?.length || 0 }}/{{ event.maxParticipants }} participants
+                            </div>
+                          }
+                          </div>
+                      
+                      </div>
+                      <div class="admin-actions">
+                        @if(isUserRegistered(event.registrations)){
+                          <button class="btn btn-success registerd-btn" >
+                            <i class="fas fa-check-circle"></i> Registered
+                          </button>
+
+                        }
+                        @else if (event.status === 'cancelled') {
+                          <button class="btn btn-danger" disabled>Cancelled</button>
+                          
+
+                        }
+                        @else {
+                          <button (click)="registre(event._id)" class="btn btn-primary register-btn">Register</button>
+                        }
+
+                   
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+      
+            <!-- Empty State -->
+            @if (data?.length === 0) {
+              <div class="col-12">
+                <div class="empty-state-container">
+                  <img src="assets/notfound.png" alt="No events found" class="empty-state-image">
+                  <h3 class="empty-state-title">No Events Found</h3>
+                  <p class="empty-state-message">We couldn't find any events matching your search criteria.</p>
+                  <button class="btn btn-primary" (click)="clearFilters()">Clear Filters</button>
+                </div>
+              </div>
+            }
+          </div>
+      
+          <!-- Pagination -->
+          <div class="pagination-container">
+            <mat-paginator 
+            [length]="totalEvents"
+            [pageSize]="pageSize"
+            [pageIndex]="pageIndex"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="handlePageEvent($event)"
+            aria-label="Select page">
+          </mat-paginator>
+         
+          </div>
+        </div>
+      </section>
+    </div>

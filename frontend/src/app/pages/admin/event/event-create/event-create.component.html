@@ -1,0 +1,156 @@
+<div class="event-creator-container">
+    <div class="event-creator-header">
+      <h1>Create New Event</h1>
+      <p>Build your perfect event in just a few steps</p>
+    </div>
+  
+    <mat-horizontal-stepper linear class="event-stepper">
+      <!-- Step 1: Basic Information -->
+      <mat-step [stepControl]="basicInfoForm">
+        <form [formGroup]="basicInfoForm" class="stepper-form">
+          <ng-template matStepLabel>Basic Information</ng-template>
+  
+          <div class="form-card">
+            <mat-form-field appearance="outline" class="full-width mb-3">
+              <mat-label>Event Title</mat-label>
+              <input matInput formControlName="title" required>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width mb-3">
+              <mat-label>Event Category</mat-label>
+              <mat-select formControlName="category" required>
+                <mat-option value="workshop">Workshop</mat-option>
+                <mat-option value="conference">Conference</mat-option>
+                <mat-option value="social">Social Gathering</mat-option>
+                <mat-option value="concert">Concert</mat-option>
+                <mat-option value="exhibition">Exhibition</mat-option>
+                <mat-option value="other">Other</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <div class="row-date-time">
+              <mat-form-field appearance="outline" class="date-field mb-3">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline" class="time-field mb-3">
+                <mat-label>Time</mat-label>
+                <input matInput type="time" formControlName="startTime" required>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="time-field mb-3">
+                <mat-label>End Time</mat-label>
+                <input matInput type="time" formControlName="endTime" required>
+              </mat-form-field>
+            </div>
+  
+            <mat-form-field appearance="outline" class="full-width mb-3">
+              <mat-label>Location</mat-label>
+              <input matInput formControlName="location" required>
+            </mat-form-field>
+  
+            <button mat-stroked-button color="primary" matStepperNext class="next-button">
+              Next <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Step 2: Details -->
+      <mat-step [stepControl]="detailsForm">
+        <form [formGroup]="detailsForm" class="stepper-form">
+          <ng-template matStepLabel>Details</ng-template>
+  
+          <div class="form-card">
+            <mat-form-field appearance="outline" class="full-width mb-3">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" rows="5" required></textarea>
+            </mat-form-field>
+  
+            <div class="row-details">
+              <mat-form-field appearance="outline" class="participants-field mb-3">
+                <mat-label>Maximum Participants</mat-label>
+                <input matInput type="number" formControlName="maxParticipants" required>
+              </mat-form-field>
+  
+              
+            </div>
+  
+            <div class="navigation-buttons">
+              <button mat-stroked-button matStepperPrevious class="prev-button">
+                <mat-icon>arrow_back</mat-icon> Back
+              </button>
+              <button mat-stroked-button color="primary" matStepperNext class="next-button">
+                Next <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Step 3: Media -->
+      <mat-step>
+        <ng-template matStepLabel>Media</ng-template>
+  
+        <div class="form-card">
+          <div class="file-upload-section">
+            <label class="file-upload-label">Cover Image</label>
+            <div class="file-upload-container">
+              <input type="file" (change)="onFileChange($event)" accept="image/*" required>
+              <div class="upload-hint">Supported formats: JPG, PNG, WEBP. Max size: 5MB</div>
+            </div>
+  
+            <div *ngIf="filePreview" class="preview-container">
+              <img [src]="filePreview" alt="Preview" class="preview-image">
+            </div>
+          </div>
+  
+          <div class="navigation-buttons">
+            <button mat-stroked-button matStepperPrevious class="prev-button">
+              <mat-icon>arrow_back</mat-icon> Back
+            </button>
+            <button mat-stroked-button color="primary" matStepperNext class="next-button">
+              Next <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-step>
+  
+      <!-- Step 4: Preview & Submit -->
+      <mat-step>
+        <ng-template matStepLabel>Preview</ng-template>
+        <div class="preview-container mb-4" *ngIf="basicInfoForm.valid && detailsForm.valid">
+          <h3>Event Preview</h3>
+          <div class="event-preview-card">
+            <img
+              [src]="filePreview || 'https://via.placeholder.com/800x400'"
+              alt="Event Cover"
+              class="preview-image"
+            />
+            <div class="preview-content">
+              <h4>{{ basicInfoForm.value.title }}</h4>
+              <p><strong>Category:</strong> {{ basicInfoForm.value.category }}</p>
+              <p><strong>Date & Time:</strong>
+                {{ basicInfoForm.value.date | date:'mediumDate' }}
+                at {{ basicInfoForm.value.startTime }}
+              </p>
+              <p><strong>Location:</strong> {{ basicInfoForm.value.location }}</p>
+              <p><strong>Max Participants:</strong> {{ detailsForm.value.maxParticipants }}</p>
+              <p>{{ detailsForm.value.description }}</p>
+            </div>
+          </div>
+        </div>
+  
+        <div class="navigation-buttons">
+          <button mat-stroked-button matStepperPrevious class="prev-button">
+            <mat-icon>arrow_back</mat-icon> Back
+          </button>
+          <button mat-raised-button color="accent" (click)="onSubmit()" class="submit-button">
+            Publish Event
+          </button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>

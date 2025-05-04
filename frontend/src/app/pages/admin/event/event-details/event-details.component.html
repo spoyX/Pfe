@@ -1,0 +1,245 @@
+<div class="container-fluid admin-container">
+    <div class="row">
+        <!-- Sidebar -->
+      
+
+        <!-- Main Content Area -->
+        <div class="col-lg-10 admin-main-content">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Events</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{eventDetails.title}}</li>
+                </ol>
+            </nav>
+
+            <!-- Event Header -->
+            <div class="event-header-container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="event-header">
+                            <h1 class="event-title">{{eventDetails.title}}</h1>
+                            <div class="event-meta">
+                                @if(eventDetails.status === 'upcoming') {
+                                    <span class="event-status upcoming">
+                                        <i class="fas fa-clock"></i> Upcoming
+                                    </span>
+                                } @else if(eventDetails.status === 'completed') {
+                                    <span class="event-status completed">
+                                        <i class="fas fa-check-circle"></i> Completed
+                                    </span>
+                                } @else if(eventDetails.status === 'cancelled') {
+                                    <span class="event-status cancelled">
+                                        <i class="fas fa-times-circle"></i> Cancelled
+                                    </span>
+                                } @else if(eventDetails.status === 'ongoing') {
+                                    <span class="event-status ongoing">
+                                        <i class="fas fa-play-circle"></i> Ongoing
+                                    </span>
+                                }
+                               
+                                <span class="event-category workshop">
+                                    <i class="fas fa-laptop-code"></i> {{eventDetails.categories}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="event-actions">
+                            <button class="btn btn-outline-primary btn-sm me-2">
+                                <i class="fas fa-edit me-1"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash-alt me-1"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Details and Stats -->
+            <div class="row">
+                <!-- Event Details -->
+                <div class="col-lg-8">
+                    <div class="card event-details-card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="event-image-container">
+                                        <img [src]="'http://127.0.0.1:3000/files/'+eventDetails.coverImage" alt="Event Cover" class="event-image">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="event-info">
+                                        <div class="info-item">
+                                            <i class="far fa-calendar-alt"></i>
+                                            <div>
+                                                <h6>Date & Time</h6>
+                                                <p>{{eventDetails.date | date: 'MMM d, y' }} • {{eventDetails.startTime}}  - {{eventDetails.endTime}} </p>
+                                            </div>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <div>
+                                                <h6>Location</h6>
+                                                <p>{{eventDetails.location}}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="info-item">
+                                            <i class="fas fa-users"></i>
+                                            <div>
+                                                <h6>Capacity</h6>
+                                                <p>{{eventDetails.registrations.length}} / {{eventDetails.maxParticipants}} Registered</p>
+                                            </div>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="far fa-clock"></i>
+                                            <div>
+                                                <h6>Registration Deadline</h6>
+                                                <p> {{ registrationDeadline | date: 'fullDate' }}</p>
+            <p ><strong>Days Left:</strong> {{ daysLeft }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="event-description mt-4">
+                                <h5>Event Description</h5>
+                                <p>{{eventDetails.description}}.</p>
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event Stats -->
+                <div class="col-lg-4">
+                    <div class="card stats-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Event Statistics</h5>
+                            
+                            <div class="stat-item">
+                                <div class="stat-info">
+                                    <span class="stat-label">Registration Rate  </span>
+                                    <ejs-progressbar id="progressBar" type="Linear" [value]="progressValue" [height]="height" [width]="width" [labelDisplayType]="labelDisplayType" [trackColor]="trackColor" [progressColor]="progressColor" [cssClass]="cssClass"></ejs-progressbar>
+                                    {{progressValue}}%
+                                </div>
+                              
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-info">
+                                    <span class="stat-label">Spots Remaining</span>
+                                    <ejs-progressbar id="progressBar1" type="Linear" [value]="progressSpots" [height]="height" [width]="width" [labelDisplayType]="labelDisplayType" [trackColor]="trackColor" [progressColor]="progressSpotColor" [cssClass]="cssClass"></ejs-progressbar>
+                                    {{progressSpots}}
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="stat-grid">
+                                <div class="stat-grid-item">
+                                    <div class="stat-number">42</div>
+                                    <div class="stat-label">Registered</div>
+                                </div>
+                                <div class="stat-grid-item">
+                                    <div class="stat-number">38</div>
+                                    <div class="stat-label">Confirmed</div>
+                                </div>
+                                <div class="stat-grid-item">
+                                    <div class="stat-number">4</div>
+                                    <div class="stat-label">Pending</div>
+                                </div>
+                                <div class="stat-grid-item">
+                                    <div class="stat-number">0</div>
+                                    <div class="stat-label">Cancelled</div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Participants Section -->
+            <div class="participants-section mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="card-title mb-0">Registered Participants</h5>
+                         
+                        </div>
+                        
+                  
+                        <!-- Participants Table -->
+                        <div class="table-responsive">
+                            <table class="table table-hover participant-table">
+                                <thead>
+                                  <tr>
+                                    <th>Participant</th>
+                                    <th>Email</th>
+                                    <th>Registration Date</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  @if (eventDetails && eventDetails.registrations) {
+                                    @for (userRegistration of eventDetails.registrations; track userRegistration._id) {
+                                      <tr>
+                                        <td>
+                                          <div class="participant-info">
+                                            <img
+                                              [src]="'http://127.0.0.1:3000/files/' + userRegistration.user?.profileImage"
+                                              alt="Participant"
+                                              class="participant-avatar"
+                                            />
+                                            <div>
+                                              <div class="participant-name">
+                                                {{ userRegistration.user?.firstName }} {{ userRegistration.user?.lastName }}
+                                              </div>
+                                              <div class="participant-role">{{userRegistration.user?.job}}</div>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        <td>{{ userRegistration.user?.email }}</td>
+                                        <td>{{ userRegistration.registrationDate | date : 'MMM d, y h:mm a' }}</td>
+                                      </tr>
+                                    }
+                                  } @else {
+                                    <tr>
+                                      <td colspan="3">Loading registrations...</td>
+                                    </tr>
+                                  }
+                                </tbody>
+                              </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <div class="pagination-info">
+                              Showing {{ pageSize * pageIndex + 1 }}-{{ pageSize * pageIndex + displayedRegistrations.length }} of {{ eventDetails?.registrations?.length || 0 }} participants
+                            </div>
+                            <mat-paginator
+                            [length]="eventDetails?.registrations?.length || 0"
+                            [pageSize]="pageSize"
+                            [pageSizeOptions]="pageSizeOptions"
+                            [pageIndex]="pageIndex"
+                            (page)="onPageChange($event)"
+                            aria-label="Select page of participants">
+                          </mat-paginator>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+        </div>
+    </div>
+</div>

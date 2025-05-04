@@ -20,6 +20,13 @@ export const routes: Routes = [
     {path:'calendar',loadComponent:()=>import('./pages/admin/calendar/calendar.component').then(c=>c.CalendarComponent)},
     {path:'user-management',loadComponent:()=>import('./pages/admin/user-management/user-management.component').then(c=>c.UserManagementComponent)},
     {path:'profile-view/:id',loadComponent:()=>import('./pages/admin/user-management/profile-view/profile-view.component').then(c=>c.ProfileViewComponent)},
+    {path:'event-creation',loadComponent:()=>import('./pages/admin/event/event-create/event-create.component').then(c=>c.EventCreateComponent)},
+    {path:'event-update/:id',loadComponent:()=>import('./pages/admin/event/event-update/event-update.component').then(c=>c.EventUpdateComponent)},
+
+    {path:'event-list',loadComponent:()=>import('./pages/admin/event/event.component').then(c=>c.EventComponent)},
+    {path:'event-details/:id',loadComponent:()=>import('./pages/admin/event/event-details/event-details.component').then(c=>c.EventDetailsComponent)},
+    
+
     
 
 
@@ -60,7 +67,8 @@ export const routes: Routes = [
     {path:'my-membership',loadComponent:()=>import('./pages/member/dashboard/my-membership/my-membership.component').then(c=>c.MyMembershipComponent)},
     {path:'calendar',loadComponent:()=>import('./pages/member/calendar/calendar.component').then(c=>c.CalendarComponent)},
     {path:'transaction/recipt/:id',loadComponent:()=>import('./pages/member/transaction/recipt/recipt.component').then(c=>c.ReciptComponent)},
-
+    {path:'event-list',loadComponent:()=>import('./pages/member/event/event.component').then(c=>c.EventComponent)},
+    
 
 
 

@@ -1,0 +1,385 @@
+body {
+    font-family: 'Inter', sans-serif;
+    color: #4a5568;
+    background-color: #f5f7fa;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Main Content Area */
+.admin-main-content {
+    padding: 2rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb-item a {
+    color: #a0aec0;
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: #2d3748;
+    font-weight: 500;
+}
+
+/* Event Header */
+.event-header-container {
+    margin-bottom: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.event-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.event-meta {
+    display: flex;
+    gap: 1rem;
+}
+
+.event-status, .event-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+}
+
+.event-status.upcoming {
+    background-color: #4299e1;
+}
+
+.event-status.ongoing {
+    background-color: #48bb78;
+}
+
+.event-status.completed {
+    background-color: #718096;
+}
+
+.event-status.cancelled {
+    background-color: #f56565;
+}
+
+.event-category.workshop {
+    background-color: #805ad5;
+}
+
+.event-actions {
+    margin-top: 1rem;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+}
+
+.card-title {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+}
+
+/* Event Details Card */
+.event-details-card .card-body {
+    padding: 2rem;
+}
+
+.event-image-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.event-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.event-date-badge {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background-color: white;
+    border-radius: 12px;
+    padding: 0.75rem;
+    text-align: center;
+    min-width: 70px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-day {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #2d3748;
+}
+
+.event-month, .event-year {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #a0aec0;
+}
+
+.event-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.info-item i {
+    font-size: 1.25rem;
+    color: #5e72e4;
+    width: 24px;
+    text-align: center;
+    margin-top: 0.25rem;
+}
+
+.info-item h6 {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.info-item p {
+    margin-bottom: 0;
+    color: #4a5568;
+}
+
+.event-description h5 {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.event-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.event-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.event-features li i {
+    color: #48bb78;
+}
+
+/* Stats Card */
+.stats-card .card-body {
+    padding: 2rem;
+}
+
+.stat-item {
+    margin-bottom: 1.5rem;
+}
+
+.stat-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #f7fafc;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat-grid-item {
+    background-color: #f7fafc;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #a0aec0;
+}
+
+.timeline-chart {
+    margin-top: 1rem;
+}
+
+/* Participants Section */
+.participants-section .card-body {
+    padding: 2rem;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+}
+
+.search-box .form-control {
+    padding-left: 2.5rem;
+    border-radius: 30px;
+}
+
+/* Participant Table */
+.participant-table {
+    margin-bottom: 0;
+}
+
+.participant-table th {
+    font-weight: 600;
+    color: #2d3748;
+    border-top: none;
+    padding: 1rem 0.75rem;
+}
+
+.participant-table td {
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+}
+
+.participant-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.participant-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.participant-name {
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.participant-role {
+    font-size: 0.85rem;
+    color: #a0aec0;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-badge.confirmed {
+    background-color: rgba(72, 187, 120, 0.1);
+    color: #48bb78;
+}
+
+.status-badge.pending {
+    background-color: rgba(236, 201, 75, 0.1);
+    color: #ecc94b;
+}
+
+.status-badge.cancelled {
+    background-color: rgba(245, 101, 101, 0.1);
+    color: #f56565;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #f7fafc;
+    border: none;
+    color: #4a5568;
+}
+
+.btn-icon:hover {
+    background-color: #edf2f7;
+    color: #5e72e4;
+}
+
+.pagination-info {
+    font-size: 0.9rem;
+    color: #a0aec0;
+}
+
+.pagination-info span {
+    font-weight: 500;
+    color: #2d3748;
+}
+.custom-progress-bar .e-progress-bar {
+    border-radius: 25px; /* Optional: Add rounded corners */
+  }
+
