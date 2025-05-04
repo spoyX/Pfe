@@ -20,6 +20,7 @@ const CalendarSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+
   location: {
     type: String,
   },
@@ -27,4 +28,4 @@ const CalendarSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-module.exports = mongoose.model('Event', CalendarSchema);
+module.exports = mongoose.model('Calendar', CalendarSchema);

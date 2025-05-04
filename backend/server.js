@@ -10,6 +10,7 @@ const notificationRoutes =require('./app/notifcation/Routes/notif.routes')
 const membershipRoute=require('./app/memberships/Routes/membership.Routes')
 const chatRoute=require('./app/chat/router/chat.routes')
 const oneSignal=require('./app/config/lib/signal.routes')
+const EventRoute = require('./app/event/Router/event.route');
 const CalendarRouter = require('./app/Calendar/router/calendar.Routes');
 const { createAdminAccount } = require('./app/User/controllers/user.Controller');
 const { startScheduler } = require('./app/config/scheduler'); 
@@ -21,6 +22,8 @@ startScheduler();
 
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/onesignal',oneSignal)
+app.use('/api/event',EventRoute);
+
 app.use('/api/membership',membershipRoute)
 app.use('/api/payments',paymentRouter)
 app.use('/api/user',userRouter)
