@@ -5,7 +5,8 @@ const userController=require('../controllers/user.Controller')
 
 
 
-const multer = require('multer')
+const multer = require('multer');
+const { authMiddleware } = require('../../middlewares/authMiddleware');
 
 let fileName = '';
 const myStorage = multer.diskStorage({
@@ -25,15 +26,15 @@ router.post('/createuseraccount', upload.single('idType') , (req, res)=>{
 
 
 router.post('/signin',userController.signIn);
-router.get('/byid/:id', userController.getUserProfile );
-router.get('/search', userController.searchUsers);
+router.get('/byid/:id',authMiddleware, userController.getUserProfile );
+router.get('/search', authMiddleware,userController.searchUsers);
 
-router.get('/allusers', userController.findAllNonAdminUsers);
-router.put('/updateprofile/:id',upload.single('profileImage'),(req,res)=>{
+router.get('/allusers',authMiddleware, userController.findAllNonAdminUsers);
+router.put('/updateprofile/:id',authMiddleware,upload.single('profileImage'),(req,res)=>{
   userController.updateProfile(req,res,fileName);
   fileName = '';
 })
-router.put('/changepassword/:id',userController.changePassword)
+router.put('/changepassword/:id',authMiddleware,userController.changePassword)
 
 router.post('/forgot-password', userController.forgotPassword);
 router.post('/checkVerificationCode',userController.checkVerificationCode)
@@ -42,7 +43,7 @@ router.put('/reset-password', userController.resetPassword);
 router.post('/contact',userController.sendContactMessage)
 
 
-router.delete('delete/:id', userController.deleteUser);
+router.delete('delete/:id',authMiddleware, userController.deleteUser);
 
 
 

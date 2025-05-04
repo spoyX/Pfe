@@ -120,7 +120,7 @@ exports.signIn = async (req, res) => {
       if (user.role !== 'admin' && (user.status !== 'active')) {
         const membership = await Membership.findOne({ userId: user._id });
         if (user.status === 'expired') {
-          return res.status(403).json({ message: 'Account expired. Please contact support.',userId: user._id });
+          return res.status(401).json({ message: 'Account expired. Please contact support.',userId: user._id });
           
         }
           return res.status(403).json({ message: 'Account is not active' });
@@ -130,7 +130,7 @@ exports.signIn = async (req, res) => {
       const membership = await Membership.findOne({ userId: user._id });
     
       if (!membership || membership.status === 'expired') {
-        return res.status(403).json({
+        return res.status(401).json({
           message: 'Your membership has expired. Please renew your membership to continue using the platform.'
           
         });

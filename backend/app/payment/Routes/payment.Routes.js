@@ -2,7 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-const paymentController=require('../../payment/controllers/payment.controller')
+const paymentController=require('../../payment/controllers/payment.controller');
+const { authMiddleware } = require('../../middlewares/authMiddleware');
 
 
 
@@ -20,11 +21,11 @@ router.post('/confirm-expired', paymentController.confirm);
 router.post('/confirm-renew',paymentController.confirmRenew);
 
 
-router.get('/allpayments',paymentController.getPayments)
-router.post('/validate/:id',paymentController.validatePayment)
-router.get('/byId/:id', paymentController.getPaymentById);
-router.get('/byUser/:userId', paymentController.getPaymentsByUserId);
-router.get('/history/:userId', paymentController.getUserPaymentHistory);
+router.get('/allpayments',authMiddleware,paymentController.getPayments)
+router.post('/validate/:id',authMiddleware,paymentController.validatePayment)
+router.get('/byId/:id', authMiddleware,paymentController.getPaymentById);
+router.get('/byUser/:userId',authMiddleware, paymentController.getPaymentsByUserId);
+router.get('/history/:userId',authMiddleware, paymentController.getUserPaymentHistory);
 
 
 

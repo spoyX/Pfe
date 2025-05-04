@@ -179,9 +179,10 @@ exports.registerToEvent = async (req, res) => {
         return res.status(400).json({ message: "Event is full" });
       }
   
+  
       // Add user to event registrations
       event.registrations.push({
-          user:req.body._id,
+          user:req.user._id,
           registrationDate: new Date()
         });
         await event.save()
