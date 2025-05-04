@@ -39,8 +39,8 @@ export class EventService {
     return this.http.get(`${this.url}/getall?${queryParams.toString()}`);
   }
 
-  registre(idEvent:any,_id:any){
-    return this.http.post(this.url+'registre/'+idEvent , _id);
+  registre(idEvent:any){
+    return this.http.post(this.url+'registre/'+idEvent,{});
 
   }
 }

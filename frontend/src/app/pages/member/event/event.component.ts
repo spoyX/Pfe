@@ -38,7 +38,8 @@ export class EventComponent {
   ngOnInit() {
     this.user = this._auth.getDataFromToken()._id
   
-    
+  
+   
     this.loadEvents();
     
     // Subscribe to form value changes for real-time filtering with debounce time
@@ -53,6 +54,7 @@ export class EventComponent {
         this.loadEvents();
       }, 300);
     });
+   
   }
   
   loadEvents(): void {
@@ -132,7 +134,7 @@ export class EventComponent {
     return this.allEvents.length;
   }
   registre(idEvent: any) {
-    this._event.registre(idEvent, this.user).subscribe({
+    this._event.registre(idEvent).subscribe({
       next: (res) => {
         console.log(res);
         Swal.fire('Success!', 'You have successfully registered for the event.', 'success');
@@ -152,7 +154,7 @@ export class EventComponent {
             title: 'Registration Failed',
             text: 'Sorry, the registration deadline has passed.'
           });
-        } else if (err.status === 400 && err.error.message.includes('User already registered')) {
+        } else if (err.status === 403 && err.error.message.includes('User already registered')) {
           Swal.fire({
             icon: 'error',
             title: 'Registration Failed',
@@ -166,7 +168,8 @@ export class EventComponent {
   }
   isUserRegistered(registrations: any[]): boolean {
     const userId = this.user; 
-    return registrations.some(registration => registration._id === userId);
+    return registrations.some(registration => registration.user === userId);
+  
   }
   
 }
