@@ -40,5 +40,8 @@ export class BlogService {
   delete(id:any){
     return this.http.delete(this.url +'delete/' + id)
   }
+  popular(){
+    return this.http.get(this.url +'popular')
+  }
 
 }

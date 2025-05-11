@@ -37,7 +37,7 @@
   width: 100%;
   background-color: #f8f9fa;
   padding: 15px 0;
-
+ margin-bottom: 3.5px;
   text-align: center;
   border-top: 1px solid #dee2e6;
   z-index: 1000; /* Ensures footer stays on top of other content */

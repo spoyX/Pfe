@@ -1,5 +1,5 @@
 <div class="body">
-<div class="container-fluid dashboard-container">
+  <div class="container-fluid dashboard-container">
     <div class="row mb-4">
       <div class="col">
         <h1 class="dashboard-title">User Management</h1>
@@ -74,73 +74,108 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Loading indicator -->
-              @if (isLoading) {
-                <tr>
-                  <td colspan="7" class="text-center py-4">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                  </td>
-                </tr>
-              } @else if (!data || data.length === 0) {
-                <tr>
-                  <td colspan="7" class="text-center py-4 text-muted">
-                    <i class="bi bi-inbox fs-4 d-block mb-2"></i>
-                    No users found
-                    @if (query !== '' || country !== '' || status !== '') {
-                      matching your search criteria
-                    }
-                  </td>
-                </tr>
-              } @else {
-                @for (user of data; track user._id) {
+              <!-- Defer Loading Table Content -->
+              @defer {
+                @if (!data || data.length === 0) {
                   <tr>
-                    <td class="user-id">#USR-{{ user._id.slice(0, 7) }}</td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <div class="avatar-wrapper me-2">
-                          <img [src]="'http://localhost:3000/files/' + user.profileImage" alt="User" class="avatar">
+                    <td colspan="7" class="text-center py-4 text-muted">
+                      <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+                      No users found
+                      @if (query !== '' || country !== '' || status !== '') {
+                        matching your search criteria
+                      }
+                    </td>
+                  </tr>
+                } @else {
+                  @for (user of data; track user._id) {
+                    <tr>
+                      <td class="user-id">#USR-{{ user._id.slice(0, 7) }}</td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar-wrapper me-2">
+                            <img [src]="'http://localhost:3000/files/' + user.profileImage" alt="User" class="avatar">
+                          </div>
+                          <span>{{user.firstName}} {{user.lastName}}</span>
                         </div>
-                        <span>{{user.firstName}} {{user.lastName}}</span>
+                      </td>
+                      <td>{{user.email}}</td>
+                      <td>
+                        @if (user.gender === 'female') {
+                          <div class="gender-icon gender-female">
+                            <i class="bi bi-gender-female"></i> Female
+                          </div>
+                        } @else {
+                          <div class="gender-icon gender-male">
+                            <i class="bi bi-gender-male"></i> Male
+                          </div>
+                        }
+                      </td>
+                      <td>
+                        @if (user.status === 'active') {
+                          <span class="badge status-badge status-active">Active</span>
+                        } @else if (user.status === 'inactive') {
+                          <span class="badge status-badge status-pending">Pending</span>
+                        } @else {
+                          <span class="badge status-badge status-expired">Expired</span>
+                        }
+                      </td>
+                      <td class="date-cell">
+                        <span>{{ user.createdAt | date:'MMM d, y' }}</span>
+                        <div class="date-heatmap" style="opacity: 0.8;"></div>
+                      </td>
+                      <td class="actions-column">
+                        <div class="action-buttons">
+                          <button class="btn btn-sm action-btn" [routerLink]="['/admin/profile-view',user._id]" aria-label="View user" data-bs-toggle="tooltip" title="View">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button class="btn btn-sm action-btn" aria-label="Edit user" data-bs-toggle="tooltip" title="Edit">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button class="btn btn-sm action-btn text-danger" aria-label="Delete user" data-bs-toggle="tooltip" title="Delete">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                }
+              } @placeholder (minimum 3s) {
+                <!-- Skeleton Loader Placeholder -->
+                @for (item of [1, 2, 3, 4, 5]; track item) {
+                  <tr>
+                    <td>
+                      <div class="placeholder-glow">
+                        <span class="placeholder col-6"></span>
                       </div>
                     </td>
-                    <td>{{user.email}}</td>
                     <td>
-                      @if (user.gender === 'female') {
-                        <div class="gender-icon gender-female">
-                          <i class="bi bi-gender-female"></i> Female
-                        </div>
-                      } @else {
-                        <div class="gender-icon gender-male">
-                          <i class="bi bi-gender-male"></i> Male
-                        </div>
-                      }
+                      <div class="placeholder-glow">
+                        <span class="placeholder col-8"></span>
+                      </div>
                     </td>
                     <td>
-                      @if (user.status === 'active') {
-                        <span class="badge status-badge status-active">Active</span>
-                      } @else if (user.status === 'inactive') {
-                        <span class="badge status-badge status-pending">Pending</span>
-                      } @else {
-                        <span class="badge status-badge status-expired">Expired</span>
-                      }
+                      <div class="placeholder-glow">
+                        <span class="placeholder col-10"></span>
+                      </div>
                     </td>
-                    <td class="date-cell">
-                      <span>{{ user.createdAt | date:'MMM d, y' }}</span>
-                      <div class="date-heatmap" style="opacity: 0.8;"></div>
+                    <td>
+                      <div class="placeholder-glow">
+                        <span class="placeholder col-4"></span>
+                      </div>
                     </td>
-                    <td class="actions-column">
-                      <div class="action-buttons">
-                        <button class="btn btn-sm action-btn"  [routerLink]="['/admin/profile-view',user._id]"   aria-label="View user" data-bs-toggle="tooltip" title="View">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                        <button class="btn btn-sm action-btn" aria-label="Edit user" data-bs-toggle="tooltip" title="Edit">
-                          <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="btn btn-sm action-btn text-danger" aria-label="Delete user" data-bs-toggle="tooltip" title="Delete">
-                          <i class="bi bi-trash"></i>
-                        </button>
+                    <td>
+                      <div class="placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="placeholder-glow">
+                        <span class="placeholder col-8"></span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="placeholder-glow">
+                        <span class="placeholder col-4"></span>
                       </div>
                     </td>
                   </tr>
@@ -171,5 +206,6 @@
           </div>
         </div>
       </div>
-      </div>
     </div>
+  </div> <!-- container-fluid -->
+</div>

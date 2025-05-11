@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder ,FormGroup ,FormControl ,Validators } 
 import { UserService } from '../../../../core/services/users/user.service';
 import { AuthentificationService } from '../../../../core/auth/authentification.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
@@ -85,14 +86,28 @@ export class EditProfileComponent {
       // Call service to update profile
       this._user.updateProfile(formData, this.id).subscribe({
         next: (res: any) => {
-          console.log('Profile updated successfully', res);
-          // Navigate to profile view or refresh data
-       this.router.navigate(['/member/profile/overview'])
+          // Show success alert
+          Swal.fire({
+            title: 'Profile Updated!',
+            text: 'Your profile has been updated successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            // Navigate to profile view or refresh data after confirmation
+            window.location.reload()
+          });
         },
         error: (err: any) => {
           console.error('Error updating profile', err);
+          // Show error alert
+          Swal.fire({
+            title: 'Error!',
+            text: 'An error occurred while updating your profile. Please try again.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
       });
     }
-  }
+}
 }

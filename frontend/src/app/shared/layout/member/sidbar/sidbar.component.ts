@@ -17,44 +17,38 @@ export class SidbarComponent {
   userId :any; 
   notifications: any[] = [];
   showDropdown = false;
-  constructor(private notificationService: NotificationService,private _auth:AuthentificationService) {}
+  
+  constructor(private notificationService: NotificationService, private _auth: AuthentificationService) {}
 
   ngOnInit(): void {
-    
-    this.userId=this._auth.getDataFromToken()._id
-    this.loadUnreadNotifications()
-    
-   
+    this.userId = this._auth.getDataFromToken()._id;
+    this.loadNotifications();
   }
-  
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
-  loadUnreadNotifications() {
-    this.notificationService.getUnreadNotifications(this.userId)
-      .subscribe({
-        next: (result: any) => {
-          // Handle the response based on its actual structure
-          if (Array.isArray(result)) {
-            this.notifications = result;
-            this.unreadCount = result.length;
-          } else {
-            // If the result is an object with a data property or similar
-            // Adjust according to your actual API response structure
-            this.notifications = Array.isArray(result.data) ? result.data : [];
-            this.unreadCount = this.notifications.length;
-          }
-        },
-        error: (err) => {
-          console.error("Error fetching notifications:", err);
+
+  loadNotifications() {
+    this.notificationService.getUnreadNotifications(this.userId).subscribe({
+      next: (result: any) => {
+        if (Array.isArray(result)) {
+          this.notifications = result;
+          this.unreadCount = this.notifications.filter(notif => !notif.read).length;
+        } else {
+          this.notifications = Array.isArray(result.data) ? result.data : [];
+          this.unreadCount = this.notifications.filter(notif => !notif.read).length;
         }
-      });
+      },
+      error: (err) => {
+        console.error("Error fetching notifications:", err);
+      }
+    });
   }
+
   markAsRead(id: string) {
     this.notificationService.markAsRead(id).subscribe({
       next: () => {
-        // Find the notification and mark it as read
         const notificationIndex = this.notifications.findIndex(notif => notif._id === id);
         if (notificationIndex !== -1) {
           this.notifications[notificationIndex].read = true;
@@ -67,4 +61,3 @@ export class SidbarComponent {
     });
   }
 }
-

@@ -1,0 +1,198 @@
+<div class="body">
+<!-- <header class="event-header py-5">
+    <div class="container py-5">
+      <span class="event-id-badge" data-aos="zoom-in">EVENT #CT2025-112</span>
+      <h1 class="event-title" data-aos="fade-right">Canada-Tunisia Trade Summit</h1>
+      <p class="event-subtitle" data-aos="fade-right" data-aos-delay="100">
+        Join industry leaders and government officials for a day of networking, knowledge sharing, and business opportunities between Canadian and Tunisian enterprises.
+      </p>
+      <div class="mt-4" data-aos="fade-up" data-aos-delay="200">
+        <button class="btn btn-amber me-2">
+          <i class="bi bi-calendar-check me-2"></i>Register Now
+        </button>
+        <button class="btn btn-outline-light">
+          <i class="bi bi-share me-2"></i>Share Event
+        </button>
+      </div>
+    </div>
+  </header> -->
+  
+  <!-- Search Section -->
+  <!-- <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="search-container" data-aos="fade-up" data-aos-delay="300">
+          <h4 class="text-center mb-4">Find Event by ID</h4>
+          <form class="row g-3">
+            <div class="col-md-9">
+              <input type="text" class="form-control search-input" placeholder="Enter Event ID (e.g., CT2025-112)" value="CT2025-112">
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn search-btn w-100">
+                <i class="bi bi-search me-2"></i>Find
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  <!-- Event Details Section -->
+  <section class="event-details-container">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mb-4">
+          <div class="card event-card" data-aos="fade-up">
+            <div class="position-relative">
+              <img [src]="'http://127.0.0.1:3000/files/'+data.coverImage" class="event-image w-100" alt="Canada-Tunisia Trade Summit">
+              <span class="status-badge">Registration Open</span>
+              @if(data.status === 'cancelled') {
+                <span class="status-badge closed">Cancelled</span>
+              } @else if (data.status === 'completed') {
+                <span class="status-badge completed">Completed</span>
+              } @else if (data.status === 'ongoing') {
+                <span class="status-badge ongoing">Ongoing</span>
+              }
+            </div>
+            <div class="card-body p-4">
+              <div class="d-flex flex-wrap gap-2 mb-4">
+                <span class="event-tag"><i class="bi bi-tag me-1"></i>{{data.categories}}</span>
+             
+              </div>
+              
+              <h2 class="mb-4">Event Description</h2>
+              <p class="mb-4">
+                {{data.description}}.
+              </p>
+          
+              
+              <div class="alert alert-info mt-4" role="alert">
+                <i class="bi bi-info-circle me-2"></i>
+                <strong>Note:</strong> All attendees must bring identification for security purposes. Translation services will be available.
+              </div>
+            </div>
+          </div>
+          
+      
+         
+       
+        </div>
+        
+        <div class="col-lg-4">
+          <!-- Event Info Card -->
+          <div class="card event-card mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-body p-4">
+              <h4 class="mb-4">Event Details</h4>
+              
+              <div class="event-info-item">
+                <div class="event-info-icon">
+                  <i class="bi bi-calendar-event"></i>
+                </div>
+                <div>
+                  <div class="text-muted small">Date</div>
+                  <div class="fw-medium">{{data.date| date: 'MMM d, y'  }}</div>
+                </div>
+              </div>
+              
+              <div class="event-info-item">
+                <div class="event-info-icon">
+                  <i class="bi bi-clock"></i>
+                </div>
+                <div>
+                  <div class="text-muted small">Time</div>
+                  <div class="fw-medium">{{data.startTime}} - {{data.startTime}} </div>
+                </div>
+              </div>
+              
+              <div class="event-info-item">
+                <div class="event-info-icon">
+                  <i class="bi bi-geo-alt"></i>
+                </div>
+                <div>
+                  <div class="text-muted small">Location</div>
+                  <div class="fw-medium">{{data.location}}</div>
+                  <!-- <div class="small text-muted">900 René-Lévesque Blvd W, Montreal, QC</div> -->
+                </div>
+              </div>
+              
+          
+              
+              <div class="event-info-item">
+             
+                <div>
+                  <div class="text-muted small">Capacity</div>
+                  <div class="fw-medium">{{data.maxParticipants}} Attendees</div>
+                  <div class="small text-muted">{{progressSpots}} spots available</div>
+                </div>
+              </div>
+              
+              <div class="event-info-item">
+                <div class="event-info-icon">
+                  <i class="bi bi-globe"></i>
+                </div>
+                <div>
+                  <div class="text-muted small">Languages</div>
+                  <div class="fw-medium">English, French, Arabic</div>
+                  <div class="small text-muted">Translation services available</div>
+                </div>
+              </div>
+              
+              <div class="mt-4">
+                <h5>Countdown to Event DeadLine</h5>
+                <div class="count-down-timer">
+                  <p>Countdown to {{ registrationDeadline | date: 'MMM d, y' }}</p>
+                  <div class="wrapper">
+                    <div class="description">
+                      <p>Days</p>
+                      <p>Hours</p>
+                      <p>Minutes</p>
+                      <p>Seconds</p>
+                    </div>
+                    <div class="times">
+                      <p>{{ daysLeft }}</p>
+                      <p>{{ hoursLeft | number: '2.0-0' }}</p>
+                      <p>{{ minutesLeft | number: '2.0-0' }}</p>
+                      <p>{{ secondsLeft | number: '2.0-0' }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-grid gap-2 mt-4">
+                @if (isUserRegistered(data.registrations)) {
+                <button  class="btn btn-amber">
+                  <i class="bi bi-calendar-check me-2"></i>Registered
+                </button>
+            }
+            @else if (data.status === 'cancelled') {
+                <button class="btn btn-danger" disabled>Cancelled</button>
+              } @else {
+                <button (click)="registre(data._id)" class="btn btn-amber">
+                  <i class="bi bi-calendar-check me-2"></i>Register Now
+                </button>
+              }
+                
+              </div>
+            </div>
+          </div>
+          
+     
+          
+        
+          
+          
+       
+        </div>
+      </div>
+    </div>
+  </section>
+  
+ 
+
+  
+ 
+</div>

@@ -16,6 +16,7 @@ export class CodeVerficationComponent {
   codeForm:FormGroup
   data:any
   email:any
+  errorMessage: string = '';
   constructor(private _user:UserService,private fb:FormBuilder,private _router:Router){
 
     let controls={
@@ -38,16 +39,13 @@ export class CodeVerficationComponent {
     this._user.checkVerificationCode(this.codeForm.value.code,this.email).subscribe({
       next:(res:any)=>{
        
+       
         this._router.navigate(['/reset-password'])
 
       },
       error:(err:any)=>{
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: '<a href="#">Why do I have this issue?</a>'
-        });
+    
+        this.errorMessage = err?.error?.message || 'Invalid verification code. Please try again.';
 
       }
     })

@@ -1,0 +1,233 @@
+<div class="container-fluid">
+    <!-- Page Title -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+          <h4 class="mb-sm-0 font-size-18">Crypto</h4>
+          <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+              <li class="breadcrumb-item active">Crypto</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Draggable Container -->
+    <div class="row mb-4" cdkDropListGroup>
+      <!-- Welcome Card -->
+      <div class="row mb-4">
+        <div class="col-xl-12" cdkDropList>
+          <div class="card">
+            <div class="row g-0">
+              <div class="col-lg-9 col-sm-8">
+                <div class="p-4">
+                  <h5 class="text-primary">Welcome Back!</h5>
+                  <p class="fw-bold mb-3">Admin Event Reports Dashboard</p>
+                  
+                  <div class="text-muted">
+                    <p class="mb-2">
+                      <i class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                      Analyze event performance and participation trends across all your events.
+                    </p>
+                    <p class="mb-2">
+                      <i class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                      Track event statuses: upcoming, ongoing, completed, and canceled.
+                    </p>
+                    <p class="mb-0">
+                      <i class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                      Generate detailed reports to optimize future event planning.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-4 d-flex align-items-center justify-content-center">
+                <div class="p-3">
+                  <img src="assets/event.jpg" alt="Event" class="img-fluid rounded">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Key Metrics Cards -->
+      <div class="row mb-4">
+        <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
+          <div class="card h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
+            <div class="card-body">
+              <p class="text-muted mb-4">
+                <i class="mdi mdi-calendar-check h2 text-primary align-middle mb-0 me-3"></i> Total Events
+              </p>
+              <div class="row">
+                <div class="col-7">
+                  <div>
+                    <h5 class="mb-2">{{eventData.length}}</h5>
+                    <p class="text-muted text-truncate mb-0">
+                      Upcoming: {{upcomingEvents}} 
+                      <i class="mdi mdi-arrow-up ms-1 text-success"></i>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div id="total-events-chart" class="apex-charts"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
+          <div class="card h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
+            <div class="card-body">
+              <p class="text-muted mb-4">
+                <i class="mdi mdi-account-group h2 text-info align-middle mb-0 me-3"></i> Total Members Registered
+              </p>
+              <div class="row">
+                <div class="col-7">
+                  <div>
+                    <h5 class="mb-2">{{totalRegistrations}}</h5>
+                    <p class="text-muted text-truncate mb-0">
+                      + {{totalRegistredToday}} Today
+                      <i class="mdi mdi-arrow-up ms-1 text-success"></i>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div id="total-members-chart" class="apex-charts"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
+          <div class="card h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
+            <div class="card-body">
+              <p class="text-muted mb-4">
+                <i class="mdi mdi-cancel h2 text-danger align-middle mb-0 me-3"></i> Cancelled Events
+              </p>
+              <div class="row">
+                <div class="col-7">
+                  <div>
+                    <h5 class="mb-2">{{cancelledEvents}}</h5>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div id="cancelled-events-chart" class="apex-charts"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Average Attendance Card -->
+      <div class="row mb-4">
+        <div class="col-xl-12" cdkDrag>
+          <div class="card" cdkDropList  (cdkDropListDropped)="drop($event)">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-md-8">
+                  <h4 class="card-title mb-3">Average Attendance</h4>
+                  <h1 class="display-4 mb-0">{{ averageAttendance }}</h1>
+                </div>
+                <div class="col-md-4 text-md-end">
+                  <div class="d-inline-block">
+                    <i class="fas fa-chart-line text-primary" style="font-size: 64px;"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Charts Section -->
+      <div class="row mb-4">
+        <div class="col-xl-7 mb-4" cdkDrag>
+          <div class="card h-100" cdkDropList  (cdkDropListDropped)="drop($event)">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Event Registration Trend</h4>
+              
+              <div *ngIf="chartData && chartData.length > 0; else noData">
+                  <ejs-chart id="registrationTrendChart" 
+                            [primaryXAxis]="primaryXAxiss" 
+                            [primaryYAxis]="primaryYAxiss" 
+                            [tooltip]="tooltipSettings" 
+                            [legendSettings]="legendSettings" 
+                            [palettes]="palette" 
+                            height="350px">
+                    <e-series-collection>
+                        <e-series [dataSource]="chartData" 
+                                 type="Line" 
+                                 xName="x" 
+                                 yName="y" 
+                                 name="Registrations" 
+                                 [marker]="marker">
+                        </e-series>
+                    </e-series-collection>
+                  </ejs-chart>
+              </div>
+              
+              <ng-template #noData>
+                  <div class="alert alert-info text-center">
+                      No registration data available for upcoming events.
+                  </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-5 mb-4" cdkDrag>
+          <div class="card h-100" cdkDropList  (cdkDropListDropped)="drop($event)">
+              <div class="card-body">
+                  <h4 class="card-title mb-4">Total Participants</h4>
+                  <ejs-accumulationchart id="participantChart" 
+                                        [legendSettings]="pieChartSettings.legendSettings" 
+                                        [tooltipSettings]="pieChartSettings.tooltipSettings" 
+                                        height="350px">
+                      <e-accumulation-series-collection>
+                          <e-accumulation-series [dataSource]="participantData"  
+                                               [palette]="chartPalette" 
+                                               type="Pie" 
+                                               xName="x" 
+                                               yName="y" 
+                                               [dataLabel]="{ visible: true, position: 'Inside', name: 'y', font: { fontWeight: '600', color: 'white' } }">
+                          </e-accumulation-series>
+                      </e-accumulation-series-collection>
+                  </ejs-accumulationchart>
+              </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Total Events This Year Chart -->
+      <div class="row mb-4">
+          <div class="col-xl-12" cdkDrag>
+              <div class="card" cdkDropList  (cdkDropListDropped)="drop($event)">
+                  <div class="card-body">
+                      <h4 class="card-title mb-4">Total Events This Year</h4>
+                      <ejs-chart id="yearlyEventsChart" 
+                                [primaryXAxis]="primaryXAxis" 
+                                [primaryYAxis]="primaryYAxis" 
+                                [palettes]="palette"
+                                [tooltip]="tooltipSettings" 
+                                [legendSettings]="legendSettings" 
+                                height="350px">
+                          <e-series-collection>
+                              <e-series [dataSource]="yearlyEventsData" 
+                                       type="Column" 
+                                       xName="x" 
+                                       yName="y" 
+                                       name="Events" 
+                                       [marker]="marker">
+                              </e-series>
+                          </e-series-collection>
+                      </ejs-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>

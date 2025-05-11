@@ -43,4 +43,10 @@ export class EventService {
     return this.http.post(this.url+'registre/'+idEvent,{});
 
   }
+  getEventsWihoutFilter(){
+    return this.http.get(this.url+'getallwithoutfilter');
+  }
+  getEventbyUser(){
+    return this.http.get(this.url+'events/user');
+  }
 }

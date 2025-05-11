@@ -5,7 +5,7 @@
               <span class="membra-logo" style="font-weight: bold; color: #555;">Membra</span>
           </div>
           <div class="user-info mt-3">
-              <div class="dropdown d-inline-block">
+              <!-- <div class="dropdown d-inline-block">
                   <a href="#" class="iconLink" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-person-fill"></i>
                   </a>
@@ -20,7 +20,7 @@
                           <span>Logout</span>
                       </a>
                   </div>
-              </div>
+              </div> -->
               <a href="/admin/notifications" class="iconLink"><i class="bi bi-bell"></i></a>
               <a href="/admin/settings" class="iconLink"><i class="bi bi-gear"></i></a>
           </div>
@@ -29,19 +29,31 @@
           <input type="text" class="form-control" placeholder="Search for...">
       </div>
       <ul class="nav flex-column mt-3">
-          <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/">
-                  <i class="bi bi-speedometer2 nav-icon me-2"></i>
-                  <span>Dashboard</span>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/admin/users">
-                  <i class="bi bi-people nav-icon me-2"></i>
-                  <span>Utilisateurs</span>
-              </a>
-          </li>
+        <li class="nav-item">
+            <a class="nav-link" 
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }" 
+               routerLink="/admin/">
+                <i class="bi bi-speedometer2 nav-icon me-2"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <!-- Blog Dashboard as a visually nested submenu item -->
+        <li class="nav-item">
+            <a class="nav-link ps-4" 
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" 
+            routerLink="/admin/Blog-Dashboard">
+                <i class="bi bi-file-earmark-richtext nav-icon me-2"></i>
+                <span>Blog Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/user-management" ><i class="fa fa-users"></i> Users <span class="badge bg-secondary">99+</span></a>
+        </li>
           <li class="nav-item">
               <a class="nav-link" routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/event-list">
@@ -56,12 +68,7 @@
               <span>Calendrier</span>
             </a>
           </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/admin/reports">
-                  <i class="bi bi-bar-chart-line nav-icon me-2"></i>
-                  <span>Rapports</span>
-              </a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }" routerLink="/admin/blog">
@@ -78,16 +85,7 @@
             </a>
         </li>
 
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-gear nav-icon me-2"></i>
-                  <span>Paramètres</span>
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" href="/admin/settings/general">Général</a></li>
-                  <li><a class="dropdown-item" href="/admin/settings/advanced">Avancé</a></li>
-              </ul>
-          </li>
+      
       </ul>
   </div>
 </aside>

@@ -98,28 +98,30 @@
                                                     </div>
                                                     
                                                     <div class="flex-grow-1">
-                                                      <h5 class="font-size-14 mb-1 d-flex align-items-center">
-                                                        {{ cmnt.user.username }}
-                                                        <small class="text-muted float-end">  {{ cmnt.createdAt | timeAgo }}</small>
-                                                        <div class="dropdown ms-2">
-                                                          <button class="btn btn-sm btn-link text-muted" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="fas fa-ellipsis-h"></i>
-                                                          </button>
-                                                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <li><a class="dropdown-item" (click)="onDeleteComment(cmnt._id)">Delete</a></li>
-                                                          </ul>
+                                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                                          <h5 class="font-size-14 mb-0 d-flex align-items-center">
+                                                            {{ cmnt.user.username }}
+                                                            <div class="dropdown ms-2">
+                                                              <button class="btn btn-sm btn-link text-muted" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="fas fa-ellipsis-h"></i>
+                                                              </button>
+                                                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                <li><a class="dropdown-item" (click)="onDeleteComment(cmnt._id)">Delete</a></li>
+                                                              </ul>
+                                                            </div>
+                                                          </h5>
+                                                          <small class="text-muted">{{ cmnt.createdAt | timeAgo }}</small>
                                                         </div>
-                                                      </h5>
-                                                      <p class="text-muted">{{ cmnt.content }}</p>
-                                                    </div>
-                                                  </div>
-                                                }
+                                                        <p class="text-muted">{{ cmnt.content }}</p>
+                                                      </div>
+                                                
                                               
                                                 
     
                                                 
       
                                               </div>
+                                            }
                                           </div>
 
                                           <div class="mt-4">

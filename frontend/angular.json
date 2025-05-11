@@ -33,6 +33,8 @@
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/@syncfusion/ej2-base/styles/material.css",
               "node_modules/@syncfusion/ej2-angular-notifications/styles/material.css",
+                    "node_modules/@syncfusion/ej2-grids/styles/material.css",
+             
               
               "src/styles.css"
               

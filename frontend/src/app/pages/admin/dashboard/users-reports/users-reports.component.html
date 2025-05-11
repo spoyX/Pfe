@@ -1,0 +1,261 @@
+<div class="container-fluid">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">Users Reports</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                        <li class="breadcrumb-item active">Users Reports</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- User Status Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-4">
+            <div class="card mini-stats-wid h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div class="me-3">
+                            <p class="text-muted mb-2">Active Users</p>
+                            <h5 class="mb-0">{{active}}</h5>
+                        </div>
+                        <div class="avatar-sm ms-auto">
+                            <div class="avatar-title bg-light rounded-circle text-success font-size-20">
+                                <i class="bx bx-user-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-4 col-md-4">
+            <div class="card mini-stats-wid h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div class="me-3">
+                            <p class="text-muted mb-2">Inactive Users</p>
+                            <h5 class="mb-0">{{inactive}}</h5>
+                        </div>
+                        <div class="avatar-sm ms-auto">
+                            <div class="avatar-title bg-light rounded-circle text-warning font-size-20">
+                                <i class="bx bx-user-x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-4 col-md-4">
+            <div class="card mini-stats-wid h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div class="me-3">
+                            <p class="text-muted mb-2">Expired Users</p>
+                            <h5 class="mb-0">{{expired}}</h5>
+                        </div>
+                        <div class="avatar-sm ms-auto">
+                            <div class="avatar-title bg-light rounded-circle text-danger font-size-20">
+                                <i class="bx bx-user-minus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Key Metrics Section -->
+    <div class="row mb-4">
+        <!-- Welcome Card -->
+        <div class="col-xl-4 mb-4 mb-xl-0">
+            <div class="card bg-primary bg-soft h-100">
+                <div class="row g-0">
+                    <div class="col-7">
+                        <div class="text-primary p-3">
+                            <h5 class="text-primary">Welcome Back!</h5>
+                            <p>Membra Dashboard</p>
+                            <ul class="ps-3 mb-0">
+                                <li class="py-1">7+ Layouts</li>
+                                <li class="py-1">Multiple apps</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Business Metrics Cards -->
+        <div class="col-xl-8">
+            <div class="row">
+                <!-- Orders Card -->
+                <div class="col-sm-4 mb-4 mb-sm-0">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="avatar-xs me-3">
+                                    <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
+                                        <i class="bx bx-copy-alt"></i>
+                                    </span>
+                                </div>
+                                <h5 class="font-size-14 mb-0">Orders</h5>
+                            </div>
+                            <div class="text-muted mt-4">
+                                <h4>1,452 <i class="mdi mdi-chevron-up ms-1 text-success"></i></h4>
+                                <div class="d-flex">
+                                    <span class="badge badge-soft-success font-size-12"> + 0.2% </span> 
+                                    <span class="ms-2 text-truncate">From previous period</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Revenue Card -->
+                <div class="col-sm-4 mb-4 mb-sm-0">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="avatar-xs me-3">
+                                    <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
+                                        <i class="bx bx-archive-in"></i>
+                                    </span>
+                                </div>
+                                <h5 class="font-size-14 mb-0">Revenue</h5>
+                            </div>
+                            <div class="text-muted mt-4">
+                                <h4>$ 28,452 <i class="mdi mdi-chevron-up ms-1 text-success"></i></h4>
+                                <div class="d-flex">
+                                    <span class="badge badge-soft-success font-size-12"> + 0.2% </span> 
+                                    <span class="ms-2 text-truncate">From previous period</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Average Price Card -->
+                <div class="col-sm-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="avatar-xs me-3">
+                                    <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
+                                        <i class="bx bx-purchase-tag-alt"></i>
+                                    </span>
+                                </div>
+                                <h5 class="font-size-14 mb-0">Average Price</h5>
+                            </div>
+                            <div class="text-muted mt-4">
+                                <h4>$ 16.2 <i class="mdi mdi-chevron-up ms-1 text-success"></i></h4>
+                                <div class="d-flex">
+                                    <span class="badge badge-soft-warning font-size-12"> 0% </span> 
+                                    <span class="ms-2 text-truncate">From previous period</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts Section -->
+    <div class="row mb-4">
+        <!-- User Status Chart -->
+        <div class="col-xl-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">User Status Comparison</h4>
+                    <ejs-chart id="barChart" [title]='barTitle' [primaryXAxis]='primaryXAxis' 
+                        [primaryYAxis]='primaryYAxis' [palettes]="palette" [tooltip]='tooltip' [legendSettings]='legendSettings'>
+                        <e-series-collection>
+                            <e-series [dataSource]="barData" type='Column' xName='x' yName='y' name='Users' 
+                                [marker]='{ dataLabel: { visible: true } }'>
+                            </e-series>
+                        </e-series-collection>
+                    </ejs-chart>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gender Chart -->
+        <div class="col-xl-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">{{ genderTitle }}</h4>
+                    <ejs-accumulationchart id="genderChart"  [title]='genderTitle' 
+                        [legendSettings]='legendSettings' [tooltip]='tooltip'>
+                        <e-accumulation-series-collection>
+                            <e-accumulation-series type='Pie' xName='x' yName='y' [palettes]="palette" [dataSource]="genderData">
+                            </e-accumulation-series>
+                        </e-accumulation-series-collection>
+                    </ejs-accumulationchart>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <!-- Country Chart -->
+        <div class="col-xl-6 mb-4 mb-xl-0">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">{{ countryTitle }}</h4>
+                    <ejs-accumulationchart id="countryChart" [title]='countryTitle' 
+                        [legendSettings]='legendSettings'  [tooltip]='tooltip'>
+                        <e-accumulation-series-collection>
+                            <e-accumulation-series type='Pie' xName='x' yName='y' [dataSource]="countryData">
+                            </e-accumulation-series>
+                        </e-accumulation-series-collection>
+                    </ejs-accumulationchart>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New Users Weekly Chart -->
+        <div class="col-xl-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">New Users This Week</h4>
+                    <ejs-chart id="lineChart" [title]='lineTitle' [primaryXAxis]='lineXAxis' 
+                        [primaryYAxis]='lineYAxis' [palettes]="palette" [tooltip]='tooltip'>
+                        <e-series-collection>
+                            <e-series [dataSource]="weeklyData" type='Area' xName='x' yName='y' name='New Users'
+                                opacity='0.6' width='3' [marker]='{ visible: true, height: 7, width: 7 }'>
+                            </e-series>
+                        </e-series-collection>
+                    </ejs-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Monthly Registration Chart -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">User Registrations Per Month</h4>
+                    <ejs-chart id="registrationChart" [title]='registrationTitle' [primaryXAxis]='registrationPrimaryXAxis'
+                    [primaryYAxis]='registrationPrimaryYAxis' [palettes]="palette" [tooltip]='tooltip'>
+                    <e-series-collection>
+                        <e-series [dataSource]="monthlyRegistrationData" type='Line' xName='x' yName='y' name='Registrations'
+                          width='2' [marker]='{ visible: true, height: 7, width: 7 }'>
+                        </e-series>
+                    </e-series-collection>
+                </ejs-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,320 @@
+<div class="container-fluid">
+    <!-- Page Title Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">Blog Dashboard</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                        <li class="breadcrumb-item active">Blog</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards Section -->
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-4">
+            <div class="card mini-stats-wid h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div class="me-3">
+                            <p class="text-muted mb-2">Total Posts</p>
+                            <h5 class="mb-0">{{blogs.length}}</h5>
+                        </div>
+                        <div class="avatar-sm ms-auto">
+                            <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                <i class="bx bxs-book-bookmark"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-4 col-md-4">
+            <div class="card blog-stats-wid h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div class="me-3">
+                            <p class="text-muted mb-2">Comments</p>
+                            <h5 class="mb-0">{{totalComments}}</h5>
+                        </div>
+                        <div class="avatar-sm ms-auto">
+                            <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                <i class="bx bxs-message-square-dots"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-4 col-md-4">
+            <div class="card blog-stats-wid h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div class="me-3">
+                            <p class="text-muted mb-2">Avg. Comments</p>
+                            <h5 class="mb-0">{{averageCommentsPerBlog | number:'1.1-1'}}</h5>
+                        </div>
+                        <div class="avatar-sm ms-auto">
+                            <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                <i class="bx bx-stats"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row mb-4">
+        <!-- Monthly Blog Creation Chart -->
+        <div class="col-xl-8 col-lg-7 mb-4 mb-lg-0">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-start mb-3">
+                        <h5 class="card-title me-2">Monthly Blog Creation</h5>
+                    </div>
+        
+                    <div class="chart-container" style="height: 320px">
+                        <ejs-chart id="monthlyChart" [primaryXAxis]="monthlyXAxis" [primaryYAxis]="monthlyYAxis" 
+                                  [tooltip]="tooltip" [title]="monthlyChartTitle" [legendSettings]="legend" [palettes]="palette">
+                            <e-series-collection>
+                                <e-series [dataSource]="monthlyBlogData" type="Line" xName="date" yName="count" 
+                                         name="Blog Count" [marker]="marker"></e-series>
+                            </e-series-collection>
+                        </ejs-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comments Distribution Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-start mb-3">
+                        <h5 class="card-title mb-0">Comments Distribution</h5>
+                    </div>
+                    
+                    <div class="chart-container" style="height: 320px">
+                        <ejs-accumulationchart id="pieChart">
+                            <e-accumulation-series-collection>
+                                <e-accumulation-series [dataSource]="chartData" xName="blogTitle" yName="comments" 
+                                                     radius="80%" innerRadius="40%" 
+                                                     [dataLabel]="{ visible: true, position: 'Inside', name: 'blogTitle' }">
+                                </e-accumulation-series>
+                            </e-accumulation-series-collection>
+                        </ejs-accumulationchart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="row mb-4">
+        <!-- Recent & Popular Posts Tab -->
+        <div class="col-xl-4 col-lg-6 mb-4 mb-xl-0">
+            <div class="card h-100">
+                <div class="card-header bg-transparent border-bottom">
+                    <div class="d-flex flex-wrap align-items-start">
+                        <div class="me-2">
+                            <h5 class="card-title mt-1 mb-0">Posts</h5>
+                        </div>
+                        <ul class="nav nav-tabs nav-tabs-custom card-header-tabs ms-auto" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#post-recent" role="tab">
+                                    Recent
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#post-popular" role="tab">
+                                    Popular
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <div data-simplebar style="max-height: 400px;">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!-- Recent Posts Tab -->
+                            <div class="tab-pane active" id="post-recent" role="tabpanel">
+                                <ul class="list-group list-group-flush">
+                                    @for(blog of blogs; track blog._id) {
+                                    <li class="list-group-item py-3">
+                                        <div class="d-flex">
+                                            <div class="me-3">
+                                                <img [src]="'http://127.0.0.1:3000/files/'+blog.image" alt="" class="avatar-md h-auto d-block rounded">
+                                            </div>
+                                            
+                                            <div class="align-self-center overflow-hidden me-auto">
+                                                <div>
+                                                    <h5 class="font-size-14 text-truncate"><a href="javascript: void(0);" class="text-dark">{{blog.title}}</a></h5>
+                                                    <p class="text-muted mb-0">{{blog.createdAt |date: 'dd MMMM yyyy'}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="dropdown ms-2">
+                                                <a class="text-muted font-size-14" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-horizontal"></i>
+                                                </a>
+                                                
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                            <!-- end tab pane -->
+
+                            <!-- Popular Posts Tab -->
+                            <div class="tab-pane" id="post-popular" role="tabpanel">
+                                <ul class="list-group list-group-flush">
+                                    @for(blog of top; track blog._id) {
+                                    <li class="list-group-item py-3">
+                                        <div class="d-flex">
+                                            <div class="me-3">
+                                                <img [src]="'http://127.0.0.1:3000/files/'+blog.image" alt="" class="avatar-md h-auto d-block rounded">
+                                            </div>
+                                            
+                                            <div class="align-self-center overflow-hidden me-auto">
+                                                <div>
+                                                    <h5 class="font-size-14 text-truncate"><a href="javascript: void(0);" class="text-dark">{{blog.title}}</a></h5>
+                                                    <p class="text-muted mb-0">{{blog.createdAt |date: 'dd MMMM yyyy'}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="dropdown ms-2">
+                                                <a class="text-muted font-size-14" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-horizontal"></i>
+                                                </a>
+                                                
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                            <!-- end tab pane -->
+                        </div>
+                        <!-- end tab content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <!-- Comments per Blog Chart -->
+        <div class="col-xl-8 col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-start mb-3">
+                        <h5 class="card-title me-2">Comments per Blog</h5>
+                    </div>
+
+                    <div class="chart-container" style="height: 400px">
+                        <ejs-chart id="commentChart" [primaryXAxis]="primaryXAxis" [primaryYAxis]="primaryYAxis" 
+                                  [tooltip]="tooltip" [palettes]="palette" [title]="title" [legendSettings]="legend">
+                            <e-series-collection>
+                                <e-series [dataSource]="chartData" type="Column" xName="blogTitle" yName="comments" 
+                                         name="Comments" [marker]="marker"></e-series>
+                            </e-series-collection>
+                        </ejs-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <!-- Popular Posts Table Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="me-auto">
+                            <h5 class="card-title mb-0">Popular Posts</h5>
+                        </div>
+                        <div class="dropdown">
+                            <a class="text-muted font-size-16" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                <i class="mdi mdi-dots-horizontal"></i>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle table-nowrap mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="2">Post</th>
+                                    <th scope="col">Comments</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(blog of top; track blog._id) {
+                                <tr>
+                                    <td style="width: 100px;">
+                                        <img [src]="'http://127.0.0.1:3000/files/'+blog.image" alt="" class="avatar-md h-auto d-block rounded">
+                                    </td>
+                                    <td>
+                                        <h5 class="font-size-13 text-truncate mb-1"><a href="javascript: void(0);" class="text-dark">{{blog.title}}</a></h5>
+                                        <p class="text-muted mb-0">{{blog.createdAt |date: 'dd MMMM yyyy'}}</p>
+                                    </td>
+                                    <td><i class="bx bx-comment-dots align-middle me-1"></i> {{ blog.comments?.length || 0 }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a class="text-muted font-size-16" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                                <i class="mdi mdi-dots-horizontal"></i>
+                                            </a>
+                                          
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" (click)="deleteBlog(blog._id)">Delete</a>
+                                                <a class="dropdown-item" [routerLink]="['/admin/blog-update',blog._id]">Update</a>
+                                                <a class="dropdown-item" [routerLink]="['/admin/blog-detail',blog._id]">View In Details</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
+<!-- container-fluid -->

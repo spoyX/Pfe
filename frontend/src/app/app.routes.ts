@@ -10,6 +10,11 @@ export const routes: Routes = [
   {path:'',loadComponent:()=>import('./pages/home/homepage/homepage.component').then(c=>c.HomepageComponent)},
   {path:'admin',canActivate:[dashGuard ,adminGuard],loadComponent:()=>import('./pages/admin/dashboard/dashboard.component').then(c=>c.DashboardComponent),children:[
     {path:'',loadComponent:()=>import('./pages/admin/dashboard/main/main.component').then(c=>c.MainComponent)},
+    {path:'Blog-Dashboard',loadComponent:()=>import('./pages/admin/dashboard/blog-dashboard/blog-dashboard.component').then(c=>c.BlogDashboardComponent)},
+    {path:'user-reports',loadComponent:()=>import('./pages/admin/dashboard/users-reports/users-reports.component').then(c=>c.UsersReportsComponent)},
+    {path:'event-reports',loadComponent:()=>import('./pages/admin/dashboard/event-dashboard/event-dashboard.component').then(c=>c.EventDashboardComponent)},
+    
+
     {path:'payment-detail/:id',loadComponent:()=>import('./pages/admin/payment-detail/payment-detail.component').then(c=>c.PaymentDetailComponent)},
     {path:'chat',loadComponent:()=>import('./pages/member/chat/chat.component').then(c=>c.ChatComponent)},
     {path:'blog',loadComponent:()=>import('./pages/admin/blog/blog.component').then(c=>c.BlogComponent)},
@@ -36,7 +41,7 @@ export const routes: Routes = [
   
    {path:'login',canActivate : [loginGuard],loadComponent:()=>import('./pages/login/login.component').then(c=>c.LoginComponent)},
    {path:'signup',loadComponent:()=>import('./pages/signup/signup.component').then(c=>c.SignupComponent)},
-   {path:'contact',loadComponent:()=>import('./shared/contact/contact.component').then(c=>c.ContactComponent)},
+   
 
 
 
@@ -45,6 +50,7 @@ export const routes: Routes = [
    {path:'reset-password',loadComponent:()=>import('./pages/login/reset-password/reset-password.component').then(c=>c.ResetPasswordComponent)},
    {path:'code-verfication',loadComponent:()=>import('./pages/login/code-verfication/code-verfication.component').then(c=>c.CodeVerficationComponent)},
   
+   
 
    {path:'expired',canActivate:[expiredGuard],loadComponent:()=>import('./shared/layout/expired-membership/expired-membership.component').then(c=>c.ExpiredMembershipComponent)},
    {path:'subscription',canActivate:[expiredGuard],loadComponent:()=>import('./shared/layout/expired-membership/subscription/subscription.component').then(c=>c.SubscriptionComponent)},
@@ -55,10 +61,10 @@ export const routes: Routes = [
     {path:'payment-success',loadComponent:()=>import('./pages/payment/paymentsucces/paymentsucces.component').then(c=>c.PaymentsuccesComponent)},
     {path:'payment-fail',loadComponent:()=>import('./pages/payment/payment-fail/payment-fail.component').then(c=>c.PaymentFailComponent)},
     
-
+  
    {path:'member',canActivate:[dashGuard],loadComponent:()=>import('./pages/member/dashboard/dashboard.component').then(c=>c.DashboardComponent) ,children: [
     
-   
+    {path:'',loadComponent:()=>import('./pages/member/dashboard/main/main.component').then(c=>c.MainComponent)},
     {path:'chat',loadComponent:()=>import('./pages/member/chat/chat.component').then(c=>c.ChatComponent)},
     {path:'transaction',loadComponent:()=>import('./pages/member/transaction/transaction.component').then(c=>c.TransactionComponent)},
     {path:'faq',loadComponent:()=>import('./shared/layout/faq/faq.component').then(c=>c.FaqComponent)},
@@ -68,8 +74,10 @@ export const routes: Routes = [
     {path:'calendar',loadComponent:()=>import('./pages/member/calendar/calendar.component').then(c=>c.CalendarComponent)},
     {path:'transaction/recipt/:id',loadComponent:()=>import('./pages/member/transaction/recipt/recipt.component').then(c=>c.ReciptComponent)},
     {path:'event-list',loadComponent:()=>import('./pages/member/event/event.component').then(c=>c.EventComponent)},
-    
+    {path:'event-details/:id',loadComponent:()=>import('./pages/member/event/event-details/event-details.component').then(c=>c.EventDetailsComponent)},
 
+    
+    {path:'contact',loadComponent:()=>import('./shared/layout/contact/contact.component').then(c=>c.ContactComponent)},
 
 
 

@@ -1,0 +1,5 @@
+.text-danger {
+    color: #dc3545; /* Bootstrap's default red color */
+    font-size: 0.875rem; /* Adjust font size */
+    margin-top: 0.25rem; /* Add spacing above the error message */
+  }

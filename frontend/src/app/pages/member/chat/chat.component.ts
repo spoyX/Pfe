@@ -15,7 +15,7 @@ import 'emoji-picker-element';
 })
 export class ChatComponent {
   messages: any[] = [];
-  senderId: any; // Replace with dynamic user info as needed
+  senderId: any; 
   content: string = '';
   data:any
   showEmojiPicker: boolean = false; 
@@ -45,7 +45,7 @@ export class ChatComponent {
     const emoji = event.detail.unicode;
     this.content += emoji;
   }
-  // Send a message using the ChatService
+  
   sendMessage() {
     
     if (!this.content.trim()) {
@@ -57,12 +57,12 @@ export class ChatComponent {
       next: () => {
         this.content = '';
         this.showEmojiPicker = false;
-        this.errorMessage = ''; // Clear any previous errors
+        this.errorMessage = ''; 
       },
       error: (err) => {
         console.error('Error sending message', err);
         
-        // Check if it's our specific 400 error from backend
+   
         if (err.status === 400 && err.error && err.error.error) {
           this.errorMessage = err.error.error;
         } else {

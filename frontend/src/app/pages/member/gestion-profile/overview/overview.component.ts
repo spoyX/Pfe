@@ -16,7 +16,7 @@ export class OverviewComponent {
 
   
 
-  ngOnInit(){
+  ngOnInit():void{
     this.id=this._auth.getDataFromToken()._id
     this._user.byid(this.id).subscribe({
       next: (res: any)=>{

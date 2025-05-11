@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { BlogService } from '../../../../core/services/blog/blog.service';
 import { CommonModule } from '@angular/common';
 import { StripHtmlPipe} from '../../../../core/pipe/strip-html.pipe'
+import { BlogSidebarComponent } from "../../../../shared/layout/blog-sidebar/blog-sidebar.component";
 @Component({
   selector: 'app-blog-list',
   standalone: true,
-  imports: [StripHtmlPipe,CommonModule,RouterLink],
+  imports: [StripHtmlPipe, CommonModule, RouterLink, BlogSidebarComponent],
   templateUrl: './blog-list.component.html',
   styleUrl: './blog-list.component.css'
 })

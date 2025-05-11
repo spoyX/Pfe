@@ -31,7 +31,7 @@ export class TransactionComponent {
      
      }
    })
-   this.id=this._auth.getDataFromToken()._id
+ 
 
    this._payment.paymentHistory(this.id).subscribe({
     next:(res:any)=>{

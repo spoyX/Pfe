@@ -7,13 +7,13 @@ import { UserService } from '../../../core/services/users/user.service';
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [],
+  imports: [CommonModule,FormsModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
 export class ChatComponent {
   messages: any[] = [];
-  senderId: any; // Replace with dynamic user info as needed
+  senderId: any; 
   content: string = '';
   data:any
 
@@ -34,7 +34,7 @@ export class ChatComponent {
     });
   }
 
-  // Send a message using the ChatService
+
   sendMessage() {
     if (this.content.trim()) {
       this.chatService.sendMessage(this.senderId, this.content).subscribe({
