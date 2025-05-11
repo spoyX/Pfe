@@ -47,7 +47,20 @@ exports.getAllEvents = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+exports.getEvents= async (req, res) => {
+  try {
+    const events = await Event.find({})
+      .populate(
+        'registrations.user', // Populate the user field in registrations
+        "username email firstName lastName profileImage job" // Specify the fields to populate
+      )
+   
+      res.status(200).json(events);
+  } catch (error) {
+    console.error("Error fetching events:", error); // Log the error for debugging
+    res.status(500).json({ message: "Failed to fetch events", error: error.message });
+  }
+};
 // Get event details with populated users
 exports.getEventDetails = async (req, res) => {
     try {
@@ -59,6 +72,22 @@ exports.getEventDetails = async (req, res) => {
       res.status(200).json(event);
     } catch (error) {
       res.status(500).json({ message: error.message });
+    }
+  };
+
+  exports.getEventsByUser = async (req, res) => {
+    try {
+      const userId =req.user._id; 
+  
+      
+      const events = await (await Event.find({ "registrations.user": userId })).length
+       
+       
+  
+      res.status(200).json(events);
+    } catch (error) {
+      console.error("Error fetching events for user:", error); // Log the error for debugging
+      res.status(500).json({ message: "Failed to fetch events", error: error.message });
     }
   };
 

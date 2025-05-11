@@ -22,6 +22,8 @@ router.post('/create',upload.single('image'),(req,res)=>{
 // Get all blogs
 router.get('/getall', blogController.getBlogs);
 
+
+router.get('/popular', blogController.getPopularBlogs);
 // Get a specific blog
 router.get('/byid/:id', blogController.getBlog);
 // update a specific blog

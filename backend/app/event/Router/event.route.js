@@ -26,10 +26,12 @@ router.post('/create', authMiddleware,upload.single('coverImage'), (req, res)=>{
 // Get all events
 router.get('/getall',authMiddleware,eventController.getAllEvents);
 
+//get all events without filter
+router.get('/getallwithoutfilter',authMiddleware,eventController.getEvents);
 // Get event details
 router.get('/byid/:id',authMiddleware, eventController.getEventDetails);
 
-
+router.get('/events/user', authMiddleware,eventController.getEventsByUser);
 
 // Update event details (admin only)
 router.put('/update/:id', authMiddleware,upload.single('coverImage'), (req, res)=>{

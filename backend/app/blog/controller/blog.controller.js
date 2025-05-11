@@ -105,3 +105,51 @@ exports.deleteBlog = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getPopularBlogs = async (req, res) => {
+  try {
+    // Get blogs and populate comments
+    const blogs = await Blog.find()
+      .populate('comments')
+      .lean(); // Using lean() for better performance as we just need the data
+
+    // Sort blogs by comment count (descending)
+    const sortedBlogs = blogs.sort((a, b) => {
+      const commentsA = a.comments ? a.comments.length : 0;
+      const commentsB = b.comments ? b.comments.length : 0;
+      return commentsB - commentsA; // Sort in descending order
+    });
+
+    // Get top 3 blogs
+    const topBlogs = sortedBlogs.slice(0, 3);
+
+    res.json(topBlogs);
+  } catch (error) {
+    console.error('Error getting popular blogs:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getPopularBlogs = async (req, res) => {
+  try {
+   
+    const blogs = await Blog.find()
+      .populate('comments')
+      .lean(); // Using lean() for better performance as we just need the data
+
+   
+    const sortedBlogs = blogs.sort((a, b) => {
+      const commentsA = a.comments ? a.comments.length : 0;
+      const commentsB = b.comments ? b.comments.length : 0;
+      return commentsB - commentsA; // Sort in descending order
+    });
+
+    // Get top 3 blogs
+    const topBlogs = sortedBlogs.slice(0, 3);
+
+    res.json(topBlogs);
+  } catch (error) {
+    console.error('Error getting popular blogs:', error);
+    res.status(500).json({ message: error.message });
+  }
+};

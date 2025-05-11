@@ -120,7 +120,7 @@ exports.signIn = async (req, res) => {
       if (user.role !== 'admin' && (user.status !== 'active')) {
         const membership = await Membership.findOne({ userId: user._id });
         if (user.status === 'expired') {
-          return res.status(401).json({ message: 'Account expired. Please contact support.',userId: user._id });
+          return res.status(404).json({ message: 'Account expired. Please contact support.',userId: user._id });
           
         }
           return res.status(403).json({ message: 'Account is not active' });
@@ -377,7 +377,7 @@ exports.checkVerificationCode = async (req, res) => {
 
     // Check if the verification code matches and is not expired
     if (user.verificationCode !== code || user.codeExpires < new Date()) {
-      return res.status(401).json({ message: 'Invalid or expired verification code' });
+      return res.status(404).json({ message: 'Invalid or expired verification code' });
     } else {
       return res.status(200).json({ message: 'Verification code is valid' });
     }
