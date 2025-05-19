@@ -1,0 +1,76 @@
+.badge {
+  font-weight: 500;
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.rounded-pill {
+  border-radius: 50rem;
+}
+
+/* Success badge */
+.badge-soft-success {
+  color: #0abb87;
+  background-color: rgba(10, 187, 135, 0.18);
+  box-shadow: 0 2px 4px rgba(10, 187, 135, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Warning badge */
+.badge-soft-warning {
+  color: #ffb822;
+  background-color: rgba(255, 184, 34, 0.18);
+  box-shadow: 0 2px 4px rgba(255, 184, 34, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine effect for badges */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: -110%;
+  left: -210%;
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+  transform: rotate(30deg);
+  background: rgba(255, 255, 255, 0.13);
+  background: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.13) 77%,
+    rgba(255, 255, 255, 0.5) 92%,
+    rgba(255, 255, 255, 0.0) 100%
+  );
+  animation: shine 2s infinite;
+}
+
+/* Animation for the shine effect */
+@keyframes shine {
+  10% {
+    opacity: 1;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
+  100% {
+    opacity: 0;
+    top: 0%;
+    left: 0%;
+    transition-property: left, top, opacity;
+  }
+}

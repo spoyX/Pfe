@@ -3,12 +3,13 @@ import { RouterLinkActive , RouterLink } from '@angular/router';
 import { NotificationService } from '../../../../core/services/notification/notification.service';
 import { AuthentificationService } from '../../../../core/auth/authentification.service';
 import { CommonModule } from '@angular/common';
+import { TimeAgoPipe } from "../../../../core/pipe/time-ago.pipe";
 
 
 @Component({
   selector: 'app-sidbar',
   standalone: true,
-  imports: [RouterLink,RouterLinkActive,CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, TimeAgoPipe],
   templateUrl: './sidbar.component.html',
   styleUrl: './sidbar.component.css'
 })
@@ -60,4 +61,28 @@ export class SidbarComponent {
       }
     });
   }
+   // New method to delete a notification
+  deleteNotification(id: string, event: Event) {
+    // Prevent the click event from bubbling up to the parent elements
+    event.stopPropagation();
+    
+    this.notificationService.delete(id).subscribe({
+      next: () => {
+        // Remove the notification from the array
+        const index = this.notifications.findIndex(notif => notif._id === id);
+        if (index !== -1) {
+          // If it was unread, decrement the count
+          if (!this.notifications[index].read) {
+            this.unreadCount--;
+          }
+          // Remove it from the array
+          this.notifications.splice(index, 1);
+        }
+      },
+      error: (err) => {
+        console.error("Error deleting notification:", err);
+      }
+    });
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../../../core/services/users/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MembershipService } from '../../../../core/services/memberships/membership.service';
 import { PaymentService } from '../../../../core/services/payment/payment.service';
@@ -8,7 +8,7 @@ import { PaymentService } from '../../../../core/services/payment/payment.servic
 @Component({
   selector: 'app-profile-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './profile-view.component.html',
   styleUrl: './profile-view.component.css'
 })
@@ -85,7 +85,7 @@ export class ProfileViewComponent {
     this._payment.paymentHistory(this.id).subscribe({
       next: (res: any) => {
         this.payments = res;
-        this.paymentsFound = res && res.length > 0; // Adjust based on your API's response
+        this.paymentsFound = res && res.length > 0; 
         console.log("Payment history:", res);
       },
       error: (err: any) => {
@@ -93,5 +93,17 @@ export class ProfileViewComponent {
         console.log("Payment error:", err);
       }
     });
+  }
+  delete(id:any){
+    this._user.deleteUser(id).subscribe({
+      next:(res:any)=>{
+        console.log(res);
+        this.loadUserData();
+      },
+      error:(err:any)=>{
+        console.log(err);
+      }
+    })
+
   }
 }

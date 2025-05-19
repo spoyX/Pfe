@@ -128,3 +128,155 @@ user-info {
       font-weight: 500;
       color: #3b82f6;
     }
+
+    .notifications-dropdown {
+  width: 280px !important;
+  max-height: 350px;
+  overflow-y: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0 !important;
+  left: 0;
+  z-index: 1030;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Empty state styling */
+.notifications-dropdown .text-muted.text-center {
+  padding: 20px;
+  font-size: 0.9rem;
+  color: #6c757d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.notifications-dropdown .text-muted.text-center::before {
+  content: "🔔";
+  font-size: 24px;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+/* Notification items container */
+.notifications-dropdown {
+  padding: 0 !important;
+}
+
+/* Notification item */
+.notification-item {
+  position: relative;
+  padding: 12px 14px !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:last-child {
+  border-bottom: none !important;
+}
+
+.notification-item:hover {
+  background-color: rgba(0, 123, 255, 0.04);
+}
+
+/* Notification content */
+.notification-item small {
+  display: block;
+  cursor: pointer;
+  padding-right: 25px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Unread notification styling */
+.notification-item small:not(.text-muted) {
+  font-weight: 500;
+  color: #212529;
+  position: relative;
+  padding-left: 12px;
+}
+
+.notification-item small:not(.text-muted)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #0d6efd;
+}
+
+/* Read notification styling */
+.notification-item small.text-muted {
+  color: #6c757d !important;
+  padding-left: 12px;
+}
+
+/* Timestamp styling */
+.notification-item .text-muted.mt-1.small {
+  font-size: 0.7rem;
+  margin-top: 4px !important;
+  color: #8a8a8a !important;
+}
+
+/* Delete button styling */
+.notification-delete {
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+  padding: 0 !important;
+  width: 24px;
+  height: 24px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% !important;
+  background: transparent !important;
+  border: none !important;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.notification-item:hover .notification-delete {
+  opacity: 0.7;
+}
+
+.notification-delete:hover {
+  opacity: 1 !important;
+  background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+.notification-delete i {
+  font-size: 0.85rem;
+}
+
+/* Custom scrollbar */
+.notifications-dropdown::-webkit-scrollbar {
+  width: 4px;
+}
+
+.notifications-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notifications-dropdown::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

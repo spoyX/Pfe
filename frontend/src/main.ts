@@ -6,4 +6,4 @@ import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
-  registerLicense(environment.syncfusionLicenseKey);
+  registerLicense("Ngo9BigBOggjHTQxAR8/V1NNaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXpfeXVQQ2ZfUEdwXEJWYUA=");

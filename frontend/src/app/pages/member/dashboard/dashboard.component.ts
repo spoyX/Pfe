@@ -25,32 +25,29 @@ export class DashboardComponent {
       this.initializeOneSignal(); // this handles init + prompt
     }
     
-    private initializeOneSignal() {
-      OneSignal.init({
-        appId: "4cc87a6c-3d64-4e0e-b04d-e433d8c10def",
-        notifyButton: {
-          enable: true,
-        },
-        allowLocalhostAsSecureOrigin: true,
-        serviceWorkerPath: './OneSignalSDKWorker.js',
-        serviceWorkerUpdaterPath: './OneSignalSDKUpdaterWorker.js',
-      }).then(() => {
-        // Only call after initialization completes
-        return OneSignal.showSlidedownPrompt();
-      }).then(() => {
-        return OneSignal.getUserId();
-      }).then((playerId: string) => {
-        this.http.post(this.url, {
-          userId: this.auth.getDataFromToken()._id,
-          playerId
-        }).subscribe({
-          next: () => console.log('Player ID registered'),
-          error: (err) => console.error('Registration failed:', err)
-        });
-      }).catch((error: any) => {
-        console.error('OneSignal error:', error);
-      });
-    }
-  }
+   private initializeOneSignal() {
+  OneSignal.init({
+    appId: "4cc87a6c-3d64-4e0e-b04d-e433d8c10def",
+    notifyButton: { enable: true },
+    allowLocalhostAsSecureOrigin: true,
+    serviceWorkerPath: './OneSignalSDKWorker.js',
+    serviceWorkerUpdaterPath: './OneSignalSDKUpdaterWorker.js',
+  })
+  .then(() => OneSignal.Slidedown.promptPush())
+  .then(() => {
+    // subscription.id is your new playerId
+    const playerId = OneSignal.User.PushSubscription.id;
+    return this.http.post(this.url, {
+      userId: this.auth.getDataFromToken()._id,
+      playerId
+    }).toPromise();
+  })
+  .then(() => console.log('Player ID registered'))
+  .catch((err: any) => console.error('OneSignal error:', err));
+}
+}
+  
+  
+    
 
 

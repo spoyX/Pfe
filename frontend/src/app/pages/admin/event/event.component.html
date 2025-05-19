@@ -6,11 +6,17 @@
         <div class="col-lg-6">
           <h1 class="hero-title">Manage Events with Ease</h1>
           <p class="hero-subtitle">
-            Take full control of your events, from creation to updates. Organize event details, track participant registrations, and ensure smooth operations—all in one place.
+            Take full control of your events, from creation to updates. Organize
+            event details, track participant registrations, and ensure smooth
+            operations—all in one place.
           </p>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
-          <img src="assets/events.jpg" alt="Events Illustration" class="img-fluid hero-image">
+          <img
+            src="assets/events.jpg"
+            alt="Events Illustration"
+            class="img-fluid hero-image"
+          />
         </div>
       </div>
     </div>
@@ -25,7 +31,12 @@
             <div class="col-lg-5">
               <div class="search-box">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" class="form-control" placeholder="Search events..." formControlName="title">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search events..."
+                  formControlName="title"
+                />
               </div>
             </div>
             <div class="col-lg-7">
@@ -43,11 +54,19 @@
                 <div class="col-md-5">
                   <div class="date-picker">
                     <i class="far fa-calendar date-icon"></i>
-                    <input type="date" class="form-control" formControlName="date">
+                    <input
+                      type="date"
+                      class="form-control"
+                      formControlName="date"
+                    />
                   </div>
                 </div>
                 <div class="col-md-2">
-                  <button type="button" class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary w-100"
+                    (click)="clearFilters()"
+                  >
                     <i class="fas fa-times"></i> Clear
                   </button>
                 </div>
@@ -62,12 +81,18 @@
   <!-- Events Section -->
   <section class="events-section">
     <div class="container">
-      <h2 class="section-title">Events <span class="event-count">({{ totalEvents }})</span></h2>
+      <div class="btn-toolbar mb-4">
+        <button routerLink="/admin/event-creation" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Create Event
+        </button>
+      </div>
+      <h2 class="section-title">
+        Events <span class="event-count">({{ totalEvents }})</span>
+      </h2>
 
       <div class="row g-4">
         <!-- Event Card -->
-        @defer(when data) {
-        @for (event of data; track event._id) {
+        @defer(when data) { @for (event of data; track event._id) {
         <div class="col-md-6 col-lg-4">
           <div class="event-card">
             <!-- Event Status Badge -->
@@ -91,7 +116,11 @@
 
             <!-- Event Image -->
             <div class="event-image-container">
-              <img [src]="'http://127.0.0.1:3000/files/' + event.coverImage" alt="{{ event.title }}" class="event-image">
+              <img
+                [src]="'http://127.0.0.1:3000/files/' + event.coverImage"
+                alt="{{ event.title }}"
+                class="event-image"
+              />
               <div class="event-image-overlay"></div>
               <div class="event-category">{{ event.categories }}</div>
             </div>
@@ -104,7 +133,8 @@
                   <i class="far fa-clock"></i> {{ event.startTime }}
                 </div>
                 <div class="event-time">
-                  <i class="far fa-calendar-alt"></i> {{ event.date | date: 'MMM d, y' }}
+                  <i class="far fa-calendar-alt"></i>
+                  {{ event.date | date : "MMM d, y" }}
                 </div>
                 <div class="event-location">
                   <i class="fas fa-map-marker-alt"></i> {{ event.location }}
@@ -115,18 +145,35 @@
               <!-- Event Footer -->
               <div class="event-footer">
                 <div class="participants-info">
+                  @if(event.status !== 'cancelled') {
                   <div class="total-participants">
-                    {{ event.registrations?.length || 0 }}/{{ event.maxParticipants }} participants
+                    {{ event.registrations?.length || 0 }}/{{
+                      event.maxParticipants
+                    }}
+                    participants
                   </div>
+                  }
                 </div>
                 <div class="admin-actions">
-                  <button [routerLink]="['/admin/event-details', event._id]" class="btn btn-info btn-sm action-btn" title="View Details">
+                  <button
+                    [routerLink]="['/admin/event-details', event._id]"
+                    class="btn btn-info btn-sm action-btn"
+                    title="View Details"
+                  >
                     <i class="fas fa-eye"></i>
                   </button>
-                  <button [routerLink]="['/admin/event-update', event._id]" class="btn btn-warning btn-sm action-btn" title="Edit Event">
+                  <button
+                    [routerLink]="['/admin/event-update', event._id]"
+                    class="btn btn-warning btn-sm action-btn"
+                    title="Edit Event"
+                  >
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button (click)="deleteEvent(event._id)" class="btn btn-danger btn-sm action-btn" title="Delete Event">
+                  <button
+                    (click)="deleteEvent(event._id)"
+                    class="btn btn-danger btn-sm action-btn"
+                    title="Delete Event"
+                  >
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </div>
@@ -134,21 +181,22 @@
             </div>
           </div>
         </div>
-        }
-        }
-        @placeholder (minimum 2s) {
+        } } @placeholder (minimum 2s) {
         <div class="row g-4">
           <!-- Event Card Placeholder -->
           @for (i of [0, 1, 2, 3, 4, 5]; track i) {
           <div class="col-md-6 col-lg-4">
             <div class="card" aria-hidden="true">
-              <div class="img-thumbnail placeholder w-100" style="height: 150px;"></div>
+              <div
+                class="img-thumbnail placeholder w-100"
+                style="height: 150px"
+              ></div>
 
               <div class="card-body">
                 <h5 class="card-title placeholder-glow">
                   <span class="placeholder col-6"></span>
                 </h5>
-              
+
                 <p class="card-text placeholder-glow">
                   <span class="placeholder col-7"></span>
                   <span class="placeholder col-4"></span>
@@ -156,7 +204,10 @@
                   <span class="placeholder col-6"></span>
                   <span class="placeholder col-8"></span>
                 </p>
-                <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                <a
+                  class="btn btn-primary disabled placeholder col-6"
+                  aria-disabled="true"
+                ></a>
               </div>
             </div>
           </div>
@@ -168,10 +219,13 @@
         @if (data?.length === 0) {
         <div class="col-12">
           <div class="empty-state-container">
-            <img src="assets/notfound.png" alt="No events found" class="empty-state-image">
+            <img
+              src="assets/notfound.png"
+              alt="No events found"
+              class="empty-state-image"
+            />
             <h3 class="empty-state-title">No Events Found</h3>
-            <p class="empty-state-message">We couldn't find any events matching your search criteria.</p>
-            <button class="btn btn-primary" (click)="clearFilters()">Clear Filters</button>
+            <p class="empty-state-message">We couldn't find any events.</p>
           </div>
         </div>
         }
@@ -179,13 +233,14 @@
 
       <!-- Pagination -->
       <div class="pagination-container">
-        <mat-paginator 
+        <mat-paginator
           [length]="totalEvents"
           [pageSize]="pageSize"
           [pageIndex]="pageIndex"
           [pageSizeOptions]="pageSizeOptions"
           (page)="handlePageEvent($event)"
-          aria-label="Select page">
+          aria-label="Select page"
+        >
         </mat-paginator>
       </div>
     </div>

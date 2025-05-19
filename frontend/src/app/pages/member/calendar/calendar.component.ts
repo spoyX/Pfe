@@ -4,11 +4,12 @@ import { WeekService, MonthService, WorkWeekService, DayService, AgendaService }
 import { CalendarService } from '../../../core/services/calendar/calendar.service';
 import { parseISO } from 'date-fns';
 import { readOnlyMode } from '@syncfusion/ej2-angular-richtexteditor';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [ScheduleModule],
+  imports: [ScheduleModule,RouterLink],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css'

@@ -148,7 +148,7 @@ export class BlogDashboardComponent {
       .map((blog: any) => {
         return {
           blogTitle: blog.title.length > 10 ? blog.title.substring(0, 10) + '...' : blog.title,
-          comments: blog.comments ? blog.comments.length : 0
+          comments:  blog.comments.length 
         };
       });
   }

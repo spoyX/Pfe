@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PaymentService } from '../../../core/services/payment/payment.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment-detail',
@@ -31,19 +32,29 @@ export class PaymentDetailComponent {
     
 
   }
-  validate(id:string){
-    const body = {};
-    
-    this._payment.validate(this.id,body).subscribe({
-      next:(res:any)=>{
-        console.log('valide')
-      },
-      error:(err)=>{
-        console.log(err)
-      }
+validate(id: string) {
+  const body = {};
 
-    })
+  this._payment.validate(this.id, body).subscribe({
+    next: (res: any) => {
+      Swal.fire({
+        title: 'Validated!',
+        text: 'The payment has been validated successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      this.ngOnInit()
+    },
+    error: (err) => {
+      console.log(err);
+      Swal.fire({
+        title: 'Error!',
+        text: 'An error occurred while validating the payment.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  });
 
-  }
-
+}
 }

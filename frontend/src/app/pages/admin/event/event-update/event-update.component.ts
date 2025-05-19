@@ -36,6 +36,8 @@ export class EventUpdateComponent {
     previewForm: FormGroup;
     selectedFile: File | null = null;
     filePreview: string | ArrayBuffer | null = null;
+    existingImageUrl: string | null = null;
+    existingImageName: string | null = null;
     id:any
   
     constructor(
@@ -59,7 +61,7 @@ export class EventUpdateComponent {
       });
   
       this.mediaForm = this.fb.group({
-        coverImage: ['', Validators.required]
+        coverImage: ['',]
       });
   
       this.previewForm = this.fb.group({});
@@ -82,7 +84,7 @@ export class EventUpdateComponent {
     this.id = this._activatedRoute.snapshot.paramMap.get('id');
 
     this._event.getEventById(this.id).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         console.log(res);
         this.basicInfoForm.patchValue({
           title: res.title,
@@ -91,16 +93,21 @@ export class EventUpdateComponent {
           startTime: res.startTime,
           location: res.location
         });
+        
         this.detailsForm.patchValue({
           description: res.description,
           maxParticipants: res.maxParticipants,
           status: res.status
         });
-        this.mediaForm.patchValue({
-          coverImage: res.coverImage
-        });
+        
+        // Store the existing image URL and set it as the preview
+        if (res.coverImage) {
+            this.existingImageName = res.coverImage;
+          this.existingImageUrl = "http://127.0.0.1:3000/files/"+ res.coverImage;
+          this.filePreview = this.existingImageUrl;
+        }
       },
-      error: (err:any) => {
+      error: (err: any) => {
         console.error('Error fetching event data', err);
         Swal.fire({
           icon: 'error',
@@ -108,60 +115,55 @@ export class EventUpdateComponent {
           text: 'An unexpected error occurred. Please try again.'
         });
       }
-
     });
-}
+  }
 
     onSubmit(): void {
-      if (
-        this.basicInfoForm.valid &&
-        this.detailsForm.valid &&
-        this.mediaForm.valid
-      ) {
-        const formData = new FormData();
-        const basicInfo = this.basicInfoForm.value;
-        const details = this.detailsForm.value;
-        const media = this.mediaForm.value;
-  
-        Object.keys(basicInfo).forEach(key => formData.append(key, basicInfo[key]));
-        Object.keys(details).forEach(key => formData.append(key, details[key]));
-        Object.keys(media).forEach(key => {
-          if (key === 'coverImage' && this.selectedFile) {
-            formData.append('coverImage', this.selectedFile);
-          } else {
-            formData.append(key, media[key]);
-          }
-        });
-  
-        // Replace with your actual service call to create event
-        this._event.updateEvent(formData,this.id).subscribe({
-          next: (res: any) => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Success',
-              text: 'Event updated successfully!'
-            });
-            this.router.navigate(['admin/event-list']);
-          },
-          error: (err: any) => {
-            console.error('Error creating event', err);
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'An unexpected error occurred. Please try again.'
-            });
-          }
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Validation Error',
-          text: 'Please fill in all required fields.'
-        });
+    if (
+      this.basicInfoForm.valid &&
+      this.detailsForm.valid
+    ) {
+      const formData = new FormData();
+      const basicInfo = this.basicInfoForm.value;
+      const details = this.detailsForm.value;
+      
+      // Add all basic info and details to FormData
+      Object.keys(basicInfo).forEach(key => formData.append(key, basicInfo[key]));
+      Object.keys(details).forEach(key => formData.append(key, details[key]));
+      
+      // Handle image - if new file is selected, use it, otherwise pass the existing image name
+      if (this.selectedFile) {
+        formData.append('coverImage', this.selectedFile);
+      } else if (this.existingImageName) {
+        // Add a flag or the existing image name to tell the backend to keep the existing image
+        formData.append('existingImage', this.existingImageName);
       }
+      
+      // Update the event
+      this._event.updateEvent(formData, this.id).subscribe({
+        next: (res: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Event updated successfully!'
+          });
+          this.router.navigate(['admin/event-list']);
+        },
+        error: (err: any) => {
+          console.error('Error updating event', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An unexpected error occurred. Please try again.'
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields.'
+      });
     }
   }
-  
-  
-
-
+}

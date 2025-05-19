@@ -1,3 +1,21 @@
+<div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-sm-0 font-size-18">Create Event</h4>
+
+                  <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                          <li class="breadcrumb-item"><a routerLink="/admin/event-list">Events</a></li>
+                          <li class="breadcrumb-item active">Create Event</li>
+                      </ol>
+                  </div>
+
+              </div>
+          </div>
+      </div>
 <div class="event-creator-container">
     <div class="event-creator-header">
       <h1>Create New Event</h1>
@@ -18,7 +36,7 @@
   
             <mat-form-field appearance="outline" class="full-width mb-3">
               <mat-label>Event Category</mat-label>
-              <mat-select formControlName="category" required>
+              <mat-select formControlName="categories" required>
                 <mat-option value="workshop">Workshop</mat-option>
                 <mat-option value="conference">Conference</mat-option>
                 <mat-option value="social">Social Gathering</mat-option>
@@ -131,7 +149,7 @@
             />
             <div class="preview-content">
               <h4>{{ basicInfoForm.value.title }}</h4>
-              <p><strong>Category:</strong> {{ basicInfoForm.value.category }}</p>
+              <p><strong>Category:</strong> {{ basicInfoForm.value.categories }}</p>
               <p><strong>Date & Time:</strong>
                 {{ basicInfoForm.value.date | date:'mediumDate' }}
                 at {{ basicInfoForm.value.startTime }}
@@ -153,4 +171,5 @@
         </div>
       </mat-step>
     </mat-horizontal-stepper>
+  </div>
   </div>

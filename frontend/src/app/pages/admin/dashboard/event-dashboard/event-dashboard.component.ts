@@ -71,18 +71,24 @@ export class EventDashboardComponent {
     this.legendSettings = { visible: true, position: 'Bottom' };
     this.tooltipSettings = { enable: true, format: '${series.name} : ${point.x} : ${point.y}' };
     this.marker = { visible: true, width: 7, height: 7, shape: 'Circle' };
-    this.palette = ['#6610f2', '#7E57C2', '#2196F3', '#4CAF50'];
- this.chartPalette =  [
-  '#4285F4',  // Primary blue (matches your Membra header blue)
-  '#5E35B1',  // Deep purple (complements the illustration)
-  '#00ACC1',  // Teal (provides contrast)
-  '#FB8C00',  // Orange (high visibility for important metrics)
-  '#43A047',  // Green (positive metrics)
-  '#EC407A',  // Pink (matches illustration accent)
-  '#7986CB',  // Indigo (soft blue variant)
-  '#FFA726'   // Amber (attention metrics)
+    this.palette = [
+  '#5b7acb',  // Medium blue - matches your Membra brand color
+  '#63c7b2',  // Soft teal
+  '#8f7cb6',  // Muted purple
+  '#f3866f'   // Soft coral
 ];
 
+// Extended color palette for charts
+this.chartPalette = [
+  '#5b7acb',  // Medium blue - matches your Membra brand color
+  '#63c7b2',  // Soft teal
+  '#8f7cb6',  // Muted purple
+  '#f3866f',  // Soft coral
+  '#f9c27a',  // Soft amber
+  '#76b0e0',  // Light blue
+  '#a2c99b',  // Soft green
+  '#d7aaea'   // Soft lavender
+];
     // Chart configuration for yearly events
     this.title = 'Total Events This Year';
     this.primaryXAxis = {
@@ -230,14 +236,15 @@ export class EventDashboardComponent {
       y: monthlyEventCounts[index] || 0
     }));
   }
-  prepareParticipantData() {
-    // Aggregate participant counts per event
-    this.participantData = this.eventData.map(event => ({
+prepareParticipantData() {
+  // Aggregate participant counts per event, excluding cancelled events
+  this.participantData = this.eventData
+    .filter(event => event.status !== 'cancelled') // Filter out cancelled events
+    .map(event => ({
       x: event.title,
       y: event.registrations ? event.registrations.length : 0
     }));
-  }
-
+}
 
 calculateAverageAttendance() {
   if (this.eventData.length === 0) {

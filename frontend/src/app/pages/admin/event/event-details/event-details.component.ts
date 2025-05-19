@@ -11,14 +11,14 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   standalone: true,
   imports: [
     CommonModule, 
-    ProgressBarModule, 
+    ProgressBarModule,
     MatPaginatorModule
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class EventDetailsComponent  {
+export class EventDetailsComponent implements OnInit, AfterViewInit {
   // Event details properties
   eventDetails: any;
   id: any;
@@ -34,8 +34,9 @@ export class EventDetailsComponent  {
   pageSizeOptions: number[] = [5, 10, 25, 50];
   pageIndex = 0;
   displayedRegistrations: any[] = [];
+  totalRegistrations = 0;
 
-// Progress bar properties
+  // Progress bar properties
   height: string = '40px';
   width: string = '100%';
   labelDisplayType: string = 'Inside';
@@ -48,22 +49,39 @@ export class EventDetailsComponent  {
 
   ngOnInit(): void {
     this.id = this._act.snapshot.params['id'];
-    this._event.getEventById(this.id).subscribe((res: any) => {
-      this.eventDetails = res;
-    
-      
-      this.calculateRegistrationDeadline();
-      this.calculateDaysLeft();
-      // Calculate progress bar values
-      this.progressValue = Math.round((this.eventDetails.registrations.length / this.eventDetails.maxParticipants) * 100);
-      this.progressSpots = Math.round((this.eventDetails.maxParticipants - this.eventDetails.registrations.length)); 
-      
-      // Initialize pagination with first page
-      this.updateDisplayedRegistrations();
-    });
+    this.loadEventDetails();
   }
 
- 
+  ngAfterViewInit(): void {
+    // If we have data before paginator initializes
+    if (this.paginator && this.eventDetails) {
+      this.paginator.page.subscribe((event: PageEvent) => {
+        this.onPageChange(event);
+      });
+    }
+  }
+
+  loadEventDetails(): void {
+    this._event.getEventById(this.id).subscribe((res: any) => {
+      this.eventDetails = res;
+      this.calculateRegistrationDeadline();
+      this.calculateDaysLeft();
+      
+      // Calculate progress bar values
+      this.progressValue = Math.round((this.eventDetails.registrations.length / this.eventDetails.maxParticipants) * 100);
+      this.progressSpots = Math.round((this.eventDetails.maxParticipants - this.eventDetails.registrations.length));
+      
+      // Initialize pagination
+      this.totalRegistrations = this.eventDetails.registrations?.length || 0;
+      this.updateDisplayedRegistrations();
+      
+      // Update paginator if it's already available
+      if (this.paginator) {
+        this.paginator.length = this.totalRegistrations;
+        this.paginator.pageIndex = this.pageIndex;
+      }
+    });
+  }
 
   calculateRegistrationDeadline(): void {
     if (this.eventDetails) {

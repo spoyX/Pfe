@@ -1,7 +1,8 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { UserService } from '../../../../core/services/users/user.service';
-import { 
+import {
   ChartModule,
   CategoryService,
   LegendService,
@@ -17,21 +18,21 @@ import {
   AccumulationDataLabelService,
   DateTimeService,
   DateTimeCategoryService,
-  AreaSeriesService 
- 
-
-  
+  AreaSeriesService,
 } from '@syncfusion/ej2-angular-charts';
-
+import { ProgressBarModule } from '@syncfusion/ej2-angular-progressbar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users-reports',
   standalone: true,
   imports: [
     CommonModule,
-    ChartModule,
-  AccumulationChartModule,
-  
+    ChartModule, 
+    AccumulationChartModule,
+   
+    ProgressBarModule,
+    FormsModule
   ],
   providers: [
     PieSeriesService,
@@ -39,27 +40,23 @@ import {
     LegendService,
     TooltipService,
     ColumnSeriesService,
-    DataLabelService, 
+    DataLabelService,
     DateTimeService,
     LineSeriesService,
     AreaSeriesService,
- 
     PieSeriesService,
-    DataLabelService, AccumulationChartModule,
+    DataLabelService,
+    AccumulationChartModule,
     AccumulationLegendService,
     AccumulationTooltipService,
     AccumulationDataLabelService,
-    LineSeriesService, 
-    PieSeriesService ,
-    
-   
-    DateTimeCategoryService,  
+    LineSeriesService,
+    PieSeriesService,
+    DateTimeCategoryService,
   ],
   templateUrl: './users-reports.component.html',
   styleUrl: './users-reports.component.css',
- 
-  
- 
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this line to handle custom elements
 })
 export class UsersReportsComponent {
   // User data
@@ -67,23 +64,25 @@ export class UsersReportsComponent {
   active: number = 0;
   inactive: number = 0;
   expired: number = 0;
-  
+
   // Chart data
-  public areaData: object[] = []; 
-   public genderData: object[] = [];
-   public countryData: object[] = [];
+  public areaData: object[] = [];
+  public genderData: object[] = [];
+  public countryData: object[] = [];
 
   public barData: object[] = [];
   public primaryXAxis: object = { valueType: 'Category' };
   public primaryYAxis: object = { minimum: 0, maximum: 100, interval: 20 };
   public palette: string[] = [
-    '#4267B2',  // Primary blue (similar to your header blue)
-    '#34C759',  // Success green (slightly more vibrant than bootstrap)
-    '#5856D6',  // Purple accent (adds visual interest)
-    '#FF9500',  // Warm orange (friendlier than harsh yellow)
-    '#FF3B30',  // Attention red (for critical items)
-    '#5AC8FA',  // Light blue (complementary to primary)
-    '#007AFF'   // Accent blue (for highlights)
+    '#4dc9f6',
+    'rgba(218, 211, 69, 0.91)',
+    '#f53794',
+    '#537bc4',
+    '#acc236',
+    '#166a8f',
+    '#00a950',
+    '#58595b',
+    '#8549ba',
   ];
   public legendSettings: object = { visible: true, position: 'Bottom' };
   public tooltip: object = { enable: true };
@@ -91,7 +90,7 @@ export class UsersReportsComponent {
   public barTitle: string = 'User Status Comparison';
   public genderTitle: string = 'Gender Split';
   public countryTitle: string = 'Country/Region Distribution';
-    public registrationTitle: string = 'User Registrations Per Month'
+  public registrationTitle: string = 'User Registrations Per Month';
 
   // New Users This Week Data
   public newUsersThisWeek: number = 0;
@@ -104,26 +103,72 @@ export class UsersReportsComponent {
 
   public registrationPrimaryXAxis: object = {
     valueType: 'DateTime',
-    labelFormat: 'MMM yyyy',  // Format the labels
-    intervalType: 'Months',   // Display intervals by month
-    interval: 1
+    labelFormat: 'MMM yyyy', // Format the labels
+    intervalType: 'Months', // Display intervals by month
+    interval: 1,
   };
   public registrationPrimaryYAxis: object = {
     title: 'Number of Registrations',
-    minimum: 0
+    minimum: 0,
+  };
+  canadaPercentage: any;
+  tunisiaPercentage: any;
+  tunisiaUsers: any;
+  canadaUsers: any;
+  totalUsers: any;
+
+  // Progress bar properties
+  height: string = '40px';
+  width: string = '100%';
+ 
+  trackColor: string = '#E0E0E0';
+  progressColor: string = '#48bb78';
+  progressCanadaColor: string = '#ecc94b';
+  cssClass: string = 'custom-progress-bar';
+  layers: any;
+  markerData: any;
+
+  // Map properties
+  public mapHeight: string = '220px';
+  public shapeData: Object = 'https://cdn.syncfusion.com/maps/map-data/world-map.json';
+  
+  public shapeSettings: object = {
+    fill: '#e5e5e5',
+    border: { color: '#bdbdbd', width: 0.5 }
   };
 
- 
+  public zoomSettings: object = {
+    enable: true,
+    zoomFactor: 4
+  };
+
+  public tooltipSettings: object = {
+    visible: true,
+    valuePath: 'name',
+    template: '<div style="padding: 10px;"><b>${name}</b><br/>${users} users</div>'
+  };
+
+  public markerSettings: object = {
+    visible: true,
+    dataSource: [],
+    shape: 'Balloon',
+    height: 20,
+    width: 20,
+    fill: '#FF5733',
+    border: { color: 'white', width: 1 },
+    tooltipSettings: this.tooltipSettings
+  };
+
   constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.fetchUserData();
-  
-
-
-
-  
+    
   }
+
+  
+  
+  
   fetchUserData() {
     this.userService.alluser().subscribe({
       next: (res: any) => {
@@ -143,17 +188,23 @@ export class UsersReportsComponent {
         } else {
           this.data = [];
         }
-        
+
         // Calculate user counts by status
         if (Array.isArray(this.data)) {
-          this.active = this.data.filter((user: any) => user.status === 'active').length;
-          this.inactive = this.data.filter((user: any) => user.status === 'inactive').length;
-          this.expired = this.data.filter((user: any) => user.status === 'expired').length;
-          
+          this.active = this.data.filter(
+            (user: any) => user.status === 'active'
+          ).length;
+          this.inactive = this.data.filter(
+            (user: any) => user.status === 'inactive'
+          ).length;
+          this.expired = this.data.filter(
+            (user: any) => user.status === 'expired'
+          ).length;
+
           // Prepare chart data
-          this.calculateNewUsersThisWeek()
+          this.calculateNewUsersThisWeek();
           this.prepareBarData();
-          this.prepareCountryData()
+          this.prepareCountryData();
           this.prepareGenderData();
           this.prepareMonthlyRegistrationData();
         } else {
@@ -168,118 +219,125 @@ export class UsersReportsComponent {
         this.active = 0;
         this.inactive = 0;
         this.expired = 0;
-      }
+      },
     });
-    
   }
-  
 
   prepareGenderData() {
-    const maleCount = this.data.filter((user: any) => user.gender === 'male').length;
-    const femaleCount = this.data.filter((user: any) => user.gender === 'female').length;
-    const otherCount = this.data.filter((user: any) => user.gender === 'other').length;
+    const maleCount = this.data.filter(
+      (user: any) => user.gender === 'male'
+    ).length;
+    const femaleCount = this.data.filter(
+      (user: any) => user.gender === 'female'
+    ).length;
+    const otherCount = this.data.filter(
+      (user: any) => user.gender === 'other'
+    ).length;
 
     this.genderData = [
       { x: 'Male', y: maleCount },
       { x: 'Female', y: femaleCount },
-      { x: 'Other', y: otherCount }
+      { x: 'Other', y: otherCount },
     ];
-    console.log("Gender Data:", this.genderData);
-   
+    console.log('Gender Data:', this.genderData);
   }
 
   prepareBarData() {
     this.barData = [
       { x: 'Active', y: this.active },
       { x: 'Inactive', y: this.inactive },
-      { x: 'Expired', y: this.expired }
+      { x: 'Expired', y: this.expired },
     ];
-   
   }
+  
   prepareCountryData() {
-    // Aggregate user counts by country/region
-    const countryCounts: { [key: string]: number } = {
-      'Tunisia': 0,  // Initialize counts
-      'Canada': 0,
-      'Other': 0
-    };
+    const totalUsers = this.data.length;
+    // Calculate user counts by country
+    const canadaUsers = this.data.filter(
+      (user: any) => user.country === 'Canada'
+    ).length;
+    const tunisiaUsers = this.data.filter(
+      (user: any) => user.country === 'Tunisia'
+    ).length;
 
-    this.data.forEach((user: any) => {
-      const country = user.country;
-
-      if (country === 'Tunisia' || country === 'Canada') {
-        countryCounts[country]++;
-      } else {
-        countryCounts['Other']++;
-      }
-    });
-
-    this.countryData = Object.keys(countryCounts).map(country => ({
-      x: country,
-      y: countryCounts[country]
-    }));
-    console.log("Country Data:", this.countryData);
+    // Calculate percentages
+    const tunisiaPercentage =
+      totalUsers > 0 ? (tunisiaUsers / totalUsers) * 100 : 0;
+    const canadaPercentage =
+      totalUsers > 0 ? (canadaUsers / totalUsers) * 100 : 0;
+    // Set component properties with calculated data
+    this.totalUsers = totalUsers;
+    this.tunisiaUsers = tunisiaUsers;
+    this.canadaUsers = canadaUsers;
+    this.tunisiaPercentage = parseFloat(tunisiaPercentage.toFixed(2)); // keep 2 decimal places
+    this.canadaPercentage = parseFloat(canadaPercentage.toFixed(2)); // keep 2 decimal places
+    
   }
+  
   calculateNewUsersThisWeek() {
     // Get users registered in the last 7 days
     const today = new Date();
     const sevenDaysAgo = new Date(today);
     sevenDaysAgo.setDate(today.getDate() - 7);
-    
+
     // Prepare daily data for the last 7 days
     this.weeklyData = [];
-    
+
     // Assuming the data has a 'createdAt' or 'registrationDate' field
     // Count users registered in the last 7 days
     const recentUsers = this.data.filter((user: any) => {
-      const registrationDate = new Date(user.createdAt|| user.created_at);
+      const registrationDate = new Date(user.createdAt || user.created_at);
       return registrationDate >= sevenDaysAgo && registrationDate <= today;
     });
-    
+
     this.newUsersThisWeek = recentUsers.length;
-    
+
     // Create daily breakdown for the area chart
     for (let i = 0; i < 7; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() - (6 - i)); // Start from 6 days ago
-      
+
       const startOfDay = new Date(date);
       startOfDay.setHours(0, 0, 0, 0);
-      
+
       const endOfDay = new Date(date);
       endOfDay.setHours(23, 59, 59, 999);
-      
+
       // Count users registered on this day
       const dailyUsers = recentUsers.filter((user: any) => {
-        const registrationDate = new Date(user.createdAt  || user.created_at);
+        const registrationDate = new Date(user.createdAt || user.created_at);
         return registrationDate >= startOfDay && registrationDate <= endOfDay;
       }).length;
-      
+
       this.weeklyData.push({
         x: date,
-        y: dailyUsers
+        y: dailyUsers,
       });
     }
-    console.log("Weekly Data:", this.weeklyData); 
+    console.log('Weekly Data:', this.weeklyData);
   }
-
 
   prepareMonthlyRegistrationData() {
     const monthlyCounts: { [key: string]: number } = {};
 
     this.data.forEach((user: any) => {
       const registrationDate = new Date(user.createdAt || user.created_at);
-      const yearMonth = registrationDate.getFullYear() + '-' + (registrationDate.getMonth() + 1); //YYYY-MM
+      const yearMonth =
+        registrationDate.getFullYear() +
+        '-' +
+        (registrationDate.getMonth() + 1); //YYYY-MM
 
       monthlyCounts[yearMonth] = (monthlyCounts[yearMonth] || 0) + 1;
     });
 
-    this.monthlyRegistrationData = Object.keys(monthlyCounts).map(yearMonth => {
-      const [year, month] = yearMonth.split('-').map(Number); // Split
-      return {
-        x: new Date(year, month - 1),  // Date object (month is 0-based)
-        y: monthlyCounts[yearMonth]
-      };
-    });
+    this.monthlyRegistrationData = Object.keys(monthlyCounts).map(
+      (yearMonth) => {
+        const [year, month] = yearMonth.split('-').map(Number); // Split
+        return {
+          x: new Date(year, month - 1), // Date object (month is 0-based)
+          y: monthlyCounts[yearMonth],
+        };
+      }
+    );
   }
 }

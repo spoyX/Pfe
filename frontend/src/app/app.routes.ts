@@ -60,6 +60,7 @@ export const routes: Routes = [
     {path:'subscription-plan',loadComponent:()=>import('./pages/payment/subscriptionplan/subscriptionplan.component').then(c=>c.SubscriptionplanComponent)},
     {path:'payment-success',loadComponent:()=>import('./pages/payment/paymentsucces/paymentsucces.component').then(c=>c.PaymentsuccesComponent)},
     {path:'payment-fail',loadComponent:()=>import('./pages/payment/payment-fail/payment-fail.component').then(c=>c.PaymentFailComponent)},
+    {path:'subscriptionplan/:id',loadComponent:()=>import('./shared/layout/subscriptionplan-notcompleted/subscriptionplan-notcompleted.component').then(c=>c.SubscriptionplanNotcompletedComponent)},
     
   
    {path:'member',canActivate:[dashGuard],loadComponent:()=>import('./pages/member/dashboard/dashboard.component').then(c=>c.DashboardComponent) ,children: [

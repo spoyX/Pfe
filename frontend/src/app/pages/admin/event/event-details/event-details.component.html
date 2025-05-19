@@ -142,24 +142,7 @@
                                 
                             </div>
                             
-                            <div class="stat-grid">
-                                <div class="stat-grid-item">
-                                    <div class="stat-number">42</div>
-                                    <div class="stat-label">Registered</div>
-                                </div>
-                                <div class="stat-grid-item">
-                                    <div class="stat-number">38</div>
-                                    <div class="stat-label">Confirmed</div>
-                                </div>
-                                <div class="stat-grid-item">
-                                    <div class="stat-number">4</div>
-                                    <div class="stat-label">Pending</div>
-                                </div>
-                                <div class="stat-grid-item">
-                                    <div class="stat-number">0</div>
-                                    <div class="stat-label">Cancelled</div>
-                                </div>
-                            </div>
+                      
                             
                             
                             
@@ -221,19 +204,20 @@
                         </div>
                         
                         <!-- Pagination -->
-                        <div class="d-flex justify-content-between align-items-center mt-4">
-                            <div class="pagination-info">
-                              Showing {{ pageSize * pageIndex + 1 }}-{{ pageSize * pageIndex + displayedRegistrations.length }} of {{ eventDetails?.registrations?.length || 0 }} participants
-                            </div>
-                            <mat-paginator
-                            [length]="eventDetails?.registrations?.length || 0"
-                            [pageSize]="pageSize"
-                            [pageSizeOptions]="pageSizeOptions"
-                            [pageIndex]="pageIndex"
-                            (page)="onPageChange($event)"
-                            aria-label="Select page of participants">
-                          </mat-paginator>
-                          </div>
+                        <div class="pagination-controls" *ngIf="eventDetails && eventDetails.registrations && eventDetails.registrations.length > 0">
+        <div class="pagination-info">
+          Showing {{ pageSize * pageIndex + 1 }}-{{ pageSize * pageIndex + displayedRegistrations.length }} of {{ eventDetails?.registrations?.length || 0 }} participants
+        </div>
+        
+        <mat-paginator 
+          [length]="totalRegistrations"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          (page)="onPageChange($event)"
+          aria-label="Select page of participants">
+        </mat-paginator>
+      </div>
                     </div>
                 </div>
             </div>

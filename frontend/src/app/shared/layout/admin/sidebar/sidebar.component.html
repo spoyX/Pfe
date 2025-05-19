@@ -4,27 +4,32 @@
           <div class="logo">
               <span class="membra-logo" style="font-weight: bold; color: #555;">Membra</span>
           </div>
-          <div class="user-info mt-3">
-              <!-- <div class="dropdown d-inline-block">
-                  <a href="#" class="iconLink" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-person-fill"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                      <a class="dropdown-item" href="/admin/profile">
-                          <i class="bx bx-user font-size-16 align-middle me-1"></i> 
-                          <span>Profile</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item text-danger" (click)="logout()">
-                          <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> 
-                          <span>Logout</span>
-                      </a>
-                  </div>
-              </div> -->
-              <a href="/admin/notifications" class="iconLink"><i class="bi bi-bell"></i></a>
-              <a href="/admin/settings" class="iconLink"><i class="bi bi-gear"></i></a>
-          </div>
+         <div class="user-info mt-3 position-relative">
+        <a class="iconLink position-relative" (click)="toggleDropdown()">
+          <i class="bi bi-bell"></i>
+          <span *ngIf="unreadCount > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+            {{ unreadCount }}
+          </span>
+        </a>
+
+        <a href="/admin/settings" class="iconLink"><i class="bi bi-gear"></i></a>
       </div>
+    </div>
+
+    <!-- Notifications Dropdown -->
+    <div *ngIf="showDropdown" class="notifications-dropdown shadow mt-2 rounded bg-white position-absolute z-3">
+  <div *ngIf="notifications.length === 0" class="text-muted text-center">No notifications</div>
+  <div *ngFor="let notif of notifications" class="notification-item">
+    <small [class.text-muted]="notif.read" (click)="markAsRead(notif._id)">
+      {{ notif.message }}
+      <div class="text-muted mt-1 small">{{ notif.createdAt | timeAgo }}</div>
+    </small>
+    <button class="btn btn-sm text-danger notification-delete" (click)="deleteNotification(notif._id, $event)">
+      <i class="bi bi-x-circle"></i>
+    </button>
+  </div>
+</div>
+
       <div class="search-bar px-3 mt-3">
           <input type="text" class="form-control" placeholder="Search for...">
       </div>

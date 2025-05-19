@@ -23,10 +23,13 @@ export class EventComponent {
   searchTimeout: any;
   isLoading = true;
   user:any
+  today = new Date();
+ deadline:boolean = false;
+  daysLeft: number = 0;
   pageSize = 6; // Number of items per page
   pageSizeOptions = [3, 6, 9, 12]; // Options for page size
   pageIndex = 0; // Current page index
-  
+   registrationDeadline: any;
   constructor(private _event: EventService, private fb: FormBuilder,private _auth:AuthentificationService) {
     this.searchForm = this.fb.group({
       title: [''],
@@ -87,7 +90,26 @@ export class EventComponent {
     this.pageIndex = 0; 
     this.loadEvents();
   }
-  
+  calculateRegistrationDeadline(): void {
+    if (this.data) {
+      this.registrationDeadline = new Date(this.data.date);
+      this.registrationDeadline.setDate(this.registrationDeadline.getDate() - 1);
+    
+      this.daysLeft = this.calculateDaysLeft();
+      const now = new Date();
+      
+      // Check if registration deadline has passed
+      if (now >= this.registrationDeadline) {
+        this.deadline = true;
+
+    }
+  }
+}
+
+  calculateDaysLeft(): number {
+    const diffTime = this.registrationDeadline.getTime() - this.today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
   deleteEvent(id: any) {
     Swal.fire({
       title: 'Are you sure?',
@@ -169,7 +191,7 @@ export class EventComponent {
   isUserRegistered(registrations: any[]): boolean {
     const userId = this.user; 
     return registrations.some(registration => registration.user === userId);
-  
+
   }
   
 }

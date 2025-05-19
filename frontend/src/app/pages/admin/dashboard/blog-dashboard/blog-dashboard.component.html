@@ -104,13 +104,23 @@
                     
                     <div class="chart-container" style="height: 320px">
                         <ejs-accumulationchart id="pieChart">
-                            <e-accumulation-series-collection>
-                                <e-accumulation-series [dataSource]="chartData" xName="blogTitle" yName="comments" 
-                                                     radius="80%" innerRadius="40%" 
-                                                     [dataLabel]="{ visible: true, position: 'Inside', name: 'blogTitle' }">
-                                </e-accumulation-series>
-                            </e-accumulation-series-collection>
-                        </ejs-accumulationchart>
+  <e-accumulation-series-collection>
+    <e-accumulation-series 
+      [dataSource]="chartData" 
+      xName="blogTitle" 
+      yName="comments" 
+      radius="80%" 
+      innerRadius="40%" 
+      [dataLabel]="{
+        visible: true,
+        position: 'Inside',
+        name: 'blogTitle',
+        font: { fontWeight: '600', color: '#fff' },
+        format: '${point.y}'
+      }">
+    </e-accumulation-series>
+  </e-accumulation-series-collection>
+</ejs-accumulationchart>
                     </div>
                 </div>
             </div>

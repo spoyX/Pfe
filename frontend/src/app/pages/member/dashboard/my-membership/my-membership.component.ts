@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { ProgressBarModule } from '@syncfusion/ej2-angular-progressbar';
 import { RouterLink } from '@angular/router';
 
+import jsPDF from 'jspdf';
+// Import html2canvas for capturing elements to images
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-my-membership',
   standalone: true,
@@ -79,7 +82,129 @@ export class MyMembershipComponent {
     // Ensure progress is within 0-100% range
     this.progressValue = Math.max(0, Math.min(100, this.progressValue));
   }
+  downloadCertificate(): void {
+    
+    
+    // Create a new PDF document
+    const doc = new jsPDF({
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    // background color
+    doc.setFillColor(240, 245, 255);
+    doc.rect(0, 0, 297, 210, 'F');
+
+    //  decorative border
+    doc.setDrawColor(70, 130, 180);
+    doc.setLineWidth(2);
+    doc.rect(10, 10, 277, 190);
+    
+    //  inner border
+    doc.setDrawColor(100, 150, 200);
+    doc.setLineWidth(1);
+    doc.rect(15, 15, 267, 180);
+
+    // CCCT logo/header
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(30);
+    doc.setTextColor(50, 50, 150);
+    doc.text('CCCT MEMBERSHIP CERTIFICATE', 148.5, 40, { align: 'center' });
+
+    //  decorative line
+    doc.setDrawColor(70, 130, 180);
+    doc.setLineWidth(1);
+    doc.line(70, 45, 227, 45);
+
+    // certificate text
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(16);
+    doc.setTextColor(60, 60, 60);
+    doc.text('This certifies that', 148.5, 70, { align: 'center' });
+
+    //  member name
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(24);
+    doc.setTextColor(40, 40, 100);
+    doc.text(`${this.data.userId.firstName} ${this.data.userId.lastName}`, 148.5, 85, { align: 'center' });
+
+    //  member details
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(16);
+    doc.setTextColor(60, 60, 60);
+    doc.text('is a verified member of the CCCT with membership number', 148.5, 100, { align: 'center' });
+
+    //  membership number
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.setTextColor(40, 40, 100);
+    doc.text(`CCCT-2025-${this.data.membershipId}`, 148.5, 115, { align: 'center' });
+
+    //  membership period
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(14);
+    doc.setTextColor(60, 60, 60);
+    
+    const startDate = new Date(this.data.startDate);
+    const endDate = new Date(this.data.endDate);
+    const startDateFormatted = startDate.toLocaleDateString('en-US', { 
+      month: 'long', day: 'numeric', year: 'numeric' 
+    });
+    const endDateFormatted = endDate.toLocaleDateString('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric'
+    });
+    
+    doc.text(`Membership Period: ${startDateFormatted} - ${endDateFormatted}`, 148.5, 130, { align: 'center' });
+
+    // Add job title
+    if (this.data.userId.job) {
+      doc.text(`Job: ${this.data.userId.job}`, 148.5, 145, { align: 'center' });
+    }
+
+    //  membership tier
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(180, 135, 30); 
+    doc.text( `PlanType: ${this.data.planType}`  , 148.5, 160, { align: 'center' });
+
+    //  date of issue
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(12);
+    doc.setTextColor(80, 80, 80);
+    const today = new Date();
+    const issueDateFormatted = today.toLocaleDateString('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric'
+    });
+    doc.text(`Issued on: ${issueDateFormatted}`, 148.5, 175, { align: 'center' });
+
+    // signature placeholder
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.text('CCCT President', 60, 185);
+    doc.line(30, 180, 90, 180);
+    doc.addImage('assets/admin.png', 'PNG', 40, 160, 40, 20);
+    doc.text('Member', 148.5, 185);
+    doc.line(120, 180, 177, 180);
+
+    doc.text('CCCT Secretary', 240, 185);
+    doc.line(210, 180, 270, 180);
+    doc.addImage('assets/secretaire.png', 'PNG', 220, 160, 40, 20);
+    // Save the PDF
+    try {
+      const fileName = `CCCT_Certificate_${this.data.membershipId}_${today.toISOString().split('T')[0]}.pdf`;
+      doc.save(fileName);
+    } catch (error) {
+      console.error('Error saving PDF:', error);
+      alert('Failed to download certificate. Please try again.');
+    } finally {
+
+     
+    }
+  }
+
+
 }
+  
 
 
 

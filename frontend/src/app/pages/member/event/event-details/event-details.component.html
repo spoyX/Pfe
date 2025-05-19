@@ -57,6 +57,12 @@
               } @else if (data.status === 'ongoing') {
                 <span class="status-badge ongoing">Ongoing</span>
               }
+               @else if (data.registrations.length >= data.maxParticipants) {
+            <span class="status-badge closed">Registration Closed</span>
+          }
+           @else if (deadline) {
+            <span class="status-badge closed">Registration Closed</span>
+          }
             </div>
             <div class="card-body p-4">
               <div class="d-flex flex-wrap gap-2 mb-4">
@@ -86,37 +92,51 @@
           <!-- Event Info Card -->
           <div class="card event-card mb-4" data-aos="fade-up" data-aos-delay="100">
             <div class="card-body p-4">
-              <h4 class="mb-4">Event Details</h4>
-              
-              <div class="event-info-item">
-                <div class="event-info-icon">
-                  <i class="bi bi-calendar-event"></i>
-                </div>
-                <div>
-                  <div class="text-muted small">Date</div>
-                  <div class="fw-medium">{{data.date| date: 'MMM d, y'  }}</div>
-                </div>
-              </div>
-              
-              <div class="event-info-item">
-                <div class="event-info-icon">
-                  <i class="bi bi-clock"></i>
-                </div>
-                <div>
-                  <div class="text-muted small">Time</div>
-                  <div class="fw-medium">{{data.startTime}} - {{data.startTime}} </div>
-                </div>
-              </div>
-              
-              <div class="event-info-item">
-                <div class="event-info-icon">
-                  <i class="bi bi-geo-alt"></i>
-                </div>
-                <div>
-                  <div class="text-muted small">Location</div>
-                  <div class="fw-medium">{{data.location}}</div>
+        <h4 class="mb-4">Event Details</h4>
+        
+        <div class="event-info-item">
+          <div class="event-info-icon">
+            <i class="bi bi-calendar-event"></i>
+          </div>
+          <div>
+            <div class="text-muted small">Date</div>
+            <div class="fw-medium">{{data.date | date: 'MMM d, y'}}</div>
+          </div>
+        </div>
+        
+        <div class="event-info-item">
+          <div class="event-info-icon">
+            <i class="bi bi-clock"></i>
+          </div>
+          <div>
+            <div class="text-muted small">Time</div>
+            <div class="fw-medium">{{data.startTime}} - {{data.endTime}}</div>
+          </div>
+        </div>
+        
+        <div class="event-info-item">
+          <div class="event-info-icon">
+            <i class="bi bi-calendar-check"></i>
+          </div>
+          <div>
+            <div class="text-muted small">Registration Deadline</div>
+            <div class="fw-medium">{{registrationDeadline | date: 'fullDate'}}</div>
+            <div class="deadline-container mt-1">
+              <strong>Days Left:</strong> <span class="days-left">{{daysLeft}}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="event-info-item">
+          <div class="event-info-icon">
+            <i class="bi bi-geo-alt"></i>
+          </div>
+          <div>
+            <div class="text-muted small">Location</div>
+            <div class="fw-medium">{{data.location}}</div>
+          </div>
                   <!-- <div class="small text-muted">900 René-Lévesque Blvd W, Montreal, QC</div> -->
-                </div>
+                
               </div>
               
           
@@ -142,9 +162,9 @@
               </div>
               
               <div class="mt-4">
-                <h5>Countdown to Event DeadLine</h5>
+                <h5>Countdown to Event </h5>
                 <div class="count-down-timer">
-                  <p>Countdown to {{ registrationDeadline | date: 'MMM d, y' }}</p>
+                  <p>Countdown to {{ eventDate | date: 'MMM d, y' }}</p>
                   <div class="wrapper">
                     <div class="description">
                       <p>Days</p>
@@ -170,11 +190,15 @@
             }
             @else if (data.status === 'cancelled') {
                 <button class="btn btn-danger" disabled>Cancelled</button>
-              } @else {
+              } @else if (data.registrations.length >= data.maxParticipants) {
+            <button class="btn btn-danger" disabled>Regisration Closed</button>
+          }
+               @else {
                 <button (click)="registre(data._id)" class="btn btn-amber">
                   <i class="bi bi-calendar-check me-2"></i>Register Now
                 </button>
               }
+              
                 
               </div>
             </div>

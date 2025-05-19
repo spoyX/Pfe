@@ -44,7 +44,7 @@ export class EventCreateComponent {
   ) {
     this.basicInfoForm = this.fb.group({
       title: ['', Validators.required],
-      category: ['', Validators.required],
+      categories: ['', Validators.required],
       date: ['', Validators.required],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required],

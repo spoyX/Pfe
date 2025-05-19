@@ -57,8 +57,8 @@
 
             <div class="membership-progress">
               <div class="progress-label">
-                <span>Période d’adhésion</span>
-                <span>{{ daysRemaining }} jours restants</span>
+                <span>Membership period</span>
+                <span>{{ daysRemaining }} days remaining</span>
               </div>
             
               <ejs-progressbar
@@ -102,10 +102,10 @@
           </span>
           }
 
-          <button class="btn btn-download">
-            <i class="bi bi-download"></i>
-            Download my certificate
-          </button>
+        <button class="btn btn-download" (click)="downloadCertificate()" >
+  <i class="bi bi-download">  Download my certificate</i>
+
+</button>
         </div>
       </div>
     </div>

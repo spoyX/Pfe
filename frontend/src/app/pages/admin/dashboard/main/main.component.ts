@@ -1,9 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { AuthentificationService } from '../../../../core/auth/authentification.service';
 import { UserService } from '../../../../core/services/users/user.service';
 import { PaymentService } from '../../../../core/services/payment/payment.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatPaginatorModule, PageEvent, MatPaginator } from '@angular/material/paginator';
 
 // Import Syncfusion Chart modules
 import { 
@@ -28,7 +29,8 @@ import {
     RouterLink, 
     CommonModule,
     ChartModule,
-    AccumulationChartModule
+    AccumulationChartModule,
+     MatPaginatorModule
   ],
   providers: [
     CategoryService, 
@@ -51,11 +53,20 @@ export class MainComponent implements OnInit {
   id: any;
   data: any;
   payments: any[] = [];
+  displayedPayments: any[] = []; // Payments to display in the current page
   totalAmount: number = 0;
   paymentCount: number = 0;
   newPayment: number = 0;
   RnewPayment: number = 0; // For renewed payments
   averagePrice: number = 0;
+  
+  // Pagination properties
+  pageSize = 5;
+  pageSizeOptions: number[] = [5, 10, 25, 50];
+  pageIndex = 0;
+  totalItems = 0;
+  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   // Chart data
   public monthlyPaymentData: any[] = [];
@@ -85,6 +96,8 @@ export class MainComponent implements OnInit {
     this._payment.getPayment().subscribe({
       next: (res: any) => {
         this.payments = res;
+        this.totalItems = this.payments.length;
+        this.updateDisplayedPayments();
         this.calculatePaymentStats();
         this.prepareChartData();
       },
@@ -202,5 +215,18 @@ export class MainComponent implements OnInit {
         text: `${type}: ${percentage}%`
       };
     });
+  }
+  
+  // Handle pagination changes
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updateDisplayedPayments();
+  }
+  
+  // Update payments to display based on current pagination settings
+  updateDisplayedPayments() {
+    const startIndex = this.pageIndex * this.pageSize;
+    this.displayedPayments = this.payments.slice(startIndex, startIndex + this.pageSize);
   }
 }

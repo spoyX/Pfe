@@ -24,15 +24,16 @@
             <p class="profile-id">Member ID: #USR-{{ data.user?._id?.slice(0, 7) }}</p>
           </div>
         </div>
+        <!-- @if(data.user?.status ==="inactive") {
+          <div class="profile-status">
+            <span [routerLink]="['/member/payment-detail', data.user._id]"  class="badge status-badge status-inactive">Validate</span>
+          </div>
+        } -->
         <div class="profile-actions">
-          <button class="btn btn-primary">
-            <i class="bi bi-pencil-fill btn-icon"></i> Edit Member
-          </button>
-          <button class="btn btn-outline-primary">
-            <i class="bi bi-envelope-fill btn-icon"></i> Send Message
-          </button>
-          <button class="btn btn-outline-danger">
-            <i class="bi bi-pause-circle-fill btn-icon"></i> Suspend Member
+        
+     
+          <button (click)="delete(data.user?._id)" class="btn btn-outline-danger">
+            <i class="bi bi-pause-circle-fill btn-icon"></i> Delete Member
           </button>
         </div>
       </div>

@@ -68,4 +68,7 @@ searchUsers(query: string, field: string, country: string, status: string) {
 
   return this.http.get(`${this.url}/search`, { params: Object.fromEntries(params) });
 }
+deleteUser(id: any){
+  return this.http.delete(this.url + 'delete/' + id);
+}
 }

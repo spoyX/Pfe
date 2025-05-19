@@ -1,0 +1,101 @@
+/* Custom styles to enhance the dashboard */
+
+/* General card styling */
+.card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 0.75rem;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Header styling */
+.card-header {
+  border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+/* Progress bar styling */
+.progress {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.progress-bar {
+  border-radius: 10px;
+}
+
+/* Flag styling */
+.flag {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.country-row:hover .flag {
+  transform: scale(1.1);
+}
+
+/* Country row styling */
+.country-row {
+  transition: background-color 0.2s;
+  border-radius: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.country-row:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Custom scrollbar for country list */
+.country-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.country-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.country-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.country-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Status card indicator */
+.w-3 {
+  width: 6px !important;
+}
+
+/* Avatar styling */
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-title {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* Font size utilities */
+.fs-1 {
+  font-size: 2.5rem !important;
+}
+
+.fs-4 {
+  font-size: 1.25rem !important;
+}

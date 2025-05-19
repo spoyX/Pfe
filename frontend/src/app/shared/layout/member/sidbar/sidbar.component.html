@@ -17,15 +17,18 @@
       </div>
     </div>
 
-    <!-- Notifications Dropdown -->
-    <div *ngIf="showDropdown" class="notifications-dropdown shadow p-2 mt-2 rounded bg-white position-absolute z-3" style="width: 250px; left: 0;">
-      <div *ngIf="notifications.length === 0" class="text-muted text-center">No notifications</div>
-      <div *ngFor="let notif of notifications" class="notification-item border-bottom py-1">
-        <small [class.text-muted]="notif.read" (click)="markAsRead(notif._id)">
-          {{ notif.message }}
-        </small>
-      </div>
-    </div>
+    <div *ngIf="showDropdown" class="notifications-dropdown shadow mt-2 rounded bg-white position-absolute z-3">
+  <div *ngIf="notifications.length === 0" class="text-muted text-center">No notifications</div>
+  <div *ngFor="let notif of notifications" class="notification-item">
+    <small [class.text-muted]="notif.read" (click)="markAsRead(notif._id)">
+      {{ notif.message }}
+      <div class="text-muted mt-1 small">{{ notif.createdAt | timeAgo }}</div>
+    </small>
+    <button class="btn btn-sm text-danger notification-delete" (click)="deleteNotification(notif._id, $event)">
+      <i class="bi bi-x-circle"></i>
+    </button>
+  </div>
+</div>
 
     <div class="search-bar px-3 mt-3">
       <input type="text" class="form-control" placeholder="Search for...">

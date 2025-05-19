@@ -95,32 +95,36 @@
       </mat-step>
   
       <!-- Step 3: Media -->
-      <mat-step>
-        <ng-template matStepLabel>Media</ng-template>
-  
-        <div class="form-card">
-          <div class="file-upload-section">
-            <label class="file-upload-label">Cover Image</label>
-            <div class="file-upload-container">
-              <input type="file" (change)="onFileChange($event)" accept="image/*" required>
-              <div class="upload-hint">Supported formats: JPG, PNG, WEBP. Max size: 5MB</div>
-            </div>
-  
-            <div *ngIf="filePreview" class="preview-container">
-              <img [src]="filePreview" alt="Preview" class="preview-image">
-            </div>
-          </div>
-  
-          <div class="navigation-buttons">
-            <button mat-stroked-button matStepperPrevious class="prev-button">
-              <mat-icon>arrow_back</mat-icon> Back
-            </button>
-            <button mat-stroked-button color="primary" matStepperNext class="next-button">
-              Next <mat-icon>arrow_forward</mat-icon>
-            </button>
-          </div>
-        </div>
-      </mat-step>
+   <mat-step>
+  <ng-template matStepLabel>Media</ng-template>
+  <div class="form-card">
+    <div class="file-upload-section">
+      <label class="file-upload-label">Cover Image</label>
+      
+      <!-- Display existing image -->
+      <div *ngIf="filePreview" class="preview-container">
+        <img [src]="filePreview" alt="Preview" class="preview-image">
+        <p *ngIf="!selectedFile && existingImageUrl" class="existing-image-note">
+          Current image.
+        </p>
+      </div>
+      
+      <div class="file-upload-container">
+        <input type="file" (change)="onFileChange($event)" accept="image/*">
+        <div class="upload-hint">Supported formats: JPG, PNG, WEBP. Max size: 5MB</div>
+      </div>
+    </div>
+    
+    <div class="navigation-buttons">
+      <button mat-stroked-button matStepperPrevious class="prev-button">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
+      <button mat-stroked-button color="primary" matStepperNext class="next-button">
+        Next <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-step>
   
       <!-- Step 4: Preview & Submit -->
       <mat-step>
@@ -135,7 +139,7 @@
             />
             <div class="preview-content">
               <h4>{{ basicInfoForm.value.title }}</h4>
-              <p><strong>Category:</strong> {{ basicInfoForm.value.category }}</p>
+              <p><strong>Category:</strong> {{ basicInfoForm.value.categories }}</p>
               <p><strong>Date & Time:</strong>
                 {{ basicInfoForm.value.date | date:'mediumDate' }}
                 at {{ basicInfoForm.value.startTime }}

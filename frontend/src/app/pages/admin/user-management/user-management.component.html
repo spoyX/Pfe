@@ -22,7 +22,7 @@
             <select class="form-select" aria-label="Filter by country" [(ngModel)]="country" (change)="onSearch()">
               <option selected value="">All Countries</option>
               <option value="Canada">Canada</option>
-              <option value="Tunisie">Tunisie</option>
+              <option value="Tunisia">Tunisie</option>
             </select>
           </div>
           <div class="col-6 col-md-2">
@@ -128,9 +128,7 @@
                           <button class="btn btn-sm action-btn" [routerLink]="['/admin/profile-view',user._id]" aria-label="View user" data-bs-toggle="tooltip" title="View">
                             <i class="bi bi-eye"></i>
                           </button>
-                          <button class="btn btn-sm action-btn" aria-label="Edit user" data-bs-toggle="tooltip" title="Edit">
-                            <i class="bi bi-pencil"></i>
-                          </button>
+                          
                           <button class="btn btn-sm action-btn text-danger" aria-label="Delete user" data-bs-toggle="tooltip" title="Delete">
                             <i class="bi bi-trash"></i>
                           </button>

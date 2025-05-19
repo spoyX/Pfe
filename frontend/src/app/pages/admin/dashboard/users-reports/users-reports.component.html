@@ -14,67 +14,10 @@
         </div>
     </div>
     
-    <!-- User Status Summary Cards -->
+    <!-- Welcome Card and User Status Summary Cards in one row -->
     <div class="row mb-4">
-        <div class="col-xl-4 col-md-4">
-            <div class="card mini-stats-wid h-100">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap">
-                        <div class="me-3">
-                            <p class="text-muted mb-2">Active Users</p>
-                            <h5 class="mb-0">{{active}}</h5>
-                        </div>
-                        <div class="avatar-sm ms-auto">
-                            <div class="avatar-title bg-light rounded-circle text-success font-size-20">
-                                <i class="bx bx-user-check"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-4 col-md-4">
-            <div class="card mini-stats-wid h-100">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap">
-                        <div class="me-3">
-                            <p class="text-muted mb-2">Inactive Users</p>
-                            <h5 class="mb-0">{{inactive}}</h5>
-                        </div>
-                        <div class="avatar-sm ms-auto">
-                            <div class="avatar-title bg-light rounded-circle text-warning font-size-20">
-                                <i class="bx bx-user-x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-4 col-md-4">
-            <div class="card mini-stats-wid h-100">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap">
-                        <div class="me-3">
-                            <p class="text-muted mb-2">Expired Users</p>
-                            <h5 class="mb-0">{{expired}}</h5>
-                        </div>
-                        <div class="avatar-sm ms-auto">
-                            <div class="avatar-title bg-light rounded-circle text-danger font-size-20">
-                                <i class="bx bx-user-minus"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Key Metrics Section -->
-    <div class="row mb-4">
-        <!-- Welcome Card -->
-        <div class="col-xl-4 mb-4 mb-xl-0">
+        <!-- Welcome Card on left side -->
+        <div class="col-xl-4">
             <div class="card bg-primary bg-soft h-100">
                 <div class="row g-0">
                     <div class="col-7">
@@ -94,72 +37,57 @@
             </div>
         </div>
         
-        <!-- Business Metrics Cards -->
+        <!-- Status cards on right side -->
         <div class="col-xl-8">
-            <div class="row">
-                <!-- Orders Card -->
-                <div class="col-sm-4 mb-4 mb-sm-0">
-                    <div class="card h-100">
+            <div class="row h-100">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="card border-start border-3 border-success h-100">
                         <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
-                                        <i class="bx bx-copy-alt"></i>
-                                    </span>
+                            <div class="d-flex flex-wrap">
+                                <div class="me-3">
+                                    <p class="text-muted mb-2">Active Users</p>
+                                    <h5 class="mb-0">{{active}}</h5>
                                 </div>
-                                <h5 class="font-size-14 mb-0">Orders</h5>
-                            </div>
-                            <div class="text-muted mt-4">
-                                <h4>1,452 <i class="mdi mdi-chevron-up ms-1 text-success"></i></h4>
-                                <div class="d-flex">
-                                    <span class="badge badge-soft-success font-size-12"> + 0.2% </span> 
-                                    <span class="ms-2 text-truncate">From previous period</span>
+                                <div class="avatar-sm ms-auto">
+                                    <div class="avatar-title bg-light rounded-circle text-success font-size-20">
+                                        <i class="bx bx-user-check"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Revenue Card -->
-                <div class="col-sm-4 mb-4 mb-sm-0">
-                    <div class="card h-100">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="card border-start border-3 border-warning h-100">
                         <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
-                                        <i class="bx bx-archive-in"></i>
-                                    </span>
+                            <div class="d-flex flex-wrap">
+                                <div class="me-3">
+                                    <p class="text-muted mb-2">Inactive Users</p>
+                                    <h5 class="mb-0">{{inactive}}</h5>
                                 </div>
-                                <h5 class="font-size-14 mb-0">Revenue</h5>
-                            </div>
-                            <div class="text-muted mt-4">
-                                <h4>$ 28,452 <i class="mdi mdi-chevron-up ms-1 text-success"></i></h4>
-                                <div class="d-flex">
-                                    <span class="badge badge-soft-success font-size-12"> + 0.2% </span> 
-                                    <span class="ms-2 text-truncate">From previous period</span>
+                                <div class="avatar-sm ms-auto">
+                                    <div class="avatar-title bg-light rounded-circle text-warning font-size-20">
+                                        <i class="bx bx-user-x"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Average Price Card -->
-                <div class="col-sm-4">
-                    <div class="card h-100">
+                <div class="col-md-4">
+                    <div class="card border-start border-3 border-danger h-100">
                         <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
-                                        <i class="bx bx-purchase-tag-alt"></i>
-                                    </span>
+                            <div class="d-flex flex-wrap">
+                                <div class="me-3">
+                                    <p class="text-muted mb-2">Expired Users</p>
+                                    <h5 class="mb-0">{{expired}}</h5>
                                 </div>
-                                <h5 class="font-size-14 mb-0">Average Price</h5>
-                            </div>
-                            <div class="text-muted mt-4">
-                                <h4>$ 16.2 <i class="mdi mdi-chevron-up ms-1 text-success"></i></h4>
-                                <div class="d-flex">
-                                    <span class="badge badge-soft-warning font-size-12"> 0% </span> 
-                                    <span class="ms-2 text-truncate">From previous period</span>
+                                <div class="avatar-sm ms-auto">
+                                    <div class="avatar-title bg-light rounded-circle text-danger font-size-20">
+                                        <i class="bx bx-user-minus"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,10 +97,10 @@
         </div>
     </div>
     
-    <!-- Charts Section -->
+    <!-- Charts Section - User Status and Gender side by side -->
     <div class="row mb-4">
         <!-- User Status Chart -->
-        <div class="col-xl-6 mb-4">
+        <div class="col-xl-8">
             <div class="card h-100">
                 <div class="card-body">
                     <h4 class="card-title mb-4">User Status Comparison</h4>
@@ -189,11 +117,11 @@
         </div>
         
         <!-- Gender Chart -->
-        <div class="col-xl-6 mb-4">
+        <div class="col-xl-4">
             <div class="card h-100">
                 <div class="card-body">
                     <h4 class="card-title mb-4">{{ genderTitle }}</h4>
-                    <ejs-accumulationchart id="genderChart"  [title]='genderTitle' 
+                    <ejs-accumulationchart id="genderChart" [title]='genderTitle' 
                         [legendSettings]='legendSettings' [tooltip]='tooltip'>
                         <e-accumulation-series-collection>
                             <e-accumulation-series type='Pie' xName='x' yName='y' [palettes]="palette" [dataSource]="genderData">
@@ -205,55 +133,83 @@
         </div>
     </div>
     
-    <div class="row mb-4">
-        <!-- Country Chart -->
-        <div class="col-xl-6 mb-4 mb-xl-0">
+    <!-- Bottom row with Country Data and Monthly Registration -->
+    <div class="row">
+        <!-- Global User Distribution -->
+        <div class="col-xl-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">{{ countryTitle }}</h4>
-                    <ejs-accumulationchart id="countryChart" [title]='countryTitle' 
-                        [legendSettings]='legendSettings'  [tooltip]='tooltip'>
-                        <e-accumulation-series-collection>
-                            <e-accumulation-series type='Pie' xName='x' yName='y' [dataSource]="countryData">
-                            </e-accumulation-series>
-                        </e-accumulation-series-collection>
-                    </ejs-accumulationchart>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="card-title mb-0">Global User Distribution</h5>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div id="world-map" style="height: 220px;">
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="country-list px-2" style="max-height: 220px; overflow-y: auto;">
+                                <!-- Canada -->
+                                <div class="country-row d-flex justify-content-between align-items-center p-3 border-bottom">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flag-icon me-3">
+                                            <img src="https://flagcdn.com/w40/ca.png" width="28" height="20" class="flag" alt="Canada">
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 font-size-14">Canada</h6>
+                                            <p class="text-muted mb-0 font-size-12">{{canadaUsers}} users</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3">
+                                            <ejs-progressbar id="progressBar1" type="Linear" [value]="canadaPercentage" height="5px" width="80px" 
+                                                [trackColor]="trackColor" [progressColor]="progressCanadaColor"></ejs-progressbar>
+                                        </div>
+                                        <span class="font-size-13 text-warning font-weight-semibold">{{canadaPercentage}}%</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tunisia -->
+                                <div class="country-row d-flex justify-content-between align-items-center p-3 border-bottom">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flag-icon me-3">
+                                            <img src="https://flagcdn.com/w40/tn.png" width="28" height="20" class="flag" alt="Tunisia">
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 font-size-14">Tunisia</h6>
+                                            <p class="text-muted mb-0 font-size-12">{{tunisiaUsers}} users</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3">
+                                            <ejs-progressbar id="progressBar2" type="Linear" [value]="tunisiaPercentage" height="5px" width="80px" 
+                                                [trackColor]="trackColor" [progressColor]="progressColor"></ejs-progressbar>
+                                        </div>
+                                        <span class="font-size-13 text-success font-weight-semibold">{{tunisiaPercentage}}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- New Users Weekly Chart -->
-        <div class="col-xl-6">
+        <!-- Monthly Registration Chart -->
+        <div class="col-xl-6 mb-4">
             <div class="card h-100">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">New Users This Week</h4>
-                    <ejs-chart id="lineChart" [title]='lineTitle' [primaryXAxis]='lineXAxis' 
-                        [primaryYAxis]='lineYAxis' [palettes]="palette" [tooltip]='tooltip'>
-                        <e-series-collection>
-                            <e-series [dataSource]="weeklyData" type='Area' xName='x' yName='y' name='New Users'
-                                opacity='0.6' width='3' [marker]='{ visible: true, height: 7, width: 7 }'>
-                            </e-series>
-                        </e-series-collection>
-                    </ejs-chart>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Monthly Registration Chart -->
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">User Registrations Per Month</h4>
                     <ejs-chart id="registrationChart" [title]='registrationTitle' [primaryXAxis]='registrationPrimaryXAxis'
-                    [primaryYAxis]='registrationPrimaryYAxis' [palettes]="palette" [tooltip]='tooltip'>
-                    <e-series-collection>
-                        <e-series [dataSource]="monthlyRegistrationData" type='Line' xName='x' yName='y' name='Registrations'
-                          width='2' [marker]='{ visible: true, height: 7, width: 7 }'>
-                        </e-series>
-                    </e-series-collection>
-                </ejs-chart>
+                        [primaryYAxis]='registrationPrimaryYAxis' [palettes]="palette" [tooltip]='tooltip'>
+                        <e-series-collection>
+                            <e-series [dataSource]="monthlyRegistrationData" type='Line' xName='x' yName='y' name='Registrations'
+                                width='2' [marker]='{ visible: true, height: 7, width: 7 }'>
+                            </e-series>
+                        </e-series-collection>
+                    </ejs-chart>
                 </div>
             </div>
         </div>

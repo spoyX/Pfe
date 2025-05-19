@@ -25,7 +25,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   intervalId: any;
   eventDate: Date | null = null;
   user:any
- 
+ deadline:boolean = false;
  
 
   constructor(private _event: EventService, private _act: ActivatedRoute,private _auth:AuthentificationService) {}
@@ -73,9 +73,17 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     if (this.data) {
       this.registrationDeadline = new Date(this.data.date);
       this.registrationDeadline.setDate(this.registrationDeadline.getDate() - 1);
+    
       this.daysLeft = this.calculateDaysLeft();
+      const now = new Date();
+      
+      // Check if registration deadline has passed
+      if (now >= this.registrationDeadline) {
+        this.deadline = true;
+
     }
   }
+}
 
   calculateDaysLeft(): number {
     const diffTime = this.registrationDeadline.getTime() - this.today.getTime();

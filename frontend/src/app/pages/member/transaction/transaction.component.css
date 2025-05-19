@@ -1,10 +1,10 @@
-
 .flip-card {
   background-color: transparent;
   width: 270px;
   height: 180px;
   perspective: 1000px;
   color: white;
+ 
 }
 
 .heading_8264 {
@@ -14,10 +14,12 @@
   top: 2em;
   left: 18.6em;
 }
+
 .tooltip-container {
   position: relative;
   display: inline-block;
 }
+
 .tooltip-text {
   visibility: hidden;
   width: 120px;
@@ -35,6 +37,12 @@
   transition: opacity 0.3s;
   font-size: 0.75rem;
 }
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 .payment-action {
   color: #6c757d;
   background: none;
@@ -45,6 +53,12 @@
   transition: all 0.3s ease;
   border-radius: 4px;
 }
+
+.payment-action:hover {
+  color: #495057;
+  background-color: #e9ecef;
+}
+
 .logo {
   position: absolute;
   top: 6.8em;
@@ -174,113 +188,165 @@
   transform: rotateY(180deg);
 }
 
-   body {
-      background-color: #f4f4f9;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .table-title {
-      margin-bottom: 30px;
-      text-align: center;
-      color: #333;
-      font-weight: 600;
-    }
-    .payment-table {
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    .payment-table th {
-      background-color: #6c757d;
-      color: #fff;
-      font-weight: 600;
-      text-align: center;
-      padding: 15px;
-    }
-    .payment-table td {
-      vertical-align: middle;
-      text-align: center;
-      padding: 15px;
-    }
-    .payment-table tbody tr:hover {
-      background-color: #f1f1f1;
-      transition: background-color 0.2s ease;
-    }
+body {
+  background-color: #f4f4f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.table-title {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+  font-weight: 600;
+}
+
+.payment-table {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.payment-table th {
+  background-color: #6c757d;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  padding: 15px;
+}
+
+.payment-table td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 15px;
+}
+
+.payment-table tbody tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.2s ease;
+}
+
+.payment-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  width: 100%;
+  height: 100%;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.card-title i {
+  color: #6c5ce7;
+  margin-right: 10px;
+}
+
+.info-box {
+  border-radius: 12px;
+  padding: 15px;
+  height: 100%;
+}
+
+.info-box-title {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.info-box-title i {
+  margin-right: 8px;
+}
+
+.info-box-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+}
+
+.payments-box {
+  background-color: #f0f3ff;
+}
+
+.payments-box i {
+  color: #6c5ce7;
+}
+
+.spent-box {
+  background-color: #e6fff0;
+}
+
+.spent-box i {
+  color: #00b894;
+}
+
+.last-box {
+  background-color: #f8f0ff;
+}
+
+.last-box i {
+  color: #6c5ce7;
+}
 
 
+.payment-dashboard {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 900px;
+  margin: 40px auto;
+  flex-wrap: wrap;
+}
 
-    .payment-card {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      padding: 30px;
- 
-      max-width: 900px;
-      margin: 40px auto;
+.card-container {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: auto;
+}
+
+.summary-container {
+  flex: 1 1 550px;
+  min-width: 550px;
+  margin-left: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.summary-box {
+  flex: 1;
+  min-width: 110px;
+}
+
+@media (max-width: 768px) {
+  .payment-dashboard {
+    flex-direction: column;
+    align-items: center;
   }
   
-  .card-title {
-      font-size: 24px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 30px;
+  .summary-container {
+    min-width: 100%;
+    margin-top: 30px;
   }
   
-  .card-title i {
-      color: #6c5ce7;
-      margin-right: 10px;
+  .summary-box {
+    margin-bottom: 15px;
   }
   
-  .info-box {
-      border-radius: 12px;
-      padding: 20px;
-      height: 100%;
+  .row {
+    flex-direction: column;
   }
-  
-  .info-box-title {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-  }
-  
-  .info-box-title i {
-      margin-right: 10px;
-  }
-  
-  .info-box-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #222;
-  }
-  
-  .payments-box {
-      background-color: #f0f3ff;
-  }
-  
-  .payments-box i {
-      color: #6c5ce7;
-  }
-  
-  .spent-box {
-      background-color: #e6fff0;
-  }
-  
-  .spent-box i {
-      color: #00b894;
-  }
-  
-  .last-box {
-      background-color: #f8f0ff;
-  }
-  
-  .last-box i {
-      color: #6c5ce7;
-  }
-  
-  @media (max-width: 768px) {
-      .row > div {
-          margin-bottom: 15px;
-      }
-  }
+}
