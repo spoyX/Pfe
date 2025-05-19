@@ -11,6 +11,6 @@ router.get('/user/:userId', notificationController.getUserNotifications);
 
 router.put('/:id/read', notificationController.markAsRead);
 router.get('/user/:userId/unread', notificationController.getUnreadNotifications);
-
+router.delete('/delete/:id',notificationController.deleteNotification)
 
 module.exports = router;

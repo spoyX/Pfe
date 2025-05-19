@@ -20,7 +20,7 @@ exports.createBlog = async (req, res,fileName) => {
     await blog.save();
 
     // Fetch all users with OneSignal player IDs
-    const users = await User.find({}).select('oneSignalPlayerIds');
+   const users = await User.find({ role: { $ne: 'admin' } }).select('_id oneSignalPlayerIds');
     const playerIds = users.flatMap(user => user.oneSignalPlayerIds).filter(id => id);
     const userIds = users.map(user => user._id);
     // Send push notifications

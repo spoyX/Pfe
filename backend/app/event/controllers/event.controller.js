@@ -1,8 +1,9 @@
 const Event = require("../models/event.js");
 const User = require("../../User/models/user.js");
 const mongoose = require("mongoose");
+const Calendar=require('../../Calendar/model/calendar');
 
-
+const { sendPush } = require('../../config/lib/oneSignal');
 
 // Get all events
 exports.getAllEvents = async (req, res) => {
@@ -91,52 +92,106 @@ exports.getEventDetails = async (req, res) => {
     }
   };
 
-exports.createEvent = async (req, res, fileName) => {
+exports.createEvent = async (req, res) => {
   try {
     const {
       title,
       description,
       date,
-      startTime,
       endTime,
+      startTime,
+      
       location,
       categories,
       maxParticipants,
     } = req.body;
 
     // Validate required fields
-    if (!title || !date || !startTime || !location || !fileName) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Title, date, startTime, location, and cover image are required.",
-        });
+    if (!title || !date || !startTime || !endTime || !location) {
+      return res.status(400).json({
+        message: "Title, date, startTime, endTime, and location are required.",
+      });
     }
 
+    // Parse the date string into a Date object
+    const eventDate = new Date(date);
+    if (isNaN(eventDate.getTime())) {
+      return res.status(400).json({ message: "Invalid date format" });
+    }
+
+    // Parse startTime and endTime into Date objects
+    const startTimeObject = new Date(eventDate.getTime());
+    startTimeObject.setHours(startTime.split(":")[0], startTime.split(":")[1], 0, 0);
+    const endTimeObject = new Date(eventDate.getTime());
+    endTimeObject.setHours(endTime.split(":")[0], endTime.split(":")[1], 0, 0);
+
+    // Check if startTime is before endTime
+    if (startTimeObject >= endTimeObject) {
+      return res.status(400).json({
+        message: "Start time must be before end time.",
+      });
+    }
+
+    // Create a new event
     const newEvent = new Event({
       title,
       description,
-      date,
+      date: eventDate,
       startTime,
       endTime,
       location,
       categories,
-      coverImage: fileName, 
+      coverImage: req.file ? req.file.filename : '', // Assuming you're using Multer for file uploads
       maxParticipants: maxParticipants || 0, // Use provided value or default to 0
     });
 
+    // Save the event
     const savedEvent = await newEvent.save();
-    res
-      .status(201)
-      .json({ message: "Event created successfully", event: savedEvent });
+
+    // Create a new calendar entry
+    const newCalendarEntry = new Calendar({
+      title: savedEvent.title,
+      start: startTimeObject,
+      end: endTimeObject,
+      allDay: false,
+      description: savedEvent.description,
+      location: savedEvent.location,
+    });
+
+    // Save the calendar entry
+    const savedCalendarEntry = await newCalendarEntry.save();
+
+     // Fetch all users with OneSignal player IDs and their _id
+         const users = await User.find({ role: { $ne: 'admin' } }).select('_id oneSignalPlayerIds');
+
+          const playerIds = users.flatMap(user => user.oneSignalPlayerIds).filter(id => id);
+          const userIds = users.map(user => user._id); // Collect all user IDs
+    
+          // Send push notifications
+          if (playerIds.length > 0 && userIds.length > 0) {
+              try {
+                  await sendPush(
+                      playerIds,
+                      'New  Event Added', // Notification title
+                      `A new event titled "${newEvent.title}" has been added!`, // Message
+                      `member/event-list`, // URL to the calendar event
+                      userIds // Pass the array of userIds
+                  );
+              } catch (error) {
+                  console.error('Failed to send notifications:', error);
+              }
+          }
+
+    res.status(201).json({
+      message: "Event created successfully and added to calendar",
+      event: savedEvent,
+      calendarEntry: savedCalendarEntry,
+    });
   } catch (error) {
     console.error("Error creating event:", error);
-    res
-      .status(500)
-      .json({ message: "Failed to create event", error: error.message });
+    res.status(500).json({ message: "Failed to create event", error: error.message });
   }
-},
+};
  
   (exports.updateEvent = async (req, res, fileName) => {
     try {

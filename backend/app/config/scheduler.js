@@ -20,9 +20,9 @@ async function updateExpiredMemberships() {
 
 function startScheduler() {
   // Schedule the task to run every day at midnight using a cron expression:
-  cron.schedule('41 9 * * *', () => {
+  cron.schedule('09 15 * * *', () => {
     console.log('Running scheduled task: updateExpiredMemberships');
-    updateExpiredMemberships();
+    updateExpiredMembers5hips();
   });
 
   

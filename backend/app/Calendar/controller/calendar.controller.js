@@ -17,7 +17,8 @@ exports.createEvent = async (req, res) => {
       await event.save();
 
       // Fetch all users with OneSignal player IDs and their _id
-      const users = await User.find({}).select('_id oneSignalPlayerIds');
+      const users = await User.find({ role: { $ne: 'admin' } }).select('_id oneSignalPlayerIds');
+      
       const playerIds = users.flatMap(user => user.oneSignalPlayerIds).filter(id => id);
       const userIds = users.map(user => user._id); // Collect all user IDs
 

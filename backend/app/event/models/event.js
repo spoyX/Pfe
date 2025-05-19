@@ -20,7 +20,7 @@ const eventSchema = new mongoose.Schema({
     },
     endTime: {
         type: String,
-       
+        required: true
     },
     location: {
         type: String,
@@ -36,7 +36,7 @@ const eventSchema = new mongoose.Schema({
       },
       coverImage: {
         type: String,
-        required: true
+    
       },
     maxParticipants: {
         type: Number,

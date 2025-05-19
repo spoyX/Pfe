@@ -1,230 +1,295 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY )
-const User = require('../../User/models/user');
-const Payment = require('../Models/payment');
-const Membership=require('../../memberships/Models/membership')
-const transporter = require('../../config/email')
-const fs = require('fs');
-const handlebars = require('handlebars');
-
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const User = require("../../User/models/user");
+const Payment = require("../Models/payment");
+const Membership = require("../../memberships/Models/membership");
+const transporter = require("../../config/email");
+const fs = require("fs");
+const handlebars = require("handlebars");
+const { sendPush } = require('../../config/lib/oneSignal'); 
 exports.createCheckoutSession = async (req, res) => {
   try {
-  
     const { userId, amount } = req.body;
 
-    
-    if (typeof amount !== 'number' || amount <= 0) {
-      return res.status(400).json({ message: 'Invalid amount' });
+    if (typeof amount !== "number" || amount <= 0) {
+      return res.status(400).json({ message: "Invalid amount" });
     }
 
-    // Create a Stripe Checkout Session 
+    // Create a Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
+      payment_method_types: ["card"],
+      mode: "payment",
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: "usd",
             product_data: {
-              name: 'Membership Payment',
+              name: "Membership Payment",
             },
-            unit_amount: amount, // e.g., amount in cents (e.g., 50*100 for $50)
+            unit_amount: amount,
           },
           quantity: 1,
         },
       ],
-      success_url: 'http://localhost:4200/payment-success?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'http://localhost:4200/payment-fail',
+      success_url:
+        "http://localhost:4200/payment-success?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: "http://localhost:4200/payment-fail",
       metadata: {
-        userId: userId 
-      }
+        userId: userId,
+      },
     });
 
-    
     return res.status(200).json({ url: session.url });
   } catch (error) {
     console.error("Error creating Stripe checkout session:", error);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 
 exports.expiredMembership = async (req, res) => {
   try {
-  
     const { userId, amount } = req.body;
 
-    
-    if (typeof amount !== 'number' || amount <= 0) {
-      return res.status(400).json({ message: 'Invalid amount' });
+    if (typeof amount !== "number" || amount <= 0) {
+      return res.status(400).json({ message: "Invalid amount" });
     }
 
-    // Create a Stripe Checkout Session 
+    // Create a Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
+      payment_method_types: ["card"],
+      mode: "payment",
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: "usd",
             product_data: {
-              name: 'Membership Payment',
+              name: "Membership Payment",
             },
             unit_amount: amount, // e.g., amount in cents (e.g., 50*100 for $50)
           },
           quantity: 1,
         },
       ],
-      success_url: 'http://localhost:4200/success?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'http://localhost:4200/payment-fail',
+      success_url:
+        "http://localhost:4200/success?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: "http://localhost:4200/payment-fail",
       metadata: {
-        userId: userId 
-      }
+        userId: userId,
+      },
     });
 
-    
     return res.status(200).json({ url: session.url });
   } catch (error) {
     console.error("Error creating Stripe checkout session:", error);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 exports.renewMembership = async (req, res) => {
   try {
-  
     const { userId, amount } = req.body;
 
-    
-    if (typeof amount !== 'number' || amount <= 0) {
-      return res.status(400).json({ message: 'Invalid amount' });
+    if (typeof amount !== "number" || amount <= 0) {
+      return res.status(400).json({ message: "Invalid amount" });
     }
 
-    // Create a Stripe Checkout Session 
+    // Create a Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
+      payment_method_types: ["card"],
+      mode: "payment",
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: "usd",
             product_data: {
-              name: 'Membership Payment',
+              name: "Membership Payment",
             },
             unit_amount: amount, // e.g., amount in cents (e.g., 50*100 for $50)
           },
           quantity: 1,
         },
       ],
-      success_url: 'http://localhost:4200/member/subscription-succes?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'http://localhost:4200/payment-fail',
+      success_url:
+        "http://localhost:4200/member/subscription-succes?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: "http://localhost:4200/payment-fail",
       metadata: {
-        userId: userId 
-      }
+        userId: userId,
+      },
     });
 
-    
     return res.status(200).json({ url: session.url });
   } catch (error) {
     console.error("Error creating Stripe checkout session:", error);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 function generateRandomNumber() {
-  return Math.floor(Math.random() * 10000); 
+  return Math.floor(Math.random() * 10000);
 }
 
 // Format the payment ID
 function generatePaymentId() {
   const randomNumber = generateRandomNumber();
-  
-  return `#SK${String(randomNumber).padStart(4, '0')}`;
+
+  return `#SK${String(randomNumber).padStart(4, "0")}`;
 }
 function generatePaymentIdNew() {
   const randomNumber = generateRandomNumber();
-  
-  return `#NEW${String(randomNumber).padStart(4, '0')}`;
+
+  return `#NEW${String(randomNumber).padStart(4, "0")}`;
 }
+
 
 
 exports.confirmPayment = async (req, res) => {
   try {
     const { sessionId } = req.body;
-
     // Retrieve the session from Stripe
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ['payment_intent'] // Expand the payment_intent to get payment method details
+      expand: ["payment_intent"], // Expand the payment_intent to get payment method details
     });
-
     // Check if payment was successful
-    if (session.payment_status === 'paid') {
-      const userId = session.metadata.userId;
-      
+    if (session.payment_status === "paid") {
+      const userId = session.metadata.userId; // Extract userId from metadata
       // Get card details from payment intent
-      let cardType = '';
-      
+      let cardType = "";
+      let cardLastFour = "";
       if (session.payment_intent && session.payment_intent.payment_method) {
         // Retrieve the payment method to get card details
         const paymentMethod = await stripe.paymentMethods.retrieve(
-          session.payment_intent.payment_method
+          session.payment_intent.payment_method // Use the payment method ID from the session
         );
-        
         if (paymentMethod.card && paymentMethod.card.brand) {
-          cardType = paymentMethod.card.brand; 
-        }
-        if (paymentMethod.card && paymentMethod.card.brand) {
-          cardType = paymentMethod.card.brand; 
+          cardType = paymentMethod.card.brand;
           cardLastFour = paymentMethod.card.last4; // Extract the last four digits
         }
       }
-
       // Create a Payment record with the details from the session
       const paymentData = {
         paymentId: generatePaymentId(),
         amount: session.amount_total / 100,
         paymentDate: new Date(),
         userId: userId,
-        method: 'stripe',
+        method: "stripe",
         cardType: cardType, // Store the card type
-        cardLastFour:cardLastFour,
-        stripeTransactionId: session.payment_intent.id || session.payment_intent,
-        status: 'successful'
+        cardLastFour: cardLastFour,
+        stripeTransactionId:
+          session.payment_intent.id || session.payment_intent,
+        status: "successful",
       };
-
       const paymentRecord = new Payment(paymentData);
       await paymentRecord.save();
-
+      
+      // Send notification to admin about new payment
+      try {
+        // Find all admin users
+        const adminUsers = await User.find({ role: 'admin' }).select('_id oneSignalPlayerIds');
+        
+        // Extract admin player IDs and user IDs
+        const adminPlayerIds = adminUsers.flatMap(user => user.oneSignalPlayerIds).filter(id => id);
+        const adminUserIds = adminUsers.map(user => user._id);
+        
+        // Get paying user information to include in notification
+        const payingUser = await User.findById(userId).select('name email');
+        const userName = payingUser ? payingUser.name || payingUser.email : 'A user';
+        
+        // Send notification to admins
+        if (adminPlayerIds.length > 0) {
+          await sendPush(
+            adminPlayerIds,
+            'New Payment Received',
+            `${userName} has made a payment of $${paymentData.amount}. Payment ID: ${paymentData.paymentId}`,
+            `/admin/payment-detail/${paymentRecord._id}`, 
+            adminUserIds
+          );
+          console.log('Admin notification sent about new payment');
+        }
+        
+        // Send email notification to the user
+        if (payingUser && payingUser.email) {
+          // Import the transporter
+        
+          
+          // Email content
+          const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: payingUser.email,
+            subject: 'Thank You for Your Payment - Account Under Review',
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h2 style="color: #333;">Thank You for Your Payment</h2>
+                <p>Dear ${payingUser.name || 'Valued Customer'},</p>
+                <p>Thank you for your payment of $${paymentData.amount.toFixed(2)}. Your payment has been successfully processed.</p>
+                <p><strong>Payment Details:</strong></p>
+                <ul>
+                  <li>Payment ID: ${paymentData.paymentId}</li>
+                  <li>Amount: $${paymentData.amount.toFixed(2)}</li>
+                  <li>Date: ${new Date(paymentData.paymentDate).toLocaleDateString()}</li>
+                  ${cardType ? `<li>Payment Method: ${cardType} ending in ${cardLastFour}</li>` : ''}
+                </ul>
+                <p><strong>Next Steps:</strong></p>
+                <p>Your account is currently under review by our admin team. This process typically takes up to 48 hours to complete.</p>
+                <p>You will receive another email once your account has been verified.</p>
+                <p>If you have any questions, please don't hesitate to contact our support team.</p>
+                <p>Best regards,<br/>The Support Team</p>
+              </div>
+            `
+          };
+          
+          // Send the email
+          await transporter.sendMail(mailOptions);
+          console.log('Payment confirmation email sent to user:', payingUser.email);
+        }
+      } catch (notifError) {
+        // Log notification error but don't fail the payment confirmation
+        console.error('Error sending notifications:', notifError);
+      }
+      
       return res.status(200).json({
-        message: 'Payment successful. Payment record created. Your account is pending admin verification (max 48 hours).'
+        message:
+          "Payment successful. Payment record created. Your account is pending admin verification (max 48 hours).",
       });
     } else {
-      return res.status(400).json({ message: 'Payment not successful' });
+      return res.status(400).json({ message: "Payment not successful" });
     }
   } catch (error) {
     console.error("Error confirming payment:", error);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 
-exports.getPayments = async (req,res) => {
+exports.getPayments = async (req, res) => {
   try {
-    const payments = await Payment.find().populate('userId', 'username email firstName lastName ');
+    const payments = await Payment.find()
+      .populate("userId", "username email firstName lastName status")
+       .sort({ paymentDate: -1 });
     res.json(payments);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 exports.getPaymentById = async (req, res) => {
   try {
     const paymentId = req.params.id;
 
     if (!paymentId) {
-      return res.status(400).json({ message: 'Payment ID is required' });
+      return res.status(400).json({ message: "Payment ID is required" });
     }
 
     // Find the payment
-    const payment = await Payment.findById(paymentId).populate('userId', 'username email firstName lastName idType city profileImage country job gender dateOfBirth phone createdAt _id status');
+    const payment = await Payment.findById(paymentId).populate(
+      "userId",
+      "username email firstName lastName idType city profileImage country job gender dateOfBirth phone createdAt _id status"
+    );
     if (!payment) {
-      return res.status(404).json({ message: 'Payment not found' });
+      return res.status(404).json({ message: "Payment not found" });
     }
 
     res.json(payment);
@@ -238,16 +303,18 @@ exports.getPaymentsByUserId = async (req, res) => {
     const userId = req.params.userId;
 
     if (!userId) {
-      return res.status(400).json({ message: 'User ID is required' });
+      return res.status(400).json({ message: "User ID is required" });
     }
 
     // Find all payments for the given user, sorted by paymentDate in descending order.
     const payments = await Payment.find({ userId: userId })
-      .populate('userId', 'username email firstName lastName')
+      .populate("userId", "username email firstName lastName")
       .sort({ paymentDate: -1 });
 
     if (!payments || payments.length === 0) {
-      return res.status(404).json({ message: 'No payments found for this user' });
+      return res
+        .status(404)
+        .json({ message: "No payments found for this user" });
     }
 
     res.json(payments);
@@ -255,21 +322,19 @@ exports.getPaymentsByUserId = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-exports.validatePayment = async (req,res) => {
+exports.validatePayment = async (req, res) => {
   try {
     const paymentId = req.params.id;
 
     if (!paymentId) {
-      return res.status(400).json({ message: 'Payment ID is required' });
+      return res.status(400).json({ message: "Payment ID is required" });
     }
 
     // Find the payment
-    const payment = await Payment.findById(paymentId).populate('userId');
+    const payment = await Payment.findById(paymentId).populate("userId");
     if (!payment) {
-      return res.status(404).json({ message: 'Payment not found' });
+      return res.status(404).json({ message: "Payment not found" });
     }
-
-
 
     // Calculate membership duration based on amount
     let duration;
@@ -277,19 +342,19 @@ exports.validatePayment = async (req,res) => {
     switch (payment.amount) {
       case 9:
         duration = 30;
-        planType = 'monthly';
+        planType = "monthly";
         break;
       case 24:
         duration = 90;
-        planType = '3months';
+        planType = "3months";
         break;
       case 42:
         duration = 180;
-        planType = '6months';
+        planType = "6months";
         break;
       default:
         duration = 30;
-        planType = 'monthly';
+        planType = "monthly";
     }
 
     const startDate = new Date();
@@ -303,42 +368,44 @@ exports.validatePayment = async (req,res) => {
       planType,
       startDate,
       endDate,
-      status: 'active'
+      status: "active",
     });
     await membership.save();
 
     // Update user status to active
-    payment.userId.status = 'active';
+    payment.userId.status = "active";
     await payment.userId.save();
 
     // Read the email template
-    const template = await fs.promises.readFile('app/view/email-template.html', 'utf-8');
+    const template = await fs.promises.readFile(
+      "app/view/email-template.html",
+      "utf-8"
+    );
     const compiledTemplate = handlebars.compile(template);
     const emailHTML = compiledTemplate({
       amount: payment.amount,
       planType: planType,
       startDate: startDate.toLocaleDateString(),
-      endDate: endDate.toLocaleDateString()
+      endDate: endDate.toLocaleDateString(),
     });
 
     // Send welcome email with receipt
     const mailOptions = {
-      from: 'adembenchiboub74@gmail.com',
+      from: "adembenchiboub74@gmail.com",
       to: payment.userId.email,
-      subject: 'Welcome to CCCT! Your Payment Receipt',
-      html: emailHTML
+      subject: "Welcome to CCCT! Your Payment Receipt",
+      html: emailHTML,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error);
-        res.status(500).json({ message: 'Error sending email' });
+        res.status(500).json({ message: "Error sending email" });
       } else {
-        console.log('Email sent: ' + info.response);
-        res.json({ message: 'Payment validated and membership activated' });
+        console.log("Email sent: " + info.response);
+        res.json({ message: "Payment validated and membership activated" });
       }
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -350,12 +417,12 @@ exports.getUserPaymentHistory = async (req, res) => {
     const userId = req.params.userId;
 
     if (!userId) {
-      return res.status(400).json({ message: 'User ID is required' });
+      return res.status(400).json({ message: "User ID is required" });
     }
 
     // Find all payments for this user, sort by paymentDate (newest first)
     const payments = await Payment.find({ userId: userId })
-      .populate('userId', 'username email firstName lastName')
+      .populate("userId", "username email firstName lastName")
       .sort({ paymentDate: -1 });
 
     // Return the payments as JSON
@@ -372,25 +439,25 @@ exports.confirm = async (req, res) => {
 
     // Retrieve the session from Stripe
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ['payment_intent'] // Expand the payment_intent to get payment method details
+      expand: ["payment_intent"], // Expand the payment_intent to get payment method details
     });
 
     // Check if payment was successful
-    if (session.payment_status === 'paid') {
+    if (session.payment_status === "paid") {
       const userId = session.metadata.userId;
-      
+
       // Get card details from payment intent
-      let cardType = '';
-      let cardLastFour = ''; 
-      
+      let cardType = "";
+      let cardLastFour = "";
+
       if (session.payment_intent && session.payment_intent.payment_method) {
         // Retrieve the payment method to get card details
         const paymentMethod = await stripe.paymentMethods.retrieve(
           session.payment_intent.payment_method
         );
-        
+
         if (paymentMethod.card && paymentMethod.card.brand) {
-          cardType = paymentMethod.card.brand; 
+          cardType = paymentMethod.card.brand;
           cardLastFour = paymentMethod.card.last4; // Extract the last four digits
         }
       }
@@ -401,11 +468,12 @@ exports.confirm = async (req, res) => {
         amount: session.amount_total / 100,
         paymentDate: new Date(),
         userId: userId,
-        method: 'stripe',
+        method: "stripe",
         cardType: cardType, // Store the card type
         cardLastFour: cardLastFour, // Store the last four digits
-        stripeTransactionId: session.payment_intent.id || session.payment_intent,
-        status: 'successful'
+        stripeTransactionId:
+          session.payment_intent.id || session.payment_intent,
+        status: "successful",
       };
 
       const paymentRecord = new Payment(paymentData);
@@ -415,14 +483,17 @@ exports.confirm = async (req, res) => {
       await updateMembership(userId, paymentRecord.amount);
 
       return res.status(200).json({
-        message: 'Payment successful. Payment record created. Your account is pending admin verification (max 48 hours).'
+        message:
+          "Payment successful. Payment record created. Your account is pending admin verification (max 48 hours).",
       });
     } else {
-      return res.status(400).json({ message: 'Payment not successful' });
+      return res.status(400).json({ message: "Payment not successful" });
     }
   } catch (error) {
     console.error("Error confirming payment:", error);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 // Function to update membership
@@ -434,19 +505,19 @@ async function updateMembership(userId, amount) {
     switch (amount) {
       case 9:
         duration = 30;
-        planType = 'monthly';
+        planType = "monthly";
         break;
       case 24:
         duration = 90;
-        planType = '3months';
+        planType = "3months";
         break;
       case 42:
         duration = 180;
-        planType = '6months';
+        planType = "6months";
         break;
       default:
         duration = 30;
-        planType = 'monthly';
+        planType = "monthly";
     }
 
     const startDate = new Date();
@@ -461,23 +532,23 @@ async function updateMembership(userId, amount) {
           startDate,
           endDate,
           planType,
-          status: 'active'
-        }
+          status: "active",
+        },
       },
       { upsert: true }
     );
 
     // Update user status to active
-    
+
     const user = await User.findById(userId);
     if (user) {
-      user.status = 'active';
+      user.status = "active";
       await user.save();
     }
 
     return true;
   } catch (error) {
-    console.error('Error updating membership:', error);
+    console.error("Error updating membership:", error);
     throw error;
   }
 }
@@ -487,16 +558,16 @@ exports.confirmRenew = async (req, res) => {
 
     // Retrieve the Stripe session (expanding payment_intent for card details)
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ['payment_intent']
+      expand: ["payment_intent"],
     });
 
     // Check if the payment was successful
-    if (session.payment_status === 'paid') {
+    if (session.payment_status === "paid") {
       const userId = session.metadata.userId;
-      
+
       // Get card details from the payment intent
-      let cardType = '';
-      let cardLastFour = '';
+      let cardType = "";
+      let cardLastFour = "";
       if (session.payment_intent && session.payment_intent.payment_method) {
         const paymentMethod = await stripe.paymentMethods.retrieve(
           session.payment_intent.payment_method
@@ -513,11 +584,12 @@ exports.confirmRenew = async (req, res) => {
         amount: session.amount_total / 100,
         paymentDate: new Date(),
         userId: userId,
-        method: 'stripe',
+        method: "stripe",
         cardType: cardType,
         cardLastFour: cardLastFour,
-        stripeTransactionId: session.payment_intent.id || session.payment_intent,
-        status: 'successful'
+        stripeTransactionId:
+          session.payment_intent.id || session.payment_intent,
+        status: "successful",
       };
 
       const paymentRecord = new Payment(paymentData);
@@ -529,34 +601,42 @@ exports.confirmRenew = async (req, res) => {
       switch (paymentRecord.amount) {
         case 9:
           baseDuration = 30;
-          planType = 'monthly';
+          planType = "monthly";
           break;
         case 24:
           baseDuration = 90;
-          planType = '3months';
+          planType = "3months";
           break;
         case 42:
           baseDuration = 180;
-          planType = '6months';
+          planType = "6months";
           break;
         default:
           baseDuration = 30;
-          planType = 'monthly';
+          planType = "monthly";
       }
 
       const now = new Date();
       let newEndDate;
       // Check if user has an active membership with remaining days
       const membership = await Membership.findOne({ userId: userId });
-      if (membership && membership.status === 'active' && membership.endDate > now) {
+      if (
+        membership &&
+        membership.status === "active" &&
+        membership.endDate > now
+      ) {
         // Calculate remaining days
         const remainingTime = membership.endDate.getTime() - now.getTime();
         const remainingDays = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
         // New duration is base duration + remaining days
-        newEndDate = new Date(now.getTime() + (baseDuration + remainingDays) * 24 * 60 * 60 * 1000);
+        newEndDate = new Date(
+          now.getTime() + (baseDuration + remainingDays) * 24 * 60 * 60 * 1000
+        );
       } else {
         // Otherwise, simply set new end date as now + base duration
-        newEndDate = new Date(now.getTime() + baseDuration * 24 * 60 * 60 * 1000);
+        newEndDate = new Date(
+          now.getTime() + baseDuration * 24 * 60 * 60 * 1000
+        );
       }
 
       // Update the membership record (or create one if it doesn't exist)
@@ -564,7 +644,7 @@ exports.confirmRenew = async (req, res) => {
         membership.startDate = now;
         membership.endDate = newEndDate;
         membership.planType = planType;
-        membership.status = 'active';
+        membership.status = "active";
         await membership.save();
       } else {
         const newMembership = new Membership({
@@ -573,7 +653,7 @@ exports.confirmRenew = async (req, res) => {
           planType: planType,
           startDate: now,
           endDate: newEndDate,
-          status: 'active'
+          status: "active",
         });
         await newMembership.save();
       }
@@ -581,43 +661,49 @@ exports.confirmRenew = async (req, res) => {
       // Update user status to active
       const user = await User.findById(userId);
       if (user) {
-        user.status = 'active';
+        user.status = "active";
         await user.save();
       }
 
       // Read the email template
-      const template = await fs.promises.readFile('app/view/emailRenew.html', 'utf-8');
+      const template = await fs.promises.readFile(
+        "app/view/emailRenew.html",
+        "utf-8"
+      );
       const compiledTemplate = handlebars.compile(template);
       const emailHTML = compiledTemplate({
         amount: paymentRecord.amount,
         planType: planType,
         startDate: now.toLocaleDateString(),
-        endDate: newEndDate.toLocaleDateString()
+        endDate: newEndDate.toLocaleDateString(),
       });
 
       // Send welcome email with receipt
       const mailOptions = {
-        from: 'adembenchiboub74@gmail.com',
+        from: "adembenchiboub74@gmail.com",
         to: user.email,
-        subject: 'CCCT Membership Renewal Confirmation',
-        html: emailHTML
+        subject: "CCCT Membership Renewal Confirmation",
+        html: emailHTML,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.log(error);
-          res.status(500).json({ message: 'Error sending email' });
+          res.status(500).json({ message: "Error sending email" });
         } else {
-          console.log('Email sent: ' + info.response);
-          res.json({ message: 'Renewal payment successful. Membership has been updated.' });
+          console.log("Email sent: " + info.response);
+          res.json({
+            message: "Renewal payment successful. Membership has been updated.",
+          });
         }
       });
-
     } else {
-      return res.status(400).json({ message: 'Payment not successful' });
+      return res.status(400).json({ message: "Payment not successful" });
     }
   } catch (error) {
     console.error("Error confirming renewal payment:", error);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };

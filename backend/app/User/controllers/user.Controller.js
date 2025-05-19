@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const transporter = require('../../config/email')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY )
 const Membership = require('../../memberships/Models/membership');
+
+
 exports.createAdminAccount = async () => {
 
     try {
@@ -117,10 +119,11 @@ exports.signIn = async (req, res) => {
       }
 
       // Check if account is active
+      if (user.status !== 'active') {
       if (user.role !== 'admin' && (user.status !== 'active')) {
         const membership = await Membership.findOne({ userId: user._id });
         if (user.status === 'expired') {
-          return res.status(404).json({ message: 'Account expired. Please contact support.',userId: user._id });
+          return res.status(403).json({ message: 'Account expired. Please contact support.',userId: user._id });
           
         }
           return res.status(403).json({ message: 'Account is not active' });
@@ -130,12 +133,13 @@ exports.signIn = async (req, res) => {
       const membership = await Membership.findOne({ userId: user._id });
     
       if (!membership || membership.status === 'expired') {
-        return res.status(401).json({
+        return res.status(403).json({
           message: 'Your membership has expired. Please renew your membership to continue using the platform.'
           
         });
       }
     }
+      }
       
 
       let payload = {
@@ -166,7 +170,7 @@ exports.signIn = async (req, res) => {
 }
 
 
-// GET /api/profile/:id
+
 exports.getUserProfile = async (req, res) => {
   try {
     // Extract userId from URL params
@@ -178,7 +182,7 @@ exports.getUserProfile = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Return user data
+   
     res.status(200).json({ user });
   } catch (error) {
     console.error(error);
@@ -188,7 +192,7 @@ exports.getUserProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res,fileName) => {
   try {
-    // Assume userId is provided in URL params (or you can extract it from the token)
+    
     const userId = req.params.id;
 
     // Destructure only the fields that are allowed to be updated
