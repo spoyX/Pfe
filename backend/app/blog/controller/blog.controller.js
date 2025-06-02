@@ -45,7 +45,7 @@ exports.createBlog = async (req, res,fileName) => {
 };
 exports.getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().populate('comments');
+    const blogs = await Blog.find().populate('comments').sort({ createdAt: -1 });
     res.json(blogs);
   } catch (error) {
     res.status(500).json({ message: error.message });

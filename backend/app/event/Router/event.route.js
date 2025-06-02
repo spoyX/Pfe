@@ -27,7 +27,7 @@ router.post('/create', authMiddleware,upload.single('coverImage'), (req, res)=>{
 router.get('/getall',authMiddleware,eventController.getAllEvents);
 
 //get all events without filter
-router.get('/getallwithoutfilter',authMiddleware,eventController.getEvents);
+router.get('/getallwithoutfilter',eventController.getEvents);
 // Get event details
 router.get('/byid/:id',authMiddleware, eventController.getEventDetails);
 

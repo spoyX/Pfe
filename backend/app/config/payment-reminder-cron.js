@@ -102,7 +102,7 @@ const sendEmail = async (user, emailType) => {
     throw error;
   }
 };
-cron.schedule("30 19 * * *", async () => {
+cron.schedule("40 19 * * *", async () => {
   try {
     console.log("Running payment reminder cron job...");
 

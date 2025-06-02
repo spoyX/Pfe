@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Calendar=require('../../Calendar/model/calendar')
 
 
 const eventSchema = new mongoose.Schema({
@@ -55,5 +55,13 @@ const eventSchema = new mongoose.Schema({
         }
      }]
  }, { timestamps: true });
+ 
+ eventSchema.pre('findOneAndDelete', async function(next) {
+  const event = await this.model.findOne(this.getQuery());
+  if (event) {
+    await Calendar.deleteOne({ title: event.title});
+  }
+  next();
+  });
 
 module.exports = mongoose.model('Event', eventSchema);

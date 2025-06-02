@@ -41,7 +41,7 @@ exports.getAllEvents = async (req, res) => {
         'registrations'
 ,        "username email firstName lastName profileImage"
       )
-      .sort({ date: 1 }); // sort by date
+      .sort({ date: -1 }); // sort by date
 
     res.status(200).json(events);
   } catch (error) {
