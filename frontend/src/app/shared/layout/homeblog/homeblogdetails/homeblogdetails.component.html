@@ -1,0 +1,47 @@
+
+<app-homenavbar></app-homenavbar>
+<!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="category-tag">{{blog.tags}}</div>
+             <h1 class="hero-title">
+  {{ blog.title }}
+</h1>
+              
+                <div class="date-tag">{{ blog.createdAt | date: 'dd MMMM yyyy' }}</div>
+            </div>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="decorative-element sphere-gradient delay-1"></div>
+        <div class="decorative-element sphere-purple delay-2"></div>
+        <div class="decorative-element hexagon delay-1"></div>
+        <div class="decorative-element hexagon-small delay-3"></div>
+        <div class="decorative-element dot delay-2"></div>
+        <div class="decorative-element yellow-dot delay-4"></div>
+        <div class="decorative-element arc delay-1"></div>
+        <div class="decorative-element curved-line delay-3"></div>
+    </section>
+
+     <div class="blog-card">
+        <!-- Hero Banner -->
+          <div class="my-5">
+                                          <img [src]="'http://127.0.0.1:3000/files/'+ blog.image" alt="" class="img-thumbnail mx-auto d-block">
+                                      </div>
+            
+      
+
+        <!-- Content Section -->
+        <div class="content-section">
+         
+                <p class="item-description" [innerHTML]="blog.content | stripHtml">
+                    
+                </p>
+                
+
+            
+   </div>
+   </div>
+
+<app-homefooter></app-homefooter>

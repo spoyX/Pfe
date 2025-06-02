@@ -53,68 +53,67 @@
   
     <!-- Orders Card -->
     <div class="col-md-3">
-      <div class="card mini-stats-wid">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="flex-grow-1">
-              <p class="text-muted fw-medium">Renewed Payments</p>
-              <h4 class="mb-0">{{ RnewPayment }}</h4>
+            <div class="card mini-stats-wid renewed-payments">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1">
+                            <p class="text-muted fw-medium">Renewed Payments</p>
+                            <h4 class="mb-0">{{ RnewPayment }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                <span class="avatar-title">
+                                    <i class="bx bx-copy-alt font-size-24"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flex-shrink-0 align-self-center">
-              <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                <span class="avatar-title">
-                  <i class="bx bx-copy-alt font-size-24"></i>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  
-    <!-- Revenue Card -->
-    <div class="col-md-3">
-      <div class="card mini-stats-wid">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="flex-grow-1">
-              <p class="text-muted fw-medium">New Payments</p>
-              <h4 class="mb-0">{{ newPayment }}</h4>
+    
+        <!-- Revenue Card -->
+        <div class="col-md-3">
+            <div class="card mini-stats-wid new-payments">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1">
+                            <p class="text-muted fw-medium">New Payments</p>
+                            <h4 class="mb-0">{{ newPayment }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                <span class="avatar-title rounded-circle bg-primary">
+                                    <i class="bx bx-archive-in font-size-24"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flex-shrink-0 align-self-center">
-              <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                <span class="avatar-title rounded-circle bg-primary">
-                  <i class="bx bx-archive-in font-size-24"></i>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  
-    <!-- Average Price Card -->
-    <div class="col-md-2">
-      <div class="card mini-stats-wid">
-        <div class="card-body">
-          <div class="d-flex">
-            <div class="flex-grow-1">
-              <p class="text-muted fw-medium">Average Price</p>
-              <h4 class="mb-0">${{ averagePrice }}</h4>
+    
+        <!-- Average Price Card -->
+        <div class="col-md-2">
+            <div class="card mini-stats-wid average-price">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1">
+                            <p class="text-muted fw-medium">Average Price</p>
+                            <h4 class="mb-0">${{ averagePrice }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                <span class="avatar-title rounded-circle bg-primary">
+                                    <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flex-shrink-0 align-self-center">
-              <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                <span class="avatar-title rounded-circle bg-primary">
-                  <i class="bx bx-purchase-tag-alt font-size-24"></i>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  
   <!-- Charts Row -->
   <div class="row">
     <!-- Column Chart - Monthly Payment Trends -->

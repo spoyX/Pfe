@@ -3,7 +3,7 @@
     <div class="row mb-4">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">Users Reports</h4>
+                <h4 class="mb-sm-0 font-size-18">Users Reports</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
@@ -14,17 +14,17 @@
         </div>
     </div>
     
-    <!-- Welcome Card and User Status Summary Cards in one row -->
+    <!-- Welcome Card and User Status Summary Cards -->
     <div class="row mb-4">
         <!-- Welcome Card on left side -->
-        <div class="col-xl-4">
-            <div class="card bg-primary bg-soft h-100">
+        <div class="col-xl-4 col-md-12 mb-4 mb-xl-0"> <!-- Added responsive col-md-12 and mb -->
+            <div class="card bg-primary bg-soft shadow-sm h-100 dashboard-welcome-card"> <!-- Added custom class -->
                 <div class="row g-0">
                     <div class="col-7">
-                        <div class="text-primary p-3">
-                            <h5 class="text-primary">Welcome Back!</h5>
-                            <p>Membra Dashboard</p>
-                            <ul class="ps-3 mb-0">
+                        <div class="text-primary p-4">
+                            <h5 class="text-primary fw-bold">Welcome Back!</h5>
+                            <p class="mb-3">Membra Dashboard</p>
+                            <ul class="ps-3 mb-0 dashboard-welcome-list"> <!-- Added custom class -->
                                 <li class="py-1">7+ Layouts</li>
                                 <li class="py-1">Multiple apps</li>
                             </ul>
@@ -38,18 +38,18 @@
         </div>
         
         <!-- Status cards on right side -->
-        <div class="col-xl-8">
-            <div class="row h-100">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <div class="card border-start border-3 border-success h-100">
-                        <div class="card-body">
-                            <div class="d-flex flex-wrap">
+        <div class="col-xl-8 col-md-12"> <!-- Added responsive col-md-12 -->
+            <div class="row h-100 g-3"> <!-- Added g-3 for smaller gaps -->
+                <div class="col-md-4 col-sm-6 col-12" cdkDrag> <!-- Responsive cols for status cards -->
+                    <div class="card border-start border-3 border-success shadow-sm h-100 dashboard-status-card" > <!-- Added custom class -->
+                        <div class="card-body" cdkDropList  (cdkDropListDropped)="drop($event)">
+                            <div class="d-flex flex-wrap align-items-center"> <!-- Ensured alignment -->
                                 <div class="me-3">
                                     <p class="text-muted mb-2">Active Users</p>
-                                    <h5 class="mb-0">{{active}}</h5>
+                                    <h5 class="mb-0 fw-bold">{{active}}</h5>
                                 </div>
                                 <div class="avatar-sm ms-auto">
-                                    <div class="avatar-title bg-light rounded-circle text-success font-size-20">
+                                    <div class="avatar-title bg-success bg-opacity-10 rounded-circle text-success font-size-20">
                                         <i class="bx bx-user-check"></i>
                                     </div>
                                 </div>
@@ -58,16 +58,16 @@
                     </div>
                 </div>
                 
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <div class="card border-start border-3 border-warning h-100">
-                        <div class="card-body">
-                            <div class="d-flex flex-wrap">
+                <div class="col-md-4 col-sm-6 col-12" cdkDrag> <!-- Responsive cols for status cards -->
+                    <div class="card border-start border-3 border-warning shadow-sm h-100 dashboard-status-card"> <!-- Added custom class -->
+                        <div class="card-body" cdkDropList (cdkDropListDropped)="drop($event)">
+                             <div class="d-flex flex-wrap align-items-center"> <!-- Ensured alignment -->
                                 <div class="me-3">
                                     <p class="text-muted mb-2">Inactive Users</p>
-                                    <h5 class="mb-0">{{inactive}}</h5>
+                                    <h5 class="mb-0 fw-bold">{{inactive}}</h5>
                                 </div>
                                 <div class="avatar-sm ms-auto">
-                                    <div class="avatar-title bg-light rounded-circle text-warning font-size-20">
+                                    <div class="avatar-title bg-warning bg-opacity-10 rounded-circle text-warning font-size-20">
                                         <i class="bx bx-user-x"></i>
                                     </div>
                                 </div>
@@ -76,16 +76,16 @@
                     </div>
                 </div>
                 
-                <div class="col-md-4">
-                    <div class="card border-start border-3 border-danger h-100">
-                        <div class="card-body">
-                            <div class="d-flex flex-wrap">
+                <div class="col-md-4 col-sm-12 col-12" cdkDrag> <!-- Responsive cols for status cards -->
+                    <div class="card border-start border-3 border-danger shadow-sm h-100 dashboard-status-card"> <!-- Added custom class -->
+                        <div class="card-body" cdkDropList (cdkDropListDropped)="drop($event)">
+                            <div class="d-flex flex-wrap align-items-center"> <!-- Ensured alignment -->
                                 <div class="me-3">
                                     <p class="text-muted mb-2">Expired Users</p>
-                                    <h5 class="mb-0">{{expired}}</h5>
+                                    <h5 class="mb-0 fw-bold">{{expired}}</h5>
                                 </div>
                                 <div class="avatar-sm ms-auto">
-                                    <div class="avatar-title bg-light rounded-circle text-danger font-size-20">
+                                    <div class="avatar-title bg-danger bg-opacity-10 rounded-circle text-danger font-size-20">
                                         <i class="bx bx-user-minus"></i>
                                     </div>
                                 </div>
@@ -97,12 +97,12 @@
         </div>
     </div>
     
-    <!-- Charts Section - User Status and Gender side by side -->
-    <div class="row mb-4">
+    <!-- Charts & Countries Row - User Status, Gender, and Global Distribution -->
+    <div class="row mb-4 g-3"> <!-- Added g-3 for smaller gaps -->
         <!-- User Status Chart -->
-        <div class="col-xl-8">
-            <div class="card h-100">
-                <div class="card-body">
+        <div class="col-xl-6 col-lg-12" cdkDrag> <!-- Make it full width on lg and down -->
+            <div class="card shadow-sm h-100 dashboard-chart-card"> <!-- Added custom class -->
+                <div class="card-body"cdkDropList (cdkDropListDropped)="drop($event)">
                     <h4 class="card-title mb-4">User Status Comparison</h4>
                     <ejs-chart id="barChart" [title]='barTitle' [primaryXAxis]='primaryXAxis' 
                         [primaryYAxis]='primaryYAxis' [palettes]="palette" [tooltip]='tooltip' [legendSettings]='legendSettings'>
@@ -117,96 +117,93 @@
         </div>
         
         <!-- Gender Chart -->
-        <div class="col-xl-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">{{ genderTitle }}</h4>
-                    <ejs-accumulationchart id="genderChart" [title]='genderTitle' 
-                        [legendSettings]='legendSettings' [tooltip]='tooltip'>
-                        <e-accumulation-series-collection>
-                            <e-accumulation-series type='Pie' xName='x' yName='y' [palettes]="palette" [dataSource]="genderData">
-                            </e-accumulation-series>
-                        </e-accumulation-series-collection>
-                    </ejs-accumulationchart>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Bottom row with Country Data and Monthly Registration -->
-    <div class="row">
-        <!-- Global User Distribution -->
-        <div class="col-xl-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title mb-0">Global User Distribution</h5>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div id="world-map" style="height: 220px;">
-                               
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="country-list px-2" style="max-height: 220px; overflow-y: auto;">
-                                <!-- Canada -->
-                                <div class="country-row d-flex justify-content-between align-items-center p-3 border-bottom">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flag-icon me-3">
-                                            <img src="https://flagcdn.com/w40/ca.png" width="28" height="20" class="flag" alt="Canada">
-                                        </div>
-                                        <div>
-                                            <h6 class="mb-0 font-size-14">Canada</h6>
-                                            <p class="text-muted mb-0 font-size-12">{{canadaUsers}} users</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <div class="me-3">
-                                            <ejs-progressbar id="progressBar1" type="Linear" [value]="canadaPercentage" height="5px" width="80px" 
-                                                [trackColor]="trackColor" [progressColor]="progressCanadaColor"></ejs-progressbar>
-                                        </div>
-                                        <span class="font-size-13 text-warning font-weight-semibold">{{canadaPercentage}}%</span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Tunisia -->
-                                <div class="country-row d-flex justify-content-between align-items-center p-3 border-bottom">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flag-icon me-3">
-                                            <img src="https://flagcdn.com/w40/tn.png" width="28" height="20" class="flag" alt="Tunisia">
-                                        </div>
-                                        <div>
-                                            <h6 class="mb-0 font-size-14">Tunisia</h6>
-                                            <p class="text-muted mb-0 font-size-12">{{tunisiaUsers}} users</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <div class="me-3">
-                                            <ejs-progressbar id="progressBar2" type="Linear" [value]="tunisiaPercentage" height="5px" width="80px" 
-                                                [trackColor]="trackColor" [progressColor]="progressColor"></ejs-progressbar>
-                                        </div>
-                                        <span class="font-size-13 text-success font-weight-semibold">{{tunisiaPercentage}}%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12" cdkDrag> <!-- More responsive columns -->
+            <div class="card shadow-sm h-100 dashboard-chart-card"> <!-- Added custom class -->
+                <div class="card-body d-flex flex-column"> <!-- Flex column for height control -->
+                    <h4 class="card-title mb-4" cdkDropList (cdkDropListDropped)="drop($event)">{{ genderTitle }}</h4>
+                     <!-- Chart content will take remaining space -->
+                    <div class="flex-grow-1"> 
+                         <ejs-accumulationchart id="genderChart" [title]='genderTitle' 
+                            [legendSettings]='legendSettings' [tooltip]='tooltip'>
+                            <e-accumulation-series-collection>
+                                <e-accumulation-series type='Pie' xName='x' yName='y' [palettes]="palette" [dataSource]="genderData"
+                                    innerRadius="40%" [dataLabel]='{ visible: true, position: "Outside", name: "text" }'> <!-- Added data labels -->
+                                </e-accumulation-series>
+                            </e-accumulation-series-collection>
+                        </ejs-accumulationchart>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Monthly Registration Chart -->
-        <div class="col-xl-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
+        <!-- Top Countries by Users -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12" cdkDrag> <!-- More responsive columns -->
+            <div class="card shadow-sm h-100 dashboard-list-card"> <!-- Added custom class -->
+                <div class="card-body d-flex flex-column" cdkDropList (cdkDropListDropped)="drop($event)"> <!-- Flex column for height control -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="card-title mb-0 font-size-16">Top Countries by Users</h5> <!-- Slightly smaller title -->
+                        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                    <div class="country-list flex-grow-1 custom-scroll"> <!-- Flex grow and custom scroll -->
+                        <!-- Canada -->
+                        <div class="country-row d-flex justify-content-between align-items-center py-2 border-bottom"> <!-- py-2 -->
+                            <div class="d-flex align-items-center">
+                                <div class="flag-icon me-3">
+                                    <img src="https://flagcdn.com/w40/ca.png" width="28" height="20" class="flag rounded shadow-sm" alt="Canada">
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 font-size-14">Canada</h6>
+                                    <p class="text-muted mb-0 font-size-12">{{canadaUsers}} users</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3" style="min-width: 80px;"> <!-- Ensure progress bar width -->
+                                    <ejs-progressbar id="progressBar1" type="Linear" [value]="canadaPercentage" 
+                                        height="8px" trackColor="#e9ecef" progressColor="#3498db"> <!-- Lighter track color -->
+                                    </ejs-progressbar>
+                                </div>
+                                <span class="font-size-13 text-dark fw-bold" style="min-width: 40px; text-align: right;">{{canadaPercentage}}%</span> <!-- Bold percentage -->
+                            </div>
+                        </div>
+                        
+                        <!-- Tunisia -->
+                         <div class="country-row d-flex justify-content-between align-items-center py-2 border-bottom"> <!-- py-2 -->
+                            <div class="d-flex align-items-center">
+                                <div class="flag-icon me-3">
+                                    <img src="https://flagcdn.com/w40/tn.png" width="28" height="20" class="flag rounded shadow-sm" alt="Tunisia">
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 font-size-14">Tunisia</h6>
+                                    <p class="text-muted mb-0 font-size-12">{{tunisiaUsers}} users</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3" style="min-width: 80px;"> <!-- Ensure progress bar width -->
+                                    <ejs-progressbar id="progressBar2" type="Linear" [value]="tunisiaPercentage" 
+                                        height="8px" trackColor="#e9ecef" progressColor="#2ecc71"> <!-- Lighter track color -->
+                                    </ejs-progressbar>
+                                </div>
+                                <span class="font-size-13 text-dark fw-bold" style="min-width: 40px; text-align: right;">{{tunisiaPercentage}}%</span> <!-- Bold percentage -->
+                            </div>
+                        </div>
+                        <!-- Add more countries here following the same pattern -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Monthly Registration Chart Row -->
+    <div class="row mb-4 g-3"> <!-- New row for the line chart -->
+         <div class="col-xl-12" cdkDrag> <!-- Full width for a larger trend chart -->
+            <div class="card shadow-sm h-100 dashboard-chart-card"> <!-- Added custom class -->
+                <div class="card-body" cdkDropList (cdkDropListDropped)="drop($event)">
                     <h4 class="card-title mb-4">User Registrations Per Month</h4>
-                    <ejs-chart id="registrationChart" [title]='registrationTitle' [primaryXAxis]='registrationPrimaryXAxis'
+                     <ejs-chart id="registrationChart" [title]='registrationTitle' [primaryXAxis]='registrationPrimaryXAxis'
                         [primaryYAxis]='registrationPrimaryYAxis' [palettes]="palette" [tooltip]='tooltip'>
                         <e-series-collection>
                             <e-series [dataSource]="monthlyRegistrationData" type='Line' xName='x' yName='y' name='Registrations'
-                                width='2' [marker]='{ visible: true, height: 7, width: 7 }'>
+                                width='2' [marker]='{ visible: true, height: 7, width: 7, shape: "Circle", fill: "#7f00ff", border: { width: 2, color: "#fff" } }'> <!-- Enhanced marker -->
                             </e-series>
                         </e-series-collection>
                     </ejs-chart>
@@ -214,4 +211,7 @@
             </div>
         </div>
     </div>
+
+    <!-- Potentially add more rows/cards below as needed -->
+
 </div>

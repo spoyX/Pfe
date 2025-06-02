@@ -1,8 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UserService } from '../../../../core/services/users/user.service';
 import {
+  
   ChartModule,
   CategoryService,
   LegendService,
@@ -30,7 +31,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ChartModule, 
     AccumulationChartModule,
-   
+  DragDropModule,
     ProgressBarModule,
     FormsModule
   ],
@@ -46,19 +47,23 @@ import { FormsModule } from '@angular/forms';
     AreaSeriesService,
     PieSeriesService,
     DataLabelService,
-    AccumulationChartModule,
     AccumulationLegendService,
     AccumulationTooltipService,
     AccumulationDataLabelService,
     LineSeriesService,
-    PieSeriesService,
     DateTimeCategoryService,
+
+ 
   ],
   templateUrl: './users-reports.component.html',
   styleUrl: './users-reports.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this line to handle custom elements
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  
 })
-export class UsersReportsComponent {
+export class UsersReportsComponent implements OnInit {
+ eventData: any[];
+   metricsCards: any[] = [];
+
   // User data
   data: any[] = [];
   active: number = 0;
@@ -103,8 +108,8 @@ export class UsersReportsComponent {
 
   public registrationPrimaryXAxis: object = {
     valueType: 'DateTime',
-    labelFormat: 'MMM yyyy', // Format the labels
-    intervalType: 'Months', // Display intervals by month
+    labelFormat: 'MMM yyyy',
+    intervalType: 'Months',
     interval: 1,
   };
   public registrationPrimaryYAxis: object = {
@@ -116,7 +121,6 @@ export class UsersReportsComponent {
   tunisiaUsers: any;
   canadaUsers: any;
   totalUsers: any;
-
   // Progress bar properties
   height: string = '40px';
   width: string = '100%';
@@ -125,49 +129,44 @@ export class UsersReportsComponent {
   progressColor: string = '#48bb78';
   progressCanadaColor: string = '#ecc94b';
   cssClass: string = 'custom-progress-bar';
-  layers: any;
-  markerData: any;
 
-  // Map properties
-  public mapHeight: string = '220px';
-  public shapeData: Object = 'https://cdn.syncfusion.com/maps/map-data/world-map.json';
-  
-  public shapeSettings: object = {
-    fill: '#e5e5e5',
-    border: { color: '#bdbdbd', width: 0.5 }
-  };
+public pieChartData: any[] = [];
 
-  public zoomSettings: object = {
-    enable: true,
-    zoomFactor: 4
-  };
+public pieTooltip: Object = {
+  enable: true,
+  format: '${point.x} : ${point.y} users'
+};
 
-  public tooltipSettings: object = {
-    visible: true,
-    valuePath: 'name',
-    template: '<div style="padding: 10px;"><b>${name}</b><br/>${users} users</div>'
-  };
+public pieLegend: Object = {
+  visible: true,
+  position: 'Bottom'
+};
 
-  public markerSettings: object = {
-    visible: true,
-    dataSource: [],
-    shape: 'Balloon',
-    height: 20,
-    width: 20,
-    fill: '#FF5733',
-    border: { color: 'white', width: 1 },
-    tooltipSettings: this.tooltipSettings
-  };
+public pieDataLabel: Object = {
+  visible: true,
+  name: 'text',
+  position: 'Outside',
+  font: {
+    fontWeight: '600'
+  }
+};
 
-  constructor(private userService: UserService) {}
 
-  ngOnInit() {
-    this.fetchUserData();
-    
+  constructor(private userService: UserService) {
+    this.eventData = [];
   }
 
+  ngOnInit() {
+   
+
+    // Fetch user data
+    this.fetchUserData();
+    const savedOrder = localStorage.getItem('cardOrder');
+
+
+  }
   
-  
+ 
   
   fetchUserData() {
     this.userService.alluser().subscribe({
@@ -205,6 +204,7 @@ export class UsersReportsComponent {
           this.calculateNewUsersThisWeek();
           this.prepareBarData();
           this.prepareCountryData();
+          this.preparePieChartByCountry()
           this.prepareGenderData();
           this.prepareMonthlyRegistrationData();
         } else {
@@ -230,14 +230,11 @@ export class UsersReportsComponent {
     const femaleCount = this.data.filter(
       (user: any) => user.gender === 'female'
     ).length;
-    const otherCount = this.data.filter(
-      (user: any) => user.gender === 'other'
-    ).length;
 
     this.genderData = [
       { x: 'Male', y: maleCount },
       { x: 'Female', y: femaleCount },
-      { x: 'Other', y: otherCount },
+    
     ];
     console.log('Gender Data:', this.genderData);
   }
@@ -250,29 +247,50 @@ export class UsersReportsComponent {
     ];
   }
   
-  prepareCountryData() {
-    const totalUsers = this.data.length;
-    // Calculate user counts by country
-    const canadaUsers = this.data.filter(
+   prepareCountryData() {
+    this.totalUsers = this.data.length;
+    
+    // Calculate user counts for Tunisia and Canada
+    this.canadaUsers = this.data.filter(
       (user: any) => user.country === 'Canada'
     ).length;
-    const tunisiaUsers = this.data.filter(
+    
+    this.tunisiaUsers = this.data.filter(
       (user: any) => user.country === 'Tunisia'
     ).length;
-
-    // Calculate percentages
-    const tunisiaPercentage =
-      totalUsers > 0 ? (tunisiaUsers / totalUsers) * 100 : 0;
-    const canadaPercentage =
-      totalUsers > 0 ? (canadaUsers / totalUsers) * 100 : 0;
-    // Set component properties with calculated data
-    this.totalUsers = totalUsers;
-    this.tunisiaUsers = tunisiaUsers;
-    this.canadaUsers = canadaUsers;
-    this.tunisiaPercentage = parseFloat(tunisiaPercentage.toFixed(2)); // keep 2 decimal places
-    this.canadaPercentage = parseFloat(canadaPercentage.toFixed(2)); // keep 2 decimal places
     
+    // Calculate percentages
+    this.tunisiaPercentage = this.totalUsers > 0 
+      ? parseFloat(((this.tunisiaUsers / this.totalUsers) * 100).toFixed(2))
+      : 0;
+      
+    this.canadaPercentage = this.totalUsers > 0
+      ? parseFloat(((this.canadaUsers / this.totalUsers) * 100).toFixed(2))
+      : 0;
+    
+    // Prepare chart data
+    this.countryData = [
+      { x: 'Tunisia', y: this.tunisiaUsers },
+      { x: 'Canada', y: this.canadaUsers }
+    ];
   }
+  preparePieChartByCountry() {
+  const countryCounts: { [key: string]: number } = {};
+
+  this.data.forEach((user: any) => {
+    const country = user.country || 'Unknown';
+    countryCounts[country] = (countryCounts[country] || 0) + 1;
+  });
+
+  this.pieChartData = Object.keys(countryCounts).map(country => ({
+    country,
+    count: countryCounts[country],
+    text: `${country} (${countryCounts[country]})`
+  }));
+
+  console.log('Pie chart data:', this.pieChartData);
+}
+  
   
   calculateNewUsersThisWeek() {
     // Get users registered in the last 7 days
@@ -340,4 +358,16 @@ export class UsersReportsComponent {
       }
     );
   }
+  drop(event: any) {
+  const previousIndex = event.previousIndex;
+  const currentIndex = event.currentIndex;
+
+  if (previousIndex !== currentIndex) {
+    const item = this.eventData[previousIndex];
+    this.eventData.splice(previousIndex, 1);
+    this.eventData.splice(currentIndex, 0, item);
+  }
+  
+}
+
 }

@@ -1,0 +1,199 @@
+  /* Page Title */
+        .page-title-box h4 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .breadcrumb {
+            background: none;
+            padding: 0;
+        }
+        .breadcrumb-item a {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .breadcrumb-item a:hover {
+            color: #3b82f6;
+        }
+        .breadcrumb-item.active {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        /* Stats Cards */
+        .mini-stats-wid, .blog-stats-wid {
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .mini-stats-wid:hover, .blog-stats-wid:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+        .mini-stats-wid.total-posts {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+        }
+        .blog-stats-wid.comments {
+            background-color: #ecfeff;
+            border-left: 4px solid #06b6d4;
+        }
+        .blog-stats-wid.avg-comments {
+            background-color: #f5f3ff;
+            border-left: 4px solid #8b5cf6;
+        }
+        .mini-stats-wid h5, .blog-stats-wid h5 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .mini-stats-wid p, .blog-stats-wid p {
+            font-size: 14px;
+            color: #64748b !important;
+        }
+        .avatar-title {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #dbeafe !important;
+            transition: background-color 0.3s;
+        }
+        .total-posts .avatar-title {
+            background-color: #3b82f6 !important;
+            color: white !important;
+        }
+        .comments .avatar-title {
+            background-color: #06b6d4 !important;
+            color: white !important;
+        }
+        .avg-comments .avatar-title {
+            background-color: #8b5cf6 !important;
+            color: white !important;
+        }
+        .avatar-title i {
+            font-size: 20px;
+        }
+
+        /* Charts */
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            border: none;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        #monthlyChart .e-line-series {
+            stroke-width: 3;
+            fill: rgba(59, 130, 246, 0.2);
+        }
+        #pieChart .e-accumulation-series {
+            inner-radius: 40%;
+        }
+        #commentChart .e-column-series {
+            border-radius: 5px;
+        }
+
+        /* Posts Tab Section */
+        .nav-tabs-custom .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .nav-tabs-custom .nav-link.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .nav-tabs-custom .nav-link:hover {
+            background-color: #dbeafe;
+            color: #3b82f6;
+        }
+        .list-group-item {
+            border: none;
+            transition: all 0.3s;
+            border-radius: 8px;
+        }
+        .list-group-item:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        .list-group-item img {
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+        }
+        .list-group-item h5 {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .list-group-item a.text-dark:hover {
+            color: #3b82f6;
+        }
+        .list-group-item p {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .dropdown-menu {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-item {
+            font-size: 13px;
+            padding: 8px 16px;
+            transition: background-color 0.3s;
+        }
+        .dropdown-item:hover {
+            background-color: #f1f5f9;
+            color: #3b82f6;
+        }
+
+        /* Popular Posts Table */
+        .table-responsive .table {
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .table-responsive .table th {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            background-color: #f1f5f9;
+        }
+        .table-responsive .table td {
+            vertical-align: middle;
+            background-color: white;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .table-responsive .table tr:hover td {
+            background-color: #f8fafc;
+        }
+        .table-responsive .table img {
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .table-responsive .table h5 {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .table-responsive .table p {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .table-responsive .table i.bx-comment-dots {
+            color: #3b82f6;
+        }

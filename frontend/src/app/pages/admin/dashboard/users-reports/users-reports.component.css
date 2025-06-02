@@ -1,101 +1,224 @@
-/* Custom styles to enhance the dashboard */
+h4.mb-sm-0 {
+    font-weight: 600; /* Make page title bolder */
+}
 
-/* General card styling */
+/* Custom Card Styles */
 .card {
-  transition: transform 0.2s, box-shadow 0.2s;
-  border-radius: 0.75rem;
+    border: none; /* Remove default card border */
+    border-radius: 0.5rem; /* Standard rounded corners */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; /* Refined subtle shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Add transition */
 }
 
+/* Optional: Hover effect on cards */
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+   /* transform: translateY(-3px); */ /* Optional slight lift */
+   /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; */ /* Optional stronger shadow on hover */
 }
 
-/* Header styling */
-.card-header {
-  border-radius: 0.75rem 0.75rem 0 0 !important;
+.card-body {
+    padding: 1.5rem; /* Consistent padding */
 }
 
-/* Progress bar styling */
-.progress {
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.05);
+.card-title {
+    font-weight: 600; /* Bolder card titles */
+    color: #343a40; /* Consistent title color */
 }
 
-.progress-bar {
-  border-radius: 10px;
+/* Welcome Card Specifics */
+.dashboard-welcome-card {
+    /* Styles already good with bg-primary bg-soft */
 }
 
-/* Flag styling */
-.flag {
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+.dashboard-welcome-list {
+    list-style: disc; /* Ensure list style is visible */
+    padding-left: 20px; /* Ensure padding for list style */
 }
 
-.country-row:hover .flag {
-  transform: scale(1.1);
+.dashboard-welcome-list li {
+    line-height: 1.8; /* More spacing for list items */
 }
 
-/* Country row styling */
+/* Status Card Specifics */
+.dashboard-status-card .card-body {
+     /* Padding is fine */
+}
+
+.dashboard-status-card .text-muted {
+    font-size: 0.85rem; /* Slightly smaller label */
+    font-weight: 500; /* Medium weight */
+    color: #6c757d !important; /* Ensure muted color */
+}
+
+.dashboard-status-card h5 {
+    font-size: 1.5rem; /* Larger value */
+    font-weight: 700; /* Bolder value */
+    color: #212529; /* Darker value color */
+}
+
+.avatar-sm {
+    width: 3rem; /* Standard size */
+    height: 3rem;
+}
+
+.avatar-title {
+     font-size: 1.3rem; /* Larger icon size */
+     display: flex; /* Center icon */
+     align-items: center;
+     justify-content: center;
+}
+
+
+/* Chart Card Specifics (Affecting the container) */
+.dashboard-chart-card .card-body {
+     /* Padding is fine */
+}
+
+.dashboard-chart-card .card-title {
+    margin-bottom: 1.5rem !important; /* Ensure consistent margin below chart titles */
+}
+
+/* List Card Specifics (Top Countries) */
+.dashboard-list-card .card-body {
+    /* Padding is fine */
+}
+
+.dashboard-list-card .card-title {
+    font-size: 1.1rem; /* Slightly smaller title for the list */
+}
+
+.country-list {
+    /* max-height and overflow-y are handled inline, could move here if needed */
+    /* E.g., max-height: 280px; overflow-y: auto; */
+}
+
 .country-row {
-  transition: background-color 0.2s;
-  border-radius: 0.5rem;
-  margin-bottom: 0.25rem;
+    /* padding is fine */
+    /* border-bottom handled by bootstrap class */
 }
 
-.country-row:hover {
-  background-color: rgba(0, 0, 0, 0.02);
+.country-row .flag-icon {
+    line-height: 1; /* Prevent extra space below flag */
 }
 
-/* Custom scrollbar for country list */
-.country-list::-webkit-scrollbar {
-  width: 6px;
+.country-row .flag {
+    border: 1px solid #e9ecef; /* Subtle border for flags */
 }
 
-.country-list::-webkit-scrollbar-track {
+.country-row h6 {
+    font-weight: 500; /* Medium weight for country name */
+}
+
+.country-row p.text-muted {
+    font-size: 0.75rem !important; /* Smaller user count text */
+}
+
+/* Custom Scrollbar for country list */
+.custom-scroll {
+    overflow-y: auto;
+}
+
+/* Add custom scrollbar styles if desired */
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
-.country-list::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #888;
   border-radius: 10px;
 }
 
-.country-list::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
-/* Status card indicator */
-.w-3 {
-  width: 6px !important;
+/* Adjustments for Syncfusion EJ2 components */
+/* You might need more specific overrides depending on your Syncfusion theme */
+#barChart, #genderChart, #registrationChart {
+    width: 100% !important; /* Ensure charts fill their container */
 }
 
-/* Avatar styling */
-.avatar-sm {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Ensure h-100 works well in rows with g-3 */
+.row.g-3 {
+    height: 100%; /* Apply height to the row */
 }
 
-.avatar-title {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+.row.g-3 > [class*="col-"] {
+    display: flex; /* Use flex on columns */
 }
 
-/* Font size utilities */
-.fs-1 {
-  font-size: 2.5rem !important;
+.row.g-3 > [class*="col-"] > .card {
+    flex-grow: 1; /* Make cards grow to fill height */
 }
 
-.fs-4 {
-  font-size: 1.25rem !important;
+
+/* Responsiveness adjustments */
+@media (max-width: 1200px) { /* Large devices (desktops, 992px and up) */
+    .col-xl-4, .col-xl-8, .col-xl-6, .col-xl-3, .col-xl-12 {
+        /* Bootstrap handles stacking, just ensure consistent spacing */
+    }
+
+    .dashboard-welcome-card,
+    .dashboard-status-card,
+    .dashboard-chart-card,
+    .dashboard-list-card {
+        margin-bottom: 1.5rem; /* Add bottom margin when stacked */
+    }
+
+    .row.g-3 {
+         height: auto; /* Remove height constraint when stacked */
+    }
+
+    .row.g-3 > [class*="col-"] {
+        display: block; /* Revert display for stacked columns */
+    }
+
+     .row.g-3 > [class*="col-"] > .card {
+        flex-grow: unset; /* Remove flex-grow */
+    }
+}
+
+@media (max-width: 768px) { /* Medium devices (tablets, 768px and up) */
+    /* Status cards might need further adjustment, Bootstrap col-md-4 handles 3 in a row */
+    /* col-sm-6 will make them 2 per row on smaller screens */
+}
+
+@media (max-width: 576px) { /* Small devices (landscape phones, 576px and up) */
+    /* Status cards will stack 1 per row with col-12 */
+    .card-body {
+        padding: 1rem; /* Slightly less padding */
+    }
+
+    .card-title {
+        font-size: 1.2rem; /* Smaller card titles */
+    }
+     .dashboard-status-card h5 {
+        font-size: 1.3rem; /* Smaller values */
+    }
+    .avatar-sm {
+        width: 2.5rem; height: 2.5rem; /* Smaller avatars */
+    }
+    .avatar-title {
+        font-size: 1.1rem; /* Smaller icons */
+    }
+    .dashboard-list-card .card-title {
+        font-size: 1rem;
+    }
+    .country-row h6 {
+        font-size: 0.9rem;
+    }
+    .country-row p.text-muted {
+        font-size: 0.7rem !important;
+    }
+     .country-row .me-3[style="min-width: 80px;"] {
+        min-width: 60px !important; /* Adjust progress bar width */
+     }
+     .country-row span.font-size-13 {
+        font-size: 0.8rem !important; /* Adjust percentage font size */
+     }
 }

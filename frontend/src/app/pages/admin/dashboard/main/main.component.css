@@ -1,76 +1,197 @@
-.badge {
-  font-weight: 500;
-  display: inline-block;
-  padding: 0.35em 0.65em;
-  font-size: 0.75em;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-}
+     /* Page Title */
+        .page-title-box h4 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e293b;
+        }
 
-.rounded-pill {
-  border-radius: 50rem;
-}
+        /* Welcome Back Card */
+        .welcome-card {
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .welcome-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+        .welcome-card .bg-primary.bg-soft {
+            background: linear-gradient(135deg, #3b82f6, #7c3aed) !important;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .welcome-card h5.text-primary {
+            font-size: 20px;
+            font-weight: 600;
+            color: white !important;
+        }
+        .welcome-card p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .welcome-card img.img-fluid {
+            border-radius: 50%;
+            max-width: 80px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .welcome-card .avatar-md img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+        }
+        .welcome-card .font-size-15 {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1e293b;
+        }
+        .welcome-card .col-sm-8 h5 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .welcome-card .col-sm-8 p {
+            font-size: 12px;
+            color: #64748b;
+        }
 
-/* Success badge */
-.badge-soft-success {
-  color: #0abb87;
-  background-color: rgba(10, 187, 135, 0.18);
-  box-shadow: 0 2px 4px rgba(10, 187, 135, 0.12);
-  position: relative;
-  overflow: hidden;
-}
+        /* Stats Cards */
+        .mini-stats-wid {
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .mini-stats-wid:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+        .mini-stats-wid.renewed-payments {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+        }
+        .mini-stats-wid.new-payments {
+            background-color: #ecfeff;
+            border-left: 4px solid #06b6d4;
+        }
+        .mini-stats-wid.average-price {
+            background-color: #f5f3ff;
+            border-left: 4px solid #8b5cf6;
+        }
+        .mini-stats-wid p {
+            font-size: 14px;
+            color: #64748b !important;
+        }
+        .mini-stats-wid h4 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .mini-stat-icon .avatar-title {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .renewed-payments .avatar-title {
+            background-color: #3b82f6 !important;
+            color: white !important;
+        }
+        .new-payments .avatar-title {
+            background-color: #06b6d4 !important;
+            color: white !important;
+        }
+        .average-price .avatar-title {
+            background-color: #8b5cf6 !important;
+            color: white !important;
+        }
+        .mini-stat-icon i {
+            font-size: 20px;
+        }
 
-/* Warning badge */
-.badge-soft-warning {
-  color: #ffb822;
-  background-color: rgba(255, 184, 34, 0.18);
-  box-shadow: 0 2px 4px rgba(255, 184, 34, 0.12);
-  position: relative;
-  overflow: hidden;
-}
+        /* Charts */
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            border: none;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        #monthlyChart .e-column-series {
+            border-radius: 5px;
+        }
+        #pieChart .e-accumulation-series {
+            inner-radius: 40%;
+        }
 
-/* Shine effect for badges */
-.shine-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.shine-effect::after {
-  content: '';
-  position: absolute;
-  top: -110%;
-  left: -210%;
-  width: 200%;
-  height: 200%;
-  opacity: 0;
-  transform: rotate(30deg);
-  background: rgba(255, 255, 255, 0.13);
-  background: linear-gradient(
-    to right, 
-    rgba(255, 255, 255, 0.13) 0%,
-    rgba(255, 255, 255, 0.13) 77%,
-    rgba(255, 255, 255, 0.5) 92%,
-    rgba(255, 255, 255, 0.0) 100%
-  );
-  animation: shine 2s infinite;
-}
-
-/* Animation for the shine effect */
-@keyframes shine {
-  10% {
-    opacity: 1;
-    top: -30%;
-    left: -30%;
-    transition-property: left, top, opacity;
-    transition-duration: 0.7s, 0.7s, 0.15s;
-    transition-timing-function: ease;
-  }
-  100% {
-    opacity: 0;
-    top: 0%;
-    left: 0%;
-    transition-property: left, top, opacity;
-  }
-}
+        /* Latest Transaction Table */
+        .table-responsive .table {
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .table-responsive .table thead {
+            background-color: #f1f5f9;
+        }
+        .table-responsive .table th {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .table-responsive .table td {
+            vertical-align: middle;
+            background-color: white;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .table-responsive .table tr:hover td {
+            background-color: #f8fafc;
+        }
+        .table-responsive .table a.text-body {
+            color: #1e293b;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .table-responsive .table a.text-body:hover {
+            color: #3b82f6;
+        }
+        .table-responsive .table .badge {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .badge-soft-success {
+            background-color: #ecfdf5;
+            color: #22c55e;
+        }
+        .badge-soft-warning {
+            background-color: #fefce8;
+            color: #eab308;
+        }
+        .table-responsive .table i.fab {
+            color: #3b82f6;
+        }
+        .table-responsive .table .btn {
+            border-radius: 12px;
+            padding: 6px 12px;
+            font-size: 12px;
+            background-color: #3b82f6;
+            border: none;
+            transition: all 0.3s;
+        }
+        .table-responsive .table .btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+        mat-paginator {
+            background: none;
+            font-size: 14px;
+        }
+        mat-paginator .mat-paginator-container {
+            justify-content: flex-end;
+        }

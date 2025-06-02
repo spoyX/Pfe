@@ -7,7 +7,25 @@ import { expiredGuard } from './core/guard/expired.guard';
 
 
 export const routes: Routes = [
-  {path:'',loadComponent:()=>import('./pages/home/homepage/homepage.component').then(c=>c.HomepageComponent)},
+  {
+    path: '',
+    loadComponent: () => import('./pages/home/homepage/homepage.component').then(c => c.HomepageComponent)
+  },
+    {
+    path: 'aboutUs',
+    loadComponent: () => import('./shared/layout/aboutus/aboutus.component').then(c => c.AboutusComponent)
+  },
+  
+ 
+  {
+    path: 'blog',
+    loadComponent: () => import('./shared/layout/homeblog/homeblog.component').then(c => c.HomeblogComponent)
+  },
+  {path:'Blog-detail/:id',loadComponent:()=>import('./shared/layout/homeblog/homeblogdetails/homeblogdetails.component').then(c=>c.HomeblogdetailsComponent)},
+  
+  {path:'events',loadComponent:()=>import('./shared/layout/eventhome/eventhome.component').then(c=>c.EventhomeComponent)},
+
+
   {path:'admin',canActivate:[dashGuard ,adminGuard],loadComponent:()=>import('./pages/admin/dashboard/dashboard.component').then(c=>c.DashboardComponent),children:[
     {path:'',loadComponent:()=>import('./pages/admin/dashboard/main/main.component').then(c=>c.MainComponent)},
     {path:'Blog-Dashboard',loadComponent:()=>import('./pages/admin/dashboard/blog-dashboard/blog-dashboard.component').then(c=>c.BlogDashboardComponent)},

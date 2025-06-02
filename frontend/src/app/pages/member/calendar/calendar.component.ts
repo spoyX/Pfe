@@ -62,5 +62,8 @@ export class CalendarComponent {
       }
     );
   }
+  refrech(){
+    this.ngOnInit()
+  }
 }
 

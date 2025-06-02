@@ -3,11 +3,11 @@
     <div class="row mb-3">
       <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-          <h4 class="mb-sm-0 font-size-18">Crypto</h4>
+          <h4 class="mb-sm-0 font-size-18">Events Reports</h4>
           <div class="page-title-right">
             <ol class="breadcrumb m-0">
               <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
-              <li class="breadcrumb-item active">Crypto</li>
+              <li class="breadcrumb-item active">Events Reports</li>
             </ol>
           </div>
         </div>
@@ -54,96 +54,95 @@
   
       <!-- Key Metrics Cards -->
       <div class="row mb-4">
-        <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
-          <div class="card h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
-            <div class="card-body">
-              <p class="text-muted mb-4">
-                <i class="mdi mdi-calendar-check h2 text-primary align-middle mb-0 me-3"></i> Total Events
-              </p>
-              <div class="row">
-                <div class="col-7">
-                  <div>
-                    <h5 class="mb-2">{{eventData.length}}</h5>
-                    <p class="text-muted text-truncate mb-0">
-                      Upcoming: {{upcomingEvents}} 
-                      <i class="mdi mdi-arrow-up ms-1 text-success"></i>
-                    </p>
-                  </div>
+                <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
+                    <div class="card metrics-card metrics-card-total-events h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
+                        <div class="card-body">
+                            <p class="text-muted mb-4">
+                                <i class="mdi mdi-calendar-check h2 text-primary align-middle mb-0 me-3"></i> Total Events
+                            </p>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div>
+                                        <h5 class="mb-2">{{eventData.length}}</h5>
+                                        <p class="text-muted text-truncate mb-0">
+                                            Upcoming: {{upcomingEvents}} 
+                                            <i class="mdi mdi-arrow-up ms-1 text-success"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div id="total-events-chart" class="apex-charts"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-5">
-                  <div id="total-events-chart" class="apex-charts"></div>
+    
+                <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
+                    <div class="card metrics-card metrics-card-members h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
+                        <div class="card-body">
+                            <p class="text-muted mb-4">
+                                <i class="mdi mdi-account-group h2 text-info align-middle mb-0 me-3"></i> Total Members Registered
+                            </p>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div>
+                                        <h5 class="mb-2">{{totalRegistrations}}</h5>
+                                        <p class="text-muted text-truncate mb-0">
+                                            + {{totalRegistredToday}} Today
+                                            <i class="mdi mdi-arrow-up ms-1 text-success"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div id="total-members-chart" class="apex-charts"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+    
+                <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
+                    <div class="card metrics-card metrics-card-cancelled h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
+                        <div class="card-body">
+                            <p class="text-muted mb-4">
+                                <i class="mdi mdi-cancel h2 text-danger align-middle mb-0 me-3"></i> Cancelled Events
+                            </p>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div>
+                                        <h5 class="mb-2">{{cancelledEvents}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div id="cancelled-events-chart" class="apex-charts"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-  
-        <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
-          <div class="card h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
-            <div class="card-body">
-              <p class="text-muted mb-4">
-                <i class="mdi mdi-account-group h2 text-info align-middle mb-0 me-3"></i> Total Members Registered
-              </p>
-              <div class="row">
-                <div class="col-7">
-                  <div>
-                    <h5 class="mb-2">{{totalRegistrations}}</h5>
-                    <p class="text-muted text-truncate mb-0">
-                      + {{totalRegistredToday}} Today
-                      <i class="mdi mdi-arrow-up ms-1 text-success"></i>
-                    </p>
-                  </div>
+    
+            <!-- Average Attendance Card -->
+            <div class="row mb-4">
+                <div class="col-xl-12" cdkDrag>
+                    <div class="card average-attendance-card" cdkDropList (cdkDropListDropped)="drop($event)">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4 class="card-title mb-3">Average Attendance</h4>
+                                    <h1 class="display-4 mb-0">{{ averageAttendance }}</h1>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <div class="d-inline-block">
+                                        <i class="fas fa-chart-line text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-5">
-                  <div id="total-members-chart" class="apex-charts"></div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-  
-        <div class="col-xl-4 col-md-6 mb-4 mb-xl-0" cdkDrag>
-          <div class="card h-100" cdkDropList [cdkDropListData]="metricsCards" (cdkDropListDropped)="drop($event)">
-            <div class="card-body">
-              <p class="text-muted mb-4">
-                <i class="mdi mdi-cancel h2 text-danger align-middle mb-0 me-3"></i> Cancelled Events
-              </p>
-              <div class="row">
-                <div class="col-7">
-                  <div>
-                    <h5 class="mb-2">{{cancelledEvents}}</h5>
-                  </div>
-                </div>
-                <div class="col-5">
-                  <div id="cancelled-events-chart" class="apex-charts"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Average Attendance Card -->
-      <div class="row mb-4">
-        <div class="col-xl-12" cdkDrag>
-          <div class="card" cdkDropList  (cdkDropListDropped)="drop($event)">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-md-8">
-                  <h4 class="card-title mb-3">Average Attendance</h4>
-                  <h1 class="display-4 mb-0">{{ averageAttendance }}</h1>
-                </div>
-                <div class="col-md-4 text-md-end">
-                  <div class="d-inline-block">
-                    <i class="fas fa-chart-line text-primary" style="font-size: 64px;"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  
       <!-- Charts Section -->
       <div class="row mb-4">
         <div class="col-xl-7 mb-4" cdkDrag>
@@ -185,20 +184,20 @@
           <div class="card h-100" cdkDropList  (cdkDropListDropped)="drop($event)">
               <div class="card-body">
                   <h4 class="card-title mb-4">Total Participants</h4>
-                  <ejs-accumulationchart id="participantChart" 
-                                        [legendSettings]="pieChartSettings.legendSettings" 
-                                        [tooltipSettings]="pieChartSettings.tooltipSettings" 
-                                        height="350px">
-                      <e-accumulation-series-collection>
-                          <e-accumulation-series [dataSource]="participantData"  
-                                               [palettes]="chartPalette" 
-                                               type="Pie" 
-                                               xName="x" 
-                                               yName="y" 
-                                               [dataLabel]="{ visible: true, position: 'Inside', name: 'y', font: { fontWeight: '600', color: 'white' } }">
-                          </e-accumulation-series>
-                      </e-accumulation-series-collection>
-                  </ejs-accumulationchart>
+                 <ejs-accumulationchart id="participantChart" 
+                        [legendSettings]="pieChartSettings.legendSettings" 
+                        [tooltipSettings]="pieChartSettings.tooltipSettings" 
+                        [palettes]="chartPalette" 
+                        height="350px">
+  <e-accumulation-series-collection>
+    <e-accumulation-series [dataSource]="participantData"  
+                           type="Pie" 
+                           xName="x" 
+                           yName="y" 
+                           [dataLabel]="{ visible: true, position: 'Inside', name: 'y', font: { fontWeight: '600', color: 'white' } }">
+    </e-accumulation-series>
+  </e-accumulation-series-collection>
+</ejs-accumulationchart>
               </div>
           </div>
         </div>

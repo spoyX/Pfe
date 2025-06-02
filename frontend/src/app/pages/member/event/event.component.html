@@ -118,7 +118,7 @@
                 alt="{{ event.title }}"
                 class="event-image"
               />
-              <div class="event-image-overlay"></div>
+             
               <div class="event-category">{{ event.categories }}</div>
             </div>
 
@@ -127,7 +127,7 @@
               <h3 class="event-title">{{ event.title }}</h3>
               <div class="event-meta">
                 <div class="event-time">
-                  <i class="far fa-clock"></i> {{ event.startTime }}
+                  <i class="far fa-clock"></i> {{ event.startTime }} - {{ event.endTime }}
                 </div>
                 <div class="event-time">
                   <i class="far fa-calendar-alt"></i>

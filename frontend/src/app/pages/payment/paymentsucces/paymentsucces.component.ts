@@ -26,8 +26,8 @@ export class PaymentsuccesComponent {
     if (this.sessionId) {
       this.paymentService.confirmPayment(this.sessionId).subscribe({
         next: () => {
-          alert("Payment successful! Your account is under review.");
-          this.router.navigate(['/']); // Redirect to home
+         
+          this.router.navigate(['/']); 
         },
         error: (err:any) => {
           console.error("Payment verification failed:", err);

@@ -1,0 +1,73 @@
+ <app-homenavbar></app-homenavbar>
+<div class="body">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="content-wrapper">
+                <h1 class="hero-title">
+                    Explore Inspiring Blogs That <span class="highlight">Fuel Innovation</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Discover thought-provoking content, curated for creators, entrepreneurs, and lifelong learners.
+                </p>
+            </div> <!-- closing div for content-wrapper -->
+        </div> <!-- closing div for container -->
+
+        <!-- Decorative Elements -->
+        <div class="decorative-element sphere-gradient delay-1"></div>
+        <div class="decorative-element sphere-purple delay-2"></div>
+        <div class="decorative-element hexagon delay-1"></div>
+        <div class="decorative-element hexagon-small delay-3"></div>
+        <div class="decorative-element dot delay-2"></div>
+        <div class="decorative-element yellow-dot delay-4"></div>
+        <div class="decorative-element arc delay-1"></div>
+        <div class="decorative-element curved-line delay-3"></div>
+    </section> <!-- closing section for hero-section -->
+
+    <!-- Blog Section -->
+     <section class="blog-section">
+        <div class="container">
+            <div class="row" id="blog-posts">
+
+                @defer () {
+                    @for(blog of blogs; track blog._id) {
+                        <a href="#/" class="col-md-6 col-lg-4 post text-decoration-none mb-4">
+                            <img [src]="'http://127.0.0.1:3000/files/'+blog.image" alt="Blog Image" class="w-100 rounded mb-2" style="height: 200px; object-fit: cover;">
+                            <small class="text-muted d-block mb-1">{{blog.tags}}</small>
+                            <h2 class="h5 mb-2">{{blog.title}}</h2>
+                            <p class="clamp-2-lines text-secondary" [innerHTML]="blog.content | stripHtml"></p>
+                            <div class="more">
+                                <a [routerLink]="['/Blog-detail', blog._id]" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
+                            </div>
+                        </a>
+                    }
+                } @placeholder (minimum 3s) {
+                    <!-- Bootstrap Skeleton Loader -->
+                    @for(i of [1,2,3]; track i) {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="ratio ratio-16x9 bg-light rounded skeleton-image"></div>
+                                <div class="card-body d-flex flex-column">
+                                    <span class="placeholder-glow">
+                                        <span class="placeholder placeholder-sm bg-secondary w-25 mb-2"></span>
+                                    </span>
+                                    <h5 class="card-title placeholder-glow">
+                                        <span class="placeholder placeholder-xs bg-secondary w-75"></span>
+                                    </h5>
+                                    <p class="card-text placeholder-glow flex-grow-1">
+                                        <span class="placeholder placeholder-xs bg-secondary w-100"></span>
+                                        <span class="placeholder placeholder-xs bg-secondary w-100"></span>
+                                    </p>
+                                    <a href="#" tabindex="-1" class="btn btn-outline-primary disabled placeholder w-50 mt-auto" aria-hidden="true"></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </section>
+</div> 
+<app-homefooter></app-homefooter>

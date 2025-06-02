@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BlogService } from '../../../../core/services/blog/blog.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -41,7 +41,8 @@ import {
     AccumulationDataLabelService,
     DateTimeService,
     DateTimeCategoryService
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BlogDashboardComponent {
   blogs: any;

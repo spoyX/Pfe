@@ -6,15 +6,21 @@ import { AuthentificationService } from '../../../core/auth/authentification.ser
 @Component({
   selector: 'app-homenavbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,
+    
+  ],
   templateUrl: './homenavbar.component.html',
   styleUrl: './homenavbar.component.css'
 })
 export class HomenavbarComponent {
   role:any
+   
+
   constructor(public _user:UserService,public _auth:AuthentificationService){
    
   }
+
+
   
 
 

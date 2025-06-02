@@ -16,60 +16,60 @@
 
     <!-- Stats Cards Section -->
     <div class="row mb-4">
-        <div class="col-xl-4 col-md-4">
-            <div class="card mini-stats-wid h-100">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap">
-                        <div class="me-3">
-                            <p class="text-muted mb-2">Total Posts</p>
-                            <h5 class="mb-0">{{blogs.length}}</h5>
+            <div class="col-xl-4 col-md-4">
+                <div class="card mini-stats-wid total-posts h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap">
+                            <div class="me-3">
+                                <p class="text-muted mb-2">Total Posts</p>
+                                <h5 class="mb-0">{{blogs.length}}</h5>
+                            </div>
+                            <div class="avatar-sm ms-auto">
+                                <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                    <i class="bx bxs-book-bookmark"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="avatar-sm ms-auto">
-                            <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
-                                <i class="bx bxs-book-bookmark"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-md-4">
+                <div class="card blog-stats-wid comments h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap">
+                            <div class="me-3">
+                                <p class="text-muted mb-2">Comments</p>
+                                <h5 class="mb-0">{{totalComments}}</h5>
+                            </div>
+                            <div class="avatar-sm ms-auto">
+                                <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                    <i class="bx bxs-message-square-dots"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-md-4">
+                <div class="card blog-stats-wid avg-comments h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap">
+                            <div class="me-3">
+                                <p class="text-muted mb-2">Avg. Comments</p>
+                                <h5 class="mb-0">{{averageCommentsPerBlog | number:'1.1-1'}}</h5>
+                            </div>
+                            <div class="avatar-sm ms-auto">
+                                <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                    <i class="bx bx-stats"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="col-xl-4 col-md-4">
-            <div class="card blog-stats-wid h-100">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap">
-                        <div class="me-3">
-                            <p class="text-muted mb-2">Comments</p>
-                            <h5 class="mb-0">{{totalComments}}</h5>
-                        </div>
-                        <div class="avatar-sm ms-auto">
-                            <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
-                                <i class="bx bxs-message-square-dots"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-4 col-md-4">
-            <div class="card blog-stats-wid h-100">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap">
-                        <div class="me-3">
-                            <p class="text-muted mb-2">Avg. Comments</p>
-                            <h5 class="mb-0">{{averageCommentsPerBlog | number:'1.1-1'}}</h5>
-                        </div>
-                        <div class="avatar-sm ms-auto">
-                            <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
-                                <i class="bx bx-stats"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Charts Section -->
     <div class="row mb-4">
@@ -107,6 +107,7 @@
   <e-accumulation-series-collection>
     <e-accumulation-series 
       [dataSource]="chartData" 
+      
       xName="blogTitle" 
       yName="comments" 
       radius="80%" 
@@ -116,7 +117,8 @@
         position: 'Inside',
         name: 'blogTitle',
         font: { fontWeight: '600', color: '#fff' },
-        format: '${point.y}'
+        format: '${point.y}',
+        
       }">
     </e-accumulation-series>
   </e-accumulation-series-collection>

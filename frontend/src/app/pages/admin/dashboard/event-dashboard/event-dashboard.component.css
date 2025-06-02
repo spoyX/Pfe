@@ -1,0 +1,125 @@
+ /* Page Title */
+        .page-title-box h4 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .breadcrumb {
+            background: none;
+            padding: 0;
+        }
+        .breadcrumb-item a {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .breadcrumb-item a:hover {
+            color: #3b82f6;
+        }
+        .breadcrumb-item.active {
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: linear-gradient(135deg, #3b82f6, #7c3aed);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .welcome-card:hover {
+            transform: translateY(-5px);
+        }
+        .welcome-card h5 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .welcome-card p.fw-bold {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .welcome-card .text-muted {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+        .welcome-card i.mdi-circle-medium {
+            color: #dbeafe;
+        }
+        .welcome-card img {
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            max-width: 120px;
+            transition: transform 0.3s ease;
+        }
+        .welcome-card img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Key Metrics Cards */
+        .metrics-card {
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .metrics-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+        .metrics-card[cdkDrag] {
+            cursor: move;
+        }
+        .metrics-card[cdkDrag].cdk-drag-preview {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 2px solid #3b82f6;
+        }
+        .metrics-card-total-events {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+        }
+        .metrics-card-members {
+            background-color: #ecfeff;
+            border-left: 4px solid #06b6d4;
+        }
+        .metrics-card-cancelled {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+        }
+        .metrics-card i {
+            font-size: 32px !important;
+        }
+        .metrics-card h5 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .metrics-card p.text-muted {
+            font-size: 14px;
+            color: #64748b !important;
+        }
+        .metrics-card i.mdi-arrow-up {
+            color: #22c55e;
+        }
+
+        /* Average Attendance Card */
+        .average-attendance-card {
+            background: linear-gradient(135deg, #ffffff, #f1f5f9);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .average-attendance-card:hover {
+            transform: translateY(-5px);
+        }
+        .average-attendance-card h4 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .average-attendance-card h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+       

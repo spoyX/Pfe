@@ -1,0 +1,85 @@
+<app-homenavbar></app-homenavbar>
+<section class="hero-section">
+        <div class="container">
+            <div class="content-wrapper">
+             
+<h1 class="hero-title">
+    Explore Inspiring Events That <span class="highlight">Spark Innovation</span>
+</h1>
+<p class="hero-subtitle">
+    Discover thought-provoking experiences designed for creators, innovators, and lifelong learners.
+</p>
+                
+            </div>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="decorative-element sphere-gradient delay-1"></div>
+        <div class="decorative-element sphere-purple delay-2"></div>
+        <div class="decorative-element hexagon delay-1"></div>
+        <div class="decorative-element hexagon-small delay-3"></div>
+        <div class="decorative-element dot delay-2"></div>
+        <div class="decorative-element yellow-dot delay-4"></div>
+        <div class="decorative-element arc delay-1"></div>
+        <div class="decorative-element curved-line delay-3"></div>
+    </section>
+   
+
+    <!-- Events Section -->
+ <!-- Events Section -->
+<div class="container">
+    <div class="row g-4">
+        <!-- Deferred Event List -->
+        @defer () {
+            @for(event of events; track event._id) {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card event-card shadow-sm">
+                        <img 
+                            [src]="'http://127.0.0.1:3000/files/' + event.coverImage" 
+                            alt="{{event.title}}" 
+                            class="event-image"
+                        >
+                        <div class="card-body p-4">
+                            <div class="event-date">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                {{ event.date | date: 'dd MMMM yyyy' }}
+                            </div>
+                            <div class="event-category">{{ event.categories }}</div>
+                            <h5 class="event-title">{{ event.title }}</h5>
+                            <p class="event-location">
+                                <i class="fas fa-map-marker-alt me-2"></i>{{ event.location }}
+                            </p>
+                            <p class="event-description">{{ event.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        } @placeholder (minimum 3s) {
+            <!-- Bootstrap Skeleton Loader -->
+             @for(i of [1,2,3]; track i){
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="ratio ratio-16x9 bg-light rounded"></div>
+                        <div class="card-body d-flex flex-column p-3">
+                            <div class="placeholder-glow mb-2">
+                                <span class="placeholder placeholder-sm bg-secondary w-25"></span>
+                            </div>
+                            <h5 class="card-title placeholder-glow flex-grow-1">
+                                <span class="placeholder placeholder-xs bg-secondary w-75"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder placeholder-xs bg-secondary w-100"></span>
+                                <span class="placeholder placeholder-xs bg-secondary w-100"></span>
+                            </p>
+                            <div class="mt-auto pt-2">
+                                <span class="placeholder placeholder-sm bg-secondary w-50"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+    <app-homefooter></app-homefooter>

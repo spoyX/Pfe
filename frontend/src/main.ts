@@ -4,6 +4,10 @@ import { AppComponent } from './app/app.component';
 import { registerLicense } from '@syncfusion/ej2-base';
 import { environment } from './environments/environment';
 
+
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
-  registerLicense("Ngo9BigBOggjHTQxAR8/V1NNaF5cXmBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXpfeXVQQ2ZfUEdwXEJWYUA=");
+
+registerLicense("Ngo9BigBOggjHTQxAR8/V1NNaF1cWWhIfEx1RHxQdld5ZFRHallYTnNWUj0eQnxTdEBjXH1ecHBQRGFaUUJ/XUlfag==");
+
+
